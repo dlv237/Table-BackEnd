@@ -1,0 +1,22 @@
+{
+  "name": "table-backend",
+  "version": "1.0.0",
+  "description": "Repositorio para el desarrollo del Back-End del PVM de Table Chile",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "pg": "^8.11.5",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  }
+}
