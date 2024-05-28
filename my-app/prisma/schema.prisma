@@ -31,15 +31,15 @@ model Architect {
 
 model Experience {
   id            Int       @id @default(autoincrement())
-  detail        String
+  detail        String    @unique
 
   architect     Architect?
 }
 
 model Scale {
   id            Int       @id @default(autoincrement())
-  scale_type    String
-  detail        String
+  scale_type    String    @unique
+  detail        String    @unique
   architectScales ArchitectScales[]
 }
 
