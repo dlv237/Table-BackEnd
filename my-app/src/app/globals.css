@@ -27,36 +27,41 @@ body {
   }
 }
 
-.AllItems{
-  align-items: center;
-  background-color: 'white';
-  display: 'flex';
-  justify-content: 'center';
-  align-items: 'center';
-}
-
-.MainLogoImg img {
-  width: 50vw;
-  max-width: 100%;
-  height: auto;
-  margin: 5vw;
-  align-items: center;
-  background-color: 'white';
-  display: 'flex';
-  justify-content: 'center';
-  align-items: 'center';
-  height: '100vh'
-}
-
-.MainLogoText img {
-  width: 50vw;
-  max-width: 80%;
-  height: auto;
-  margin-top: 33vh;
-  margin-bottom: 5vw;
-  align-items: center;
-  background-color: white;
+.container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.logoContainer {
+  max-width: 50%;
+  margin-top: 20vh;
+}
+
+.centeredImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  font-size: 4.8vw;
+  margin-top: 1vh;
+}
+
+.tableLogoContainer {
+  max-width: 55%;
+  margin-top: 7vh;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 50%;
+  margin-top: 10vh;
+  margin-bottom: 20vh;
 }

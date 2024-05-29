@@ -1,19 +1,20 @@
 import React from 'react';
-
+import Footer from '../components/general/footer';
 export default function Home() {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ maxWidth: '50%', marginTop: '20vh' }}>
-                <img src="/LOGO_TEXTO.png" alt="Logo" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}/>
+        <div className="container">
+            <div className="logoContainer">
+                <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage"/>
             </div>
-            <h1 style={{ fontSize: '4.8vw', marginTop: '1vh'}}>tu mesa de proyectos</h1>
-            <div style={{ maxWidth: '55%', marginTop: '7vh' }}>
-                <img src="/LOGO_TABLE.png" alt="Logo" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}/>
+            <h1 className="title">tu mesa de proyectos</h1>
+            <div className="tableLogoContainer">
+                <img src="/LOGO_TABLE.png" alt="Logo" className="centeredImage"/>
             </div>
-            <div style={{  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: '50%', marginTop: '10vh', marginBottom: '20vh'}}>
-                <h1 style={{ fontSize: '4.8vw' }}>crear perfil de</h1>
-                <h1 style={{ fontSize: '4.8vw' }}>arquitectura</h1>
+            <div className="profileContainer">
+                <h1 className="title">crear perfil de</h1>
+                <h1 className="title">arquitectura</h1>
             </div>
+            <Footer />
         </div>
     );
 }
