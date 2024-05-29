@@ -11,11 +11,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   app:
-    build: .
+    build:
+      context: ./my-app
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - db
+    env_file:
+      - ./my-app/.env
     environment:
       DATABASE_URL: postgresql://postgres:1qazxsw2L*@db:5432/Table?schema=public
 volumes:

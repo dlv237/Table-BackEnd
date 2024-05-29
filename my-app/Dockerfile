@@ -7,7 +7,7 @@ COPY . .
 
 RUN npm install
 
-RUN npx prisma migrate deploy --name schema_migration
+RUN npx prisma migrate deploy
 RUN node prisma/seed.ts
 
 CMD ["npm", "start"]
