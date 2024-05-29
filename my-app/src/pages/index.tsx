@@ -3,7 +3,7 @@ import React from 'react';
 export default function Home() {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ maxWidth: '50%', marginTop: '30vh' }}>
+            <div style={{ maxWidth: '50%', marginTop: '20vh' }}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}/>
             </div>
             <h1 style={{ fontSize: '4.8vw', marginTop: '1vh'}}>tu mesa de proyectos</h1>
