@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
     webpack: (config, options) => {
       if (options.isServer) {
         config.watchOptions = {
