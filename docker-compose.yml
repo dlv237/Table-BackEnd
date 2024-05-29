@@ -1,0 +1,22 @@
+
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: Table
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1qazxsw2L*
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:1qazxsw2L*@db:5432/Table?schema=public
+volumes:
+  postgres_data:
