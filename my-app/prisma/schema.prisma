@@ -22,7 +22,7 @@ model Architect {
   address       String?    
   website       String?
   social_media  String?
-  experience_id Int       @unique
+  experience_id Int
   experience    Experience @relation(fields: [experience_id], references: [id])
 
   scales        ArchitectScales[]
@@ -33,7 +33,7 @@ model Experience {
   id            Int       @id @default(autoincrement())
   detail        String    @unique
 
-  architect     Architect?
+  architect     Architect[]
 }
 
 model Scale {

@@ -2,7 +2,7 @@ import React from 'react';
 
 const About = () => (
     <div>
-        <h1>Hello World</h1>
+        <h1>Hola usuario</h1>
     </div>
 )
 

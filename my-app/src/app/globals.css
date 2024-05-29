@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
+  --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
@@ -17,17 +17,46 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: white;
+  font-family: 'Outfit', 'sans-serif';
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.AllItems{
+  align-items: center;
+  background-color: 'white';
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+}
+
+.MainLogoImg img {
+  width: 50vw;
+  max-width: 100%;
+  height: auto;
+  margin: 5vw;
+  align-items: center;
+  background-color: 'white';
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+  height: '100vh'
+}
+
+.MainLogoText img {
+  width: 50vw;
+  max-width: 80%;
+  height: auto;
+  margin-top: 33vh;
+  margin-bottom: 5vw;
+  align-items: center;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
