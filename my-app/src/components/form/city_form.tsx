@@ -1,8 +1,7 @@
 import React from "react";
 
-export default function CityForm({ onNext, onBack }: { onNext: () => void, onBack: () => void }) {
-
-    const [cityName, setName] = React.useState("");
+export default function CityForm({ onNext, onBack, cityName, setName}: 
+    { onNext: () => void, onBack: () => void, cityName: string, setName: (name: string) => void}) {
 
     const handleNext = async () => {
         if (!cityDict.includes(cityName) && cityName == "Selecciona una region") {

@@ -1,8 +1,7 @@
 import React from "react";
 
-export default function NameForm({ onNext, onBack }: { onNext: () => void, onBack: () => void }) {
-
-    const [name, setName] = React.useState("");
+export default function NameForm({ onNext, onBack, name, setName }: 
+    { onNext: () => void, onBack: () => void, name: string, setName: (name: string) => void }) {
 
     const handleNext = async () => {
         const response = await fetch(`/api/architect`);
@@ -36,6 +35,7 @@ export default function NameForm({ onNext, onBack }: { onNext: () => void, onBac
                 type="text" 
                 placeholder="DLV Arquitectos"
                 id="nombre"
+                value={name}
                 onChange= {e => setName(e.target.value)}   />
             </div>
             <div className="buttonContainer">
