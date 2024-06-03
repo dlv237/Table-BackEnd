@@ -81,7 +81,7 @@ body {
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  bottom: 15vh;
+  bottom: 10vh;
   left: 20vw;
   right: 20vw;
 }
