@@ -5,8 +5,8 @@ export default function CityForm({ onNext, onBack }: { onNext: () => void, onBac
     const [cityName, setName] = React.useState("");
 
     const handleNext = async () => {
-        if (!cityDict.includes(cityName)) {
-            alert("Selecciona una ciudad");
+        if (!cityDict.includes(cityName) && cityName == "Selecciona una region") {
+            alert("Selecciona una region");
         }
         else {
             onNext();
@@ -14,6 +14,7 @@ export default function CityForm({ onNext, onBack }: { onNext: () => void, onBac
     }
 
     const cityDict = [
+        "Selecciona una region",
         "RM - Metropolitana de Santiago",
         "I - Tarapacá",
         "II - Antofagasta",
@@ -43,7 +44,8 @@ export default function CityForm({ onNext, onBack }: { onNext: () => void, onBac
                     justifyContent: "center",
                     textAlign: "center",
                     borderBottom: "1px solid black",
-                    outline: "none"
+                    outline: "none",
+                    width: "65vw",
                 }}
             >
                 {cityDict.map(city => (

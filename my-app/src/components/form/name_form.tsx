@@ -29,7 +29,7 @@ export default function NameForm({ onNext, onBack }: { onNext: () => void, onBac
                 <input style={{ 
                     justifyContent: "center",
                     textAlign: "center",
-                    borderBottom: "1px solid black",
+                    borderBottom: "2px solid black",
                     outline: "none"
                     
                 }} 
