@@ -5,10 +5,13 @@ const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
+        console.log('POST request received');
+        console.log('Request body:', req.body);
+
         const { email, phone, name, city, address, website, social_media, experience_id} = req.body;
         try {
-            await prisma.architect.create({data: {email, phone, name, city, address, website, social_media, experience_id}})
-            res.status(201).json({ message: 'Architect created' });
+            const architect = await prisma.architect.create({data: {email, phone, name, city, address, website, social_media, experience_id}})
+            res.status(201).json({ architect });
         }
         catch (error) {
             res.status(500).json({ message: 'Error creating architect' + (error as Error).message });
