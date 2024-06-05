@@ -7,6 +7,7 @@ import ScaleForm from "../components/form/scale_form";
 import ContactForm from "../components/form/contact_form";
 import { useUser } from "@clerk/nextjs";
 import { SignUp } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 export default function Create() {
 
@@ -22,7 +23,6 @@ export default function Create() {
     const { user } = useUser();
 
     useEffect(() => {
-        // Recuperar datos del formulario del almacenamiento local
         const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
         if (savedData) {
             setName(savedData.architectName || "");
@@ -77,9 +77,8 @@ export default function Create() {
                     });
                 });
 
-                // Eliminar los datos del almacenamiento local después de usarlos
                 localStorage.removeItem("formData");
-                window.location.href = "/index.tsx";
+                window.location.href = "/";
             }
         };
 
@@ -89,7 +88,6 @@ export default function Create() {
     const handleNext = () => {
         setStep((prevStep) => prevStep + 1);
 
-        // Guardar datos del formulario en el almacenamiento local
         const formData = {
             architectName,
             cityName,
@@ -108,6 +106,8 @@ export default function Create() {
     };
 
     let form;
+    let logoClass = "logoContainer"
+    let textClass = "title"
     switch (step) {
         case -1:
             window.location.href = "/";
@@ -138,17 +138,19 @@ export default function Create() {
             break;
 
         case 5:
-            form = <SignUp routing="hash" afterSignUpUrl="/create" />;
+            form = <SignUp routing="hash" />;
+            logoClass = "logoContainerSmall"
+            textClass = "subtitle"
             break;
     }
 
 
     return (
         <div className="container">
-            <div className="logoContainer">
+            <div className={logoClass}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
             </div>
-            <h1 className="title">tu mesa de proyectos</h1>
+            <h1 className={textClass}>tu mesa de proyectos</h1>
             {form}
             <Footer />
         </div>

@@ -40,6 +40,12 @@ body {
   margin-top: 7vh;
 }
 
+.logoContainerSmall{
+  max-width: 25%;
+  margin-top: 3.5vh;
+}
+
+
 .centeredImage {
   display: block;
   margin-left: auto;
@@ -49,6 +55,12 @@ body {
 .title {
   font-size: 4.8vw;
   margin-top: 1vh;
+}
+
+.subtitle {
+  font-size: 3.2vw;
+  margin-top: 0.8vh;
+  margin-bottom: 0.8vh;
 }
 
 .tableLogoContainer {
