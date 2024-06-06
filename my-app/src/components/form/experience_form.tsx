@@ -15,7 +15,7 @@ export default function ExperienceForm({ onNext, onBack, selectedExperience, set
         <div className="formContainer">
             <h1 style={{fontSize: "2.5vh", fontWeight: "bold"}}>¿cuánto tiempo tiene</h1>
             <h1 style={{fontSize: "2.5vh", fontWeight: "bold"}}>su práctica?</h1>
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "2.5vh", flexDirection: "column", alignItems: "center"}}>
+            <div className="experienceOption">
                 <label style={{ margin: "2vh 0", color: selectedExperience === '1' ? 'black' : 'gray', transition: 'color 0.5s' }}>
                     <input type="radio" name="experience" value="1" style={{ display: 'none' }} onChange={() => setExperience('1')}/>Estamos empezando!
                 </label>

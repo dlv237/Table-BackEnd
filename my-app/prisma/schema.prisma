@@ -14,19 +14,27 @@ datasource db {
 }
 
 model Architect {
-  id            Int       @id @default(autoincrement())
-  email         String    @unique
-  phone         String    @unique
-  name          String    @unique
+  id            Int               @id @default(autoincrement())
+  email         String            @unique
+  phone         String            @unique
+  name          String            @unique
   city          String
   address       String?    
   website       String?
-  social_media  String?
   experience_id Int
-  experience    Experience @relation(fields: [experience_id], references: [id])
+  experience    Experience       @relation(fields: [experience_id], references: [id])
 
   scales        ArchitectScales[]
   images        Image[]
+  networks      ArchitectNetworks[]
+}
+
+model ArchitectNetworks {
+  id            Int       @id @default(autoincrement())
+  architect_id  Int
+  social_type   String
+  social_media  String
+  architect     Architect @relation(fields: [architect_id], references: [id])
 }
 
 model Experience {

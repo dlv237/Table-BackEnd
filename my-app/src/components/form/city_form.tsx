@@ -39,13 +39,7 @@ export default function CityForm({ onNext, onBack, cityName, setName}:
             <select 
                 value={cityName} 
                 onChange={e => setName(e.target.value)}
-                style={{
-                    justifyContent: "center",
-                    textAlign: "center",
-                    borderBottom: "1px solid black",
-                    outline: "none",
-                    width: "65vw",
-                }}
+                className="selectOption"
             >
                 {cityDict.map(city => (
                     <option key={city} value={city}>

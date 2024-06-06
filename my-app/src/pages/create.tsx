@@ -6,10 +6,10 @@ import ExperienceForm from "../components/form/experience_form";
 import ScaleForm from "../components/form/scale_form";
 import ContactForm from "../components/form/contact_form";
 import { useUser } from "@clerk/nextjs";
-import { SignUp } from "@clerk/nextjs";
-import { ClerkProvider } from "@clerk/clerk-react";
 
 export default function Create() {
+
+    type SocialMedia = { type: string; handle: string };
 
     const [step, setStep] = useState(0);
     const [architectName, setName] = useState("");
@@ -19,8 +19,13 @@ export default function Create() {
     const [telefono, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [website, setWebsite] = useState("");
-    const [socialMedia, setSocialMedia] = useState("");
+    const [socialMedia, setSocialMedia] = useState<SocialMedia[]>([]);;
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+
     const { user } = useUser();
+
+    const [caseValue, setCaseValue] = useState(0);
 
     useEffect(() => {
         const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
@@ -32,58 +37,80 @@ export default function Create() {
             setPhone(savedData.telefono || "");
             setAddress(savedData.address || "");
             setWebsite(savedData.website || "");
-            setSocialMedia(savedData.socialMedia || "");
+            setSocialMedia(savedData.socialMedia || []);
+            setSelectedOptions(savedData.selectedOptions || []);
         }
+    }, []);
 
-        const handleSignUpAttempt = async () => {
-            if (user && savedData) {
-                const dataArchitect = {
-                    email: user.emailAddresses[0].emailAddress,
-                    phone: savedData.telefono,
-                    name: savedData.architectName,
-                    city: savedData.cityName,
-                    experience_id: parseInt(savedData.selectedExperience),
-                    website: savedData.website,
-                    address: savedData.address,
+    const handleSignUpAttempt = async () => {
+        const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
+        if (user && savedData && savedData.Phone != "") {
+            const dataArchitect = {
+                email: user.emailAddresses[0].emailAddress,
+                phone: savedData.telefono,
+                name: savedData.architectName,
+                city: savedData.cityName,
+                experience_id: parseInt(savedData.selectedExperience),
+                website: savedData.website,
+                address: savedData.address,
+            };
+
+            const response = await fetch('/api/architect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataArchitect),
+            });
+
+            if (!response.ok) {
+                alert("Error al crear el perfil");
+                return;
+            }
+
+            const responseJson = await response.json();
+            const architect = responseJson.architect;
+
+            for (const scale of savedData.selectedScales) {
+                const dataScale = {
+                    scale_id: parseInt(scale),
                 };
-
-                const response = await fetch('/api/architect', {
+                await fetch(`/api/architect/${architect.id}/scale`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(dataArchitect),
+                    body: JSON.stringify(dataScale),
                 });
-
-                if (!response.ok) {
-                    alert("Error al crear el perfil");
-                    return;
-                }
-
-                const architect = await response.json();
-
-                savedData.selectedScales.forEach(async (scale: string) => {
-                    const dataScale = {
-                        architect_id: architect.id,
-                        scale_id: parseInt(scale),
-                    };
-
-                    await fetch('/api/scales', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(dataScale),
-                    });
-                });
-
-                localStorage.removeItem("formData");
-                window.location.href = "/";
+                console.log("la escala quedo asi ", JSON.stringify(dataScale))
             }
-        };
+            
+            console.log("las redes quedaron asi ", JSON.stringify(savedData.socialMedia))
+            console.log("las redes quedaron asi ", JSON.stringify(savedData.socialMedia))
+            for (let i = 0; i < savedData.socialMedia.length; i++) {
+                const dataNetwork = {
+                    social_type: savedData.selectedOptions[i],
+                    social_media: savedData.socialMedia[i],
+                };
 
-        handleSignUpAttempt();
-    }, [user]);
+                await fetch(`/api/architect/${architect.id}/network`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataNetwork),
+                });
+            }
+            localStorage.removeItem("formData");
+            window.location.href = "/";
+        }
+    };
+
+    useEffect(() => {
+        if (step === 5) {
+            handleSignUpAttempt();
+        }
+    }, [step, user]);
 
     const handleNext = () => {
         setStep((prevStep) => prevStep + 1);
@@ -97,6 +124,7 @@ export default function Create() {
             address,
             website,
             socialMedia,
+            selectedOptions
         };
         localStorage.setItem("formData", JSON.stringify(formData));
     };
@@ -107,7 +135,6 @@ export default function Create() {
 
     let form;
     let logoClass = "logoContainer"
-    let textClass = "title"
     switch (step) {
         case -1:
             window.location.href = "/";
@@ -129,18 +156,18 @@ export default function Create() {
             form = <ScaleForm onNext={handleNext} onBack={handleBack} selectedScales={selectedScales} setScales={setScales} />;
             break;
 
-        case 4:
-            form = <ContactForm onNext={handleNext} onBack={handleBack}
-                telefono={telefono} setPhone={setPhone}
-                address={address} setAddress={setAddress}
-                website={website} setWebsite={setWebsite}
-                socialMedia={socialMedia} setSocialMedia={setSocialMedia} />;
-            break;
-
+            case 4:
+                form = <ContactForm onNext={handleNext} onBack={handleBack}
+                    telefono={telefono} setPhone={setPhone}
+                    address={address} setAddress={setAddress}
+                    website={website} setWebsite={setWebsite}
+                    socialMedia={socialMedia} setSocialMedia={setSocialMedia}
+                    selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions}
+                    />;
+                break;
+        
         case 5:
-            form = <SignUp routing="hash" />;
-            logoClass = "logoContainerSmall"
-            textClass = "subtitle"
+            form = <h1 className="title" style={{marginTop: "20vh"}}>Tu perfil ha sido creado con éxito</h1>
             break;
     }
 
@@ -150,7 +177,6 @@ export default function Create() {
             <div className={logoClass}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
             </div>
-            <h1 className={textClass}>tu mesa de proyectos</h1>
             {form}
             <Footer />
         </div>
