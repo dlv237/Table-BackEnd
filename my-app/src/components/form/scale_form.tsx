@@ -45,10 +45,6 @@ export default function ScaleForm({ onNext, onBack, selectedScales, setScales }:
                     <h1 style={{fontSize: "1.25vh"}}>conjuntos de viviendas, parques industriales, planes maestros, etc </h1>
                 </label>
             </div>
-            <div className="buttonContainer">
-                <button onClick={onBack}>Volver</button>
-                <button onClick={handleNext}>Siguiente</button>
-            </div>
         </div>
     );
 }

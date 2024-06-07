@@ -38,10 +38,6 @@ export default function NameForm({ onNext, onBack, name, setName }:
                 value={name}
                 onChange= {e => setName(e.target.value)}   />
             </div>
-            <div className="buttonContainer">
-                <button onClick={onBack}>Volver</button>
-                <button onClick={handleNext}>Siguiente</button>
-            </div>
 
         </div>
     );

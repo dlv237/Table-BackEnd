@@ -48,11 +48,7 @@ export default function CityForm({ onNext, onBack, cityName, setName}:
                 ))}
             </select>
             </div>
-            <div className="buttonContainer">
-                <button onClick={onBack}>Volver</button>
-                <button onClick={handleNext}>Siguiente</button>
-            </div>
-
         </div>
+        
     );
 }

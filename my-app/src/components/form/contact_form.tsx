@@ -33,9 +33,10 @@ export default function ContactForm({
 
   const handleSocialMediaTypeChange = (index: number, value: string) => {
     const newSocialMedia = [...socialMedia];
+    const previousType = newSocialMedia[index].type;
     newSocialMedia[index].type = value;
     setSocialMedia(newSocialMedia);
-    setSelectedOptions([...selectedOptions, value]);
+    setSelectedOptions(selectedOptions.filter(option => option !== previousType).concat(value));
   };
 
   const handleSocialMediaHandleChange = (index: number, value: string) => {
@@ -123,10 +124,6 @@ export default function ContactForm({
         {socialMedia.length < 3 && (
           <button onClick={handleAddSocialMedia}>+ Añadir Red Social</button>
         )}
-      </div>
-      <div className="buttonContainer">
-        <button onClick={onBack}>Volver</button>
-        <button onClick={handleNext}>Crear Cuenta</button>
       </div>
     </div>
   );

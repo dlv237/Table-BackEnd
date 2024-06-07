@@ -27,12 +27,20 @@ body {
   }
 }
 
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   margin: auto;
+  height: 90vh;
 }
 
 .logoContainer {
@@ -55,7 +63,7 @@ body {
 }
 
 .title {
-  font-size: clamp(26.4px, 4.8vw, 28px);
+  font-size: clamp(16px, 4.8vw, 26px);
   margin-top: 1vh;
 }
 
@@ -99,10 +107,9 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
-  bottom: 10vh;
-  left: 20vw;
-  right: 20vw;
+  position: relative;
+  width: 70%;
+  margin-bottom: 6vh;
 }
 
 .inputForm {
@@ -113,7 +120,8 @@ body {
 .footer {
   font-size: clamp(13px,3vw,20px);
   bottom: 2vh;
-  position: fixed;
+  position: relative;
+  display: flex;
 }
 
 .mainButton {
@@ -168,6 +176,16 @@ body {
 .experienceOption label:nth-child(5) {
   opacity: 0;
   animation: fadeIn 0.6s ease-in-out 2.4s 1 normal forwards;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contentContainer {
+  flex: 1; 
 }
 
 @keyframes fadeIn {

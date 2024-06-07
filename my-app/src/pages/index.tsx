@@ -48,16 +48,22 @@ export default function Home() {
     }, [user]);
 
     return (
-        <div className="container">
-            <div className="logoContainer">
-                <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage"/>
+        <div>
+            <div className="container">
+                <div className="subContainer">
+                    <div className="logoContainer">
+                        <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage"/>
+                    </div>
+                    <h1 className="title">tu mesa de proyectos</h1>
+                    <div className="tableLogoContainer">
+                        <img src="/LOGO_TABLE.png" alt="Logo" className="centeredImage"/>
+                    </div>
+                    {buttonByUserType}
+                </div>
             </div>
-            <h1 className="title">tu mesa de proyectos</h1>
-            <div className="tableLogoContainer">
-                <img src="/LOGO_TABLE.png" alt="Logo" className="centeredImage"/>
+            <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center'}}>
+                <Footer />
             </div>
-            {buttonByUserType}
-            <Footer />
         </div>
     );
 }

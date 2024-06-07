@@ -29,10 +29,6 @@ export default function ExperienceForm({ onNext, onBack, selectedExperience, set
                     <input type="radio" name="experience" value="4" style={{ display: 'none' }} onChange={() => setExperience('4')}/>Más de 10 años
                 </label>
             </div>
-            <div className="buttonContainer">
-                <button onClick={onBack}>Volver</button>
-                <button onClick={handleNext}>Siguiente</button>
-            </div>
         </div>
     );
 }

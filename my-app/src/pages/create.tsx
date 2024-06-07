@@ -134,6 +134,10 @@ export default function Create() {
     };
 
     let form;
+    let button =    <div className="buttonContainer">
+                        <button onClick={handleBack}>Volver</button>
+                        <button onClick={handleNext}>Siguiente</button>
+                    </div>;
     let logoClass = "logoContainer"
     switch (step) {
         case -1:
@@ -142,6 +146,7 @@ export default function Create() {
 
         case 0:
             form = <NameForm onNext={handleNext} onBack={handleBack} name={architectName} setName={setName} />;
+
             break;
 
         case 1:
@@ -164,6 +169,10 @@ export default function Create() {
                     socialMedia={socialMedia} setSocialMedia={setSocialMedia}
                     selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions}
                     />;
+                button =       <div className="buttonContainer">
+                                    <button onClick={handleBack}>Volver</button>
+                                    <button onClick={handleNext}>Crear Cuenta</button>
+                                </div>
                 break;
         
         case 5:
@@ -173,12 +182,17 @@ export default function Create() {
 
 
     return (
-        <div className="container">
-            <div className={logoClass}>
-                <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
+        <div>
+            <div className="container">
+            <div className={logoClass} onClick={() => window.location.href = "/"}>
+                    <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImageSmall" />
             </div>
-            {form}
-            <Footer />
+                {form}
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center'}}>
+                {button}
+                <Footer />
+            </div>
         </div>
     );
 }
