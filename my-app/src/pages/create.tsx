@@ -113,6 +113,31 @@ export default function Create() {
     }, [step, user]);
 
     const handleNext = () => {
+        if (step === 0 && architectName.trim() === "") {
+            alert("Por favor, ingresa un nombre");
+            return;
+        }
+
+        if (step === 1 && cityName === "Selecciona una region") {
+            alert("Por favor, selecciona una region");
+            return;
+        }
+
+        if (step === 2 && selectedExperience === "") {
+            alert("Por favor, selecciona una experiencia");
+            return;
+        }
+
+        if (step === 3 && selectedScales.length === 0) {
+            alert("Por favor, selecciona al menos una escala");
+            return;
+        }
+
+        if (step === 4 && telefono.trim() === "") {
+            alert("Por favor, ingresa un telefono");
+            return;
+        }
+        
         setStep((prevStep) => prevStep + 1);
 
         const formData = {
