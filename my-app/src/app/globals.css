@@ -133,7 +133,7 @@ body {
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  position: fixed;
+  position: absolute;
   bottom: 19vh;
 }
 
