@@ -5,12 +5,16 @@ import { SignUp } from "@clerk/nextjs";
 export default function CrearCuenta() {
 
     return (
-        <div className="container">
-            <div className="logoContainerSmall" style={{marginBottom: "4vh"}}>
-                <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
+        <div>
+            <div className="container">
+                <div className="logoContainerSmall" style={{marginBottom: "4vh"}}>
+                    <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
+                </div>
+                <SignUp routing="hash" fallbackRedirectUrl={"/create"}/>
             </div>
-            <SignUp routing="hash" fallbackRedirectUrl={"/create"}/>
-            <Footer />
+            <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center'}}>
+                <Footer />
+            </div>
         </div>
     );
 }
