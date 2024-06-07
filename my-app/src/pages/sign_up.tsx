@@ -12,7 +12,7 @@ export default function CrearCuenta() {
                 </div>
                 <SignUp routing="hash" fallbackRedirectUrl={"/create"}/>
             </div>
-            <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center'}}>
+            <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center', marginTop: '7vh'}}>
                 <Footer />
             </div>
         </div>
