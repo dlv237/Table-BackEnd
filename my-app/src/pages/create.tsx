@@ -214,6 +214,14 @@ export default function Create() {
             logoClass = "logoContainerSmall";
             form = <FileForm onNext={handleNext} onBack={handleBack} />;
             break;
+
+        case 6:
+            form = <div className="formContainer">
+                        <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>¡Gracias por registrarte!</h1>
+                        <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>Estamos creando tu perfil</h1>
+                    </div>;
+            button = <div></div>;
+            break;
     }
 
 
