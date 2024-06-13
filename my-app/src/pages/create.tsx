@@ -145,11 +145,6 @@ export default function Create() {
             return;
         }
 
-        if (step === 5 && selectedFiles.length === 0) {
-            alert("Por favor, sube al menos una imagen");
-            return;
-        }
-
         
         setStep((prevStep) => prevStep + 1);
 

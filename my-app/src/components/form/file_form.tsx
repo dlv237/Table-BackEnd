@@ -37,7 +37,7 @@ export default function FileForm({ onNext, onBack }:
             <label htmlFor="fileInput">
                 <div className="bigSquare" style={{cursor: "pointer"}}>
                     <p style={{ fontSize: "1.75vh", fontWeight: "bold" }}>
-                        <FontAwesomeIcon icon={faArrowUpFromBracket} />
+                        <FontAwesomeIcon icon={faArrowUpFromBracket} style={{marginRight: "5px"}} />
                           Seleccionar los archivos a subir</p>
                     <p style={{ fontSize: "1.5vh", marginTop: "9px"}}>Puedes subir imágenes en JPG y PNG</p>
                     <p style={{ fontSize: "1.5vh"}}>de hasta 10 Mb</p>
