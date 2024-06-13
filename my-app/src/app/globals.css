@@ -55,7 +55,6 @@ body {
   margin-top: 3.5vh;
 }
 
-
 .centeredImage {
   display: block;
   margin-left: auto;
@@ -118,7 +117,7 @@ body {
 }
 
 .footer {
-  font-size: clamp(13px,3vw,20px);
+  font-size: clamp(13px,3vh,20px);
   bottom: 2vh;
   position: relative;
   display: flex;
@@ -196,3 +195,43 @@ body {
     opacity: 1;
   }
 }
+
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  border-top-color: transparent;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bigSquare{
+  width: 40vh;
+  height: 13vh;
+  border: 2px solid black;
+  box-sizing: border-box;
+  padding: 5px;
+  margin-top: 10px;
+  border-style: dotted;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  width: 40vh;
+  margin-top: 10px;
+}
+

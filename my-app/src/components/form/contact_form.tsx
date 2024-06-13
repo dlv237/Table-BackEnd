@@ -1,5 +1,15 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { faInstagram, faFacebook, faPinterest } from '@fortawesome/free-brands-svg-icons';
+
+const instagramIcon = icon(faInstagram);
+const instagramIconString = instagramIcon.html.join('');
+const facebookIcon = icon(faFacebook);
+const facebookIconString = facebookIcon.html.join('');
+const pinterestIcon = icon(faPinterest);
+const pinterestIconString = pinterestIcon.html.join('');
+
 
 type SocialMedia = { type: string; handle: string };
 
@@ -66,10 +76,10 @@ export default function ContactForm({
   };
 
   const options = [
-    { value: 'Instagram', label: <><img src="/INSTAGRAM_LOGO.png" alt="Instagram" style={{ width: '20px', height: '20px' }} /></> },
-    { value: 'Facebook', label: <><img src="/FACEBOOK_LOGO.png" alt="Facebook" style={{ width: '20px', height: '20px' }} /></> },
-    { value: 'Pinterest', label: <><img src="/PINTEREST_LOGO.png" alt="Pinterest" style={{ width: '20px', height: '20px' }} /></> },
-  ];
+      { value: 'Instagram', label: <div dangerouslySetInnerHTML={{ __html: instagramIconString }} /> },
+      { value: 'Facebook', label: <div dangerouslySetInnerHTML={{ __html: facebookIconString }} /> },
+      { value: 'Pinterest', label: <div dangerouslySetInnerHTML={{ __html: pinterestIconString }} /> },
+    ];
 
   const handleNext = async () => {
     if (telefono === "") {

@@ -5,11 +5,16 @@ import CityForm from "../components/form/city_form";
 import ExperienceForm from "../components/form/experience_form";
 import ScaleForm from "../components/form/scale_form";
 import ContactForm from "../components/form/contact_form";
+import FileForm from "../components/form/file_form";
 import { useUser } from "@clerk/nextjs";
 
 export default function Create() {
 
     type SocialMedia = { type: string; handle: string };
+    type FileData = {
+        url: string;
+        name: string;
+    };
 
     const [step, setStep] = useState(0);
     const [architectName, setName] = useState("");
@@ -21,6 +26,7 @@ export default function Create() {
     const [website, setWebsite] = useState("");
     const [socialMedia, setSocialMedia] = useState<SocialMedia[]>([]);;
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [selectedFiles, setSelectedFiles] = useState<FileData[]>([]);
 
 
     const { user } = useUser();
@@ -39,6 +45,7 @@ export default function Create() {
             setWebsite(savedData.website || "");
             setSocialMedia(savedData.socialMedia || []);
             setSelectedOptions(savedData.selectedOptions || []);
+            setSelectedFiles(savedData.selectedFiles || []);
         }
     }, []);
 
@@ -107,7 +114,7 @@ export default function Create() {
     };
 
     useEffect(() => {
-        if (step === 5) {
+        if (step === 6) {
             handleSignUpAttempt();
         }
     }, [step, user]);
@@ -137,6 +144,12 @@ export default function Create() {
             alert("Por favor, ingresa un telefono");
             return;
         }
+
+        if (step === 5 && selectedFiles.length === 0) {
+            alert("Por favor, sube al menos una imagen");
+            return;
+        }
+
         
         setStep((prevStep) => prevStep + 1);
 
@@ -149,7 +162,8 @@ export default function Create() {
             address,
             website,
             socialMedia,
-            selectedOptions
+            selectedOptions,
+            selectedFiles
         };
         localStorage.setItem("formData", JSON.stringify(formData));
     };
@@ -186,22 +200,19 @@ export default function Create() {
             form = <ScaleForm onNext={handleNext} onBack={handleBack} selectedScales={selectedScales} setScales={setScales} />;
             break;
 
-            case 4:
-                form = <ContactForm onNext={handleNext} onBack={handleBack}
-                    telefono={telefono} setPhone={setPhone}
-                    address={address} setAddress={setAddress}
-                    website={website} setWebsite={setWebsite}
-                    socialMedia={socialMedia} setSocialMedia={setSocialMedia}
-                    selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions}
-                    />;
-                button =       <div className="buttonContainer">
-                                    <button onClick={handleBack}>Volver</button>
-                                    <button onClick={handleNext}>Crear Cuenta</button>
-                                </div>
-                break;
+        case 4:
+            form = <ContactForm onNext={handleNext} onBack={handleBack}
+                telefono={telefono} setPhone={setPhone}
+                address={address} setAddress={setAddress}
+                website={website} setWebsite={setWebsite}
+                socialMedia={socialMedia} setSocialMedia={setSocialMedia}
+                selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions}
+                />;
+            break;
         
         case 5:
-            form = <h1 className="title" style={{marginTop: "20vh"}}>Tu perfil ha sido creado con éxito</h1>
+            logoClass = "logoContainerSmall";
+            form = <FileForm onNext={handleNext} onBack={handleBack} />;
             break;
     }
 
@@ -209,7 +220,7 @@ export default function Create() {
     return (
         <div>
             <div className="container">
-            <div className={logoClass} onClick={() => window.location.href = "/"}>
+            <div className={logoClass} onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                     <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImageSmall" />
             </div>
                 {form}

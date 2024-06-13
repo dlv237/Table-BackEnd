@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 const ShowSignedImage = ({ imageKey }: { imageKey: string }) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  imageKey = "image_1718232596416.jpg"
-
   useEffect(() => {
     const fetchImageUrl = async () => {
       const res = await fetch(`/api/s3-get-url?key=${imageKey}`);
@@ -15,7 +13,7 @@ const ShowSignedImage = ({ imageKey }: { imageKey: string }) => {
     fetchImageUrl();
   }, [imageKey]);
 
-  if (!imageUrl) return <p>Loading...</p>;
+  if (!imageUrl) return <div className="loader"></div>;
 
   return (
     <div>
