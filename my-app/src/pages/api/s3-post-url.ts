@@ -52,7 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const command = new PutObjectCommand(params);
       const data = await s3Client.send(command);
       const imageUrl = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
-      res.status(200).json({ imageUrl });
+      res.status(200).json({ fileName });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error uploading image to S3' });

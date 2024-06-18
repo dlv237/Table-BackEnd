@@ -117,7 +117,7 @@ body {
 }
 
 .footer {
-  font-size: clamp(13px,3vh,20px);
+  font-size: clamp(10px,3vh,13px);
   bottom: 2vh;
   position: relative;
   display: flex;
@@ -198,12 +198,14 @@ body {
 
 
 .loader {
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  border: 3px solid #fff;
+  border: 3px solid #000000;
   border-top-color: transparent;
   animation: spin 1.2s linear infinite;
+  margin-top: 100px;
+  margin-bottom: 40px;
 }
 
 @keyframes spin {
