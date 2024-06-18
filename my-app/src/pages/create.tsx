@@ -61,7 +61,7 @@ export default function Create() {
                 website: savedData.website,
                 address: savedData.address,
             };
-
+            console.log(dataArchitect);
             const response = await fetch('/api/architect', {
                 method: 'POST',
                 headers: {
@@ -72,6 +72,7 @@ export default function Create() {
 
             if (!response.ok) {
                 alert("Error al crear el perfil");
+                console.log(response.body);
                 return;
             }
 
@@ -90,7 +91,8 @@ export default function Create() {
                     body: JSON.stringify(dataScale),
                 });
             }
-
+            console.log(savedData.socialMedia);
+            console.log(savedData.socialMedia.length);
             for (let i = 0; i < savedData.socialMedia.length; i++) {
                 const dataNetwork = {
                     social_type: savedData.selectedOptions[i],
@@ -132,8 +134,38 @@ export default function Create() {
     }, [step, user]);
 
     const handleNext = async () => {
+
+        const updatedData = {
+            architectName,
+            cityName,
+            selectedExperience,
+            selectedScales,
+            telefono,
+            address,
+            website,
+            socialMedia,
+            selectedOptions,
+            selectedFiles,
+        };
+        
+        localStorage.setItem("formData", JSON.stringify(updatedData));
+
+
+        let isNameInUse = false;
+
         if (step === 0 && architectName.trim() === "") {
             alert("Por favor, ingresa un nombre");
+            return;
+        } else {
+            await fetch('api/architect')
+                .then(response => response.json())
+                .then(data => {
+                    isNameInUse = data.some((architect: { name: string }) => architect.name === architectName);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        if (isNameInUse) {
+            alert("El nombre del arquitecto ya está en uso");
             return;
         }
 
@@ -152,8 +184,21 @@ export default function Create() {
             return;
         }
 
+        let isPhoneInUse = false;
         if (step === 4 && telefono.trim() === "") {
             alert("Por favor, ingresa un telefono");
+            return;
+        } else {
+            await fetch('api/architect')
+                .then(response => response.json())
+                .then(data => {
+                    isPhoneInUse = data.some((architect: { phone: string }) => architect.phone === telefono) as boolean
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        if (isPhoneInUse) {
+            alert("El telefono ya está en uso");
             return;
         }
 
@@ -165,6 +210,7 @@ export default function Create() {
                 setIsLoading(false);
             }
         }
+        const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
 
         proceedToNextStep();
     };
@@ -181,8 +227,8 @@ export default function Create() {
     const loader = (
         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
             <div className="loader"></div>
-            <h1 style={{ fontSize: "2.5vh"}}>¡Gracias por registrarte!</h1>
-            <h1 style={{ fontSize: "2.5vh"}}>Tu perfil ha sido creado con éxito</h1>
+            <h1 style={{ fontSize: "2.5vh"}}>Estamos creando tu</h1>
+            <h1 style={{ fontSize: "2.5vh"}}>portafolios</h1>
         </div>
     );
     let button = (
@@ -228,17 +274,25 @@ export default function Create() {
         case 5:
             logoClass = "logoContainerSmall";
             form = <FileForm ref={fileFormRef} onNext={handleNext} onBack={handleBack} />;
+            button = (
+                <div className="buttonContainer">
+                    <button onClick={handleBack}>Volver</button>
+                    <button onClick={handleNext}>Crear Perfil</button>
+                </div>
+            );
             break;
         case 6:
             form = (
                 <div className="formContainer">
                     <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>¡Gracias por registrarte!</h1>
-                    <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>Estamos creando tu perfil</h1>
+                    <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>Tu portafolio ha sido creado con éxito</h1>
                 </div>
             );
             button = <div></div>;
             const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
             console.log(savedData.selectedFiles);
+            console.log(savedData);
+
             break;
     }
 
@@ -251,7 +305,7 @@ export default function Create() {
                 {isLoading ? loader : form}
             </div>
             <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center'}}>
-                {button}
+                {isLoading ? <></> : button}
                 <Footer />
             </div>
         </div>

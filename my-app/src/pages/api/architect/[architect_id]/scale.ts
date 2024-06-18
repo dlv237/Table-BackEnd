@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method == 'GET'){
-        const architect_id = Number(req.query.architect_id)
         try {
             const architectScales = await prisma.architectScales.findMany({
                 where: {

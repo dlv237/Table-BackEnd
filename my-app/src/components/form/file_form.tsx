@@ -64,7 +64,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                 ...savedData,
                 selectedFiles: [
                     ...(savedData.selectedFiles || []),
-                    { name: fileName }
+                    { name: fileName } // Aquí guardas el fileName de S3
                 ]
             }));
 
@@ -98,7 +98,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                 {selectedFiles.map((file, index) => (
                     <div key={index} style={{ position: 'relative' }}>
                         <img style={{ width: "13vh", height: "13vh", objectFit: "cover", borderRadius: "5px" }} src={URL.createObjectURL(file)} alt={`Selected ${index + 1}`} />
-                        <FontAwesomeIcon icon={faTimesCircle} style={{ position: 'absolute', top: "0.5vh", right: "0.5vh", cursor: 'pointer' }} onClick={() => handleRemoveFile(index)} />
+                        <FontAwesomeIcon icon={faTimesCircle} style={{ position: 'absolute', top: "0.5vh", right: "0.5vh", cursor: 'pointer', color: "black", background: "white", borderRadius: "50px" }} onClick={() => handleRemoveFile(index)} />
                     </div>
                 ))}
             </div>
