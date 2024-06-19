@@ -91,7 +91,7 @@ export default function Home() {
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
                         <button className="IconButton" aria-label="Customise options">
-                            <HamburgerMenuIcon />
+                            <img src="/SILLA_TABLE.png" alt="Logo" className="centeredImage" style={{position: "absolute", bottom: "3px"}}/>
                         </button>
                     </DropdownMenu.Trigger>
 
