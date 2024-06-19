@@ -246,9 +246,10 @@ body {
 }
 
 .cl-formButtonPrimary {
-  max-width: -moz-available;
+  width: auto;
+
 }
 
 .cl-socialButtonsBlockButton {
-  max-width: -moz-available;
+  width: auto;
 }
