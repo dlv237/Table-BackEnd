@@ -73,7 +73,7 @@ export default function Home() {
                 );
                 setButtonByUserType(
                     <button className='mainButton'
-                        onClick={() => window.location.href = "/create"}
+                        onClick={() => window.location.href = "/sign_up"}
                     >
                         <h1 className="title">crear perfil de</h1>
                         <h1 className="title">arquitectura</h1>
