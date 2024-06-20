@@ -58,14 +58,15 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
             if (removedOrder !== null) {
                 newOrder[index] = null;
                 for (let i = 0; i < newOrder.length; i++) {
-                    if (newOrder[i] !== null && newOrder[i] > removedOrder) {
-                        newOrder[i]--;
+                    if (newOrder[i] !== null && newOrder[i]! > removedOrder) {
+                        newOrder[i]!--;
                     }
                 }
             }
         }
         setOrder(newOrder);
     }
+    
 
     const uploadFile = async (file: File): Promise<FileData> => {
         const reader = new FileReader();
