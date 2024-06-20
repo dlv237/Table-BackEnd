@@ -172,6 +172,20 @@
   }
 }
 
+.circleBackground {
+  position: absolute;
+  top: 0.5vh;
+  left: 0.5vh;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .numberSpan {
   position: absolute;
   top: 0.5vh;
@@ -182,32 +196,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid;
-  background: rgba(255, 255, 255, 0.5);
   font-size: 12px;
   padding-bottom: 1px;
   opacity: 0;
-  transform: scale(0.5);
-  transition: opacity 0.3s, transform 0.3s;
+  background-color: rgba(255, 255, 255, 1);
+  transition: opacity 0.3s;
+  border: 1px solid black;
 }
 
 .numberSpan.show {
   opacity: 1;
-  transform: scale(1);
 }
 
 .backCheckBox {
-  position: absolute;
-  top: 0.5vh;
-  left: 0.5vh;
-  cursor: pointer;
-  padding: 0.5vh;
-  opacity: 0;
-  width: 13vh;
-  height: 13vh;
+position: absolute;
+top: 0.5vh;
+left: 0.5vh;
+cursor: pointer;
+padding: 0.5vh;
+opacity: 0;
+width: 13vh;
+height: 13vh;
 }
 
-.removeCrossButton {
+  .removeCrossButton {
   position: absolute;
   top: 0.5vh;
   right: 0.5vh;
@@ -215,11 +227,11 @@
   color: black;
   background: white;
   border-radius: 50px;
-}
-
-.uploadImage {
+  }
+  
+  .uploadImage {
   width: 13vh;
   height: 13vh;
   object-fit: cover;
   border-radius: 5px;
-}
+  }

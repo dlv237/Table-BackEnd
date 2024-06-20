@@ -145,11 +145,13 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                     <p style={{ fontSize: "1.5vh"}}>de hasta 10 Mb</p>
                 </div>
             </label>
+            <h1 style={{ fontSize: "1.75vh", marginTop: "10px", marginBottom: "10px" }}>Selecciona el orden que desees</h1>
             <div className="imageGrid">
                 {selectedFiles.map((file, index) => (
                     <div key={index} style={{ position: 'relative' }}>
                         <img className="uploadImage" src={URL.createObjectURL(file)} alt={`Selected ${index + 1}`} />
                         <div>
+                            <span className="circleBackground"></span>
                             <span className="numberSpan">
                                 {order[index]}
                             </span>
@@ -164,7 +166,6 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                     </div>
                 ))}
             </div>
-            <h1 style={{ fontSize: "1.75vh", position: "absolute", bottom: "15vh" }}>Selecciona el orden que desees</h1>
         </div>
     );
 });
