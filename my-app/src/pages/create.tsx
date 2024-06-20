@@ -253,6 +253,7 @@ export default function Create() {
             form = <ExperienceForm onNext={handleNext} onBack={handleBack} selectedExperience={selectedExperience} setExperience={setExperience} />;
             break;
         case 3:
+            logoClass = "logoContainerSmall";
             form = <ScaleForm onNext={handleNext} onBack={handleBack} selectedScales={selectedScales} setScales={setScales} />;
             break;
         case 4:

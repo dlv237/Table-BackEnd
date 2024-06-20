@@ -2,6 +2,7 @@ import { S3Client, PutObjectCommand, PutObjectCommandInput, ObjectCannedACL } fr
 import { NextApiRequest, NextApiResponse } from 'next';
 import bodyParser from 'body-parser';
 import { promisify } from 'util';
+import { v4 as uuidv4 } from 'uuid';
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
@@ -28,8 +29,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!imageData) {
       return res.status(400).json({ error: 'Image data is required' });
     }
-
-    const fileName = `image_${Date.now()}.jpg`;
+    const uniqueId = uuidv4();
+    const fileName = `image_${Date.now()}_${uniqueId}.jpg`;
     const contentType = 'image/jpeg';
 
     const bucketName = process.env.AWS_S3_BUCKET_NAME;

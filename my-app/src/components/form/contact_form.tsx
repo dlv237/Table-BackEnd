@@ -110,6 +110,7 @@ export default function ContactForm({
         {socialMedia.map((sm, index) => (
           <div key={index} style={{ display: 'flex', flexDirection: 'row' }}>
             <Select
+              isSearchable={false}
               options={options.filter(option => !selectedOptions.includes(option.value))}
               value={options.find(option => option.value === sm.type)}
               onChange={(option) => option && handleSocialMediaTypeChange(index, option.value)}

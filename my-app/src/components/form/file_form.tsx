@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,10 +8,21 @@ type FileData = {
 
 const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: () => void }, ref) => {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+    const [order, setOrder] = useState<(number | null)[]>([]); // State to hold the order of selected images
+    const [counter, setCounter] = useState<number>(0); // New state to hold the counter
 
     useImperativeHandle(ref, () => ({
         uploadFiles: async () => {
-            const uploadedFiles = await Promise.all(selectedFiles.map(uploadFile));
+            const orderedFiles = selectedFiles
+                .map((file, index) => ({ file, order: order[index] }))
+                .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
+                .map(item => item.file);
+
+            const uploadedFiles = [];
+            for (const file of orderedFiles) {
+                const uploadedFile = await uploadFile(file);
+                uploadedFiles.push(uploadedFile);
+            }
             return uploadedFiles;
         }
     }));
@@ -23,12 +34,37 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                 alert("No puedes seleccionar más de 9 archivos en total");
             } else {
                 setSelectedFiles(prevFiles => [...prevFiles, ...newFiles]);
+                setOrder(prevOrder => [...prevOrder, ...newFiles.map(() => null)]);
             }
         }
     }
 
     const handleRemoveFile = (index: number) => {
+        const removedOrder = order[index];
         setSelectedFiles(prevFiles => prevFiles.filter((file, i) => i !== index));
+        if (removedOrder !== null) {
+            setOrder(prevOrder => prevOrder.filter((_, i) => i !== index).map(o => o !== null && o > removedOrder ? o - 1 : o));
+        } else {
+            setOrder(prevOrder => prevOrder.filter((_, i) => i !== index));
+        }
+    }
+    
+    const handleOrderChange = (index: number, checked: boolean) => {
+        const newOrder = [...order];
+        if (checked) {
+            newOrder[index] = newOrder.filter(Number.isInteger).length + 1;
+        } else {
+            const removedOrder = newOrder[index];
+            if (removedOrder !== null) {
+                newOrder[index] = null;
+                for (let i = 0; i < newOrder.length; i++) {
+                    if (newOrder[i] !== null && newOrder[i] > removedOrder) {
+                        newOrder[i]--;
+                    }
+                }
+            }
+        }
+        setOrder(newOrder);
     }
 
     const uploadFile = async (file: File): Promise<FileData> => {
@@ -36,15 +72,15 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
         return new Promise<FileData>((resolve, reject) => {
             reader.onloadend = async () => {
                 const base64 = reader.result as string;
-                const imageUrl = await uploadImage(base64);
-                resolve({ name: file.name });
+                const fileName = await uploadImage(base64);
+                resolve({ name: fileName });
             };
             reader.onerror = reject;
             reader.readAsDataURL(file);
         });
     }
 
-    const uploadImage = async (imageData: string): Promise<void> => {
+    const uploadImage = async (imageData: string): Promise<string> => {
         try {
             const res = await fetch('/api/s3-post-url', {
                 method: 'POST',
@@ -58,20 +94,34 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
 
             const data = await res.json();
             const { fileName } = data;
-            
+
             const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
             localStorage.setItem("formData", JSON.stringify({
                 ...savedData,
                 selectedFiles: [
                     ...(savedData.selectedFiles || []),
-                    { name: fileName } // Aquí guardas el fileName de S3
+                    { name: fileName }
                 ]
             }));
 
+            return fileName;
+
         } catch (error) {
             console.error('Error uploading image:', error);
+            throw error;
         }
     }
+
+    useEffect(() => {
+        const spans = document.querySelectorAll('.numberSpan');
+        spans.forEach((span, index) => {
+            if (order[index] !== null) {
+                span.classList.add('show');
+            } else {
+                span.classList.remove('show');
+            }
+        });
+    }, [order]);
 
     return (
         <div className="formContainer">
@@ -97,11 +147,23 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
             <div className="imageGrid">
                 {selectedFiles.map((file, index) => (
                     <div key={index} style={{ position: 'relative' }}>
-                        <img style={{ width: "13vh", height: "13vh", objectFit: "cover", borderRadius: "5px" }} src={URL.createObjectURL(file)} alt={`Selected ${index + 1}`} />
-                        <FontAwesomeIcon icon={faTimesCircle} style={{ position: 'absolute', top: "0.5vh", right: "0.5vh", cursor: 'pointer', color: "black", background: "white", borderRadius: "50px" }} onClick={() => handleRemoveFile(index)} />
+                        <img className="uploadImage" src={URL.createObjectURL(file)} alt={`Selected ${index + 1}`} />
+                        <div>
+                            <span className="numberSpan">
+                                {order[index]}
+                            </span>
+                            <input 
+                                type="checkbox" 
+                                className="backCheckBox"
+                                checked={order[index] !== null}
+                                onChange={(e) => handleOrderChange(index, e.target.checked)}
+                            />
+                        </div>
+                        <FontAwesomeIcon icon={faTimesCircle} className="removeCrossButton" onClick={() => handleRemoveFile(index)} />
                     </div>
                 ))}
             </div>
+            <h1 style={{ fontSize: "1.75vh", position: "absolute", bottom: "15vh" }}>Selecciona el orden que desees</h1>
         </div>
     );
 });
