@@ -66,7 +66,7 @@ body {
 }
 
 .title {
-  font-size: clamp(16px, 4.8vw, 26px);
+  font-size: clamp(16px, 3.4vw, 23px);
   margin-top: 1vh;
 }
 
@@ -150,6 +150,7 @@ body {
   border-bottom: 1px solid black;
   outline: none;
   width: clamp(200px, 65vw, 300px);
+  background-color: transparent;
 }
 
 .experienceOption {

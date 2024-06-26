@@ -90,7 +90,7 @@ export default function Home() {
             <div style={{position: 'relative'}}>
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
-                        <button className="IconButton" aria-label="Customise options">
+                        <button className="IconButton" aria-label="Customise options" style={{boxShadow: "unset"}}>
                             <img src="/SILLA_TABLE.png" alt="Logo" className="centeredImage" style={{position: "absolute", bottom: "3px"}}/>
                         </button>
                     </DropdownMenu.Trigger>
@@ -107,6 +107,16 @@ export default function Home() {
                         <h1 className="title">tu mesa de proyectos</h1>
                         <div className="tableLogoContainer">
                             <img src="/LOGO_TABLE.png" alt="Logo" className="centeredImage"/>
+                            <div style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -30%)',
+                                fontSize: '20px',
+                                fontWeight: 'bold',
+                            }}>
+                                ingresar
+                            </div>
                         </div>
                         {buttonByUserType}
                     </div>
