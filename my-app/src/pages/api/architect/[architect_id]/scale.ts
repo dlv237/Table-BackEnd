@@ -33,6 +33,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             res.status(500).json(error)
         } 
     }
+    else if (req.method == 'DELETE'){
+        const architect_id = Number(req.query.architect_id)
+        try {
+            const architectScale = await prisma.architectScales.deleteMany({ where: {architect_id}})
+            res.status(200).json(architectScale);
+        }
+        catch (error) {
+            res.status(500).json(error)
+        }
+    }
     else {
         res.status(405).json("Method not allowed")
     }

@@ -7,11 +7,13 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 export default function Edit() {
     const { user } = useUser();
     const correoArquitecto = user?.emailAddresses[0]?.emailAddress || "usuario sin correo";
-    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: ''});
-    const [cityName, setName] = useState("");
+    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: ''});
+    const [cityName, setCityName] = useState("");
     const [experience, setExperience] = useState(0);
     const [scales, setScales] = useState(Array<number>());
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [phone, setPhone] = useState(architect.Phone);
+    const [name, setName] = useState(architect.Name)
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -64,8 +66,8 @@ export default function Edit() {
                 const architectData = architects.find((arch: any) => arch.email === correoArquitecto);
                 
                 if (architectData) {
-                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone});
-                    setName(architectData.city);
+                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone, id: architectData.id, website: architectData.website, address: architectData.address});
+                    setCityName(architectData.city);
                     setExperience(architectData.experience);
                 }
 
@@ -98,6 +100,52 @@ export default function Edit() {
         };
     }, [isDropdownOpen]);
 
+    const handleNext = async () => {
+        const architectDataPatch = {
+            email: correoArquitecto,
+            phone: phone,
+            name: architect.Name,
+            city: cityName,
+            experience_id: experience,
+            website: architect.website,
+            address: architect.address,
+        };
+
+        const response = await fetch(`/api/architect/${architect.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(architectDataPatch),
+        });
+
+        if (!response.ok) {
+            alert("Error al actualizar los datos, el nombre o el teléfono estan en uso por otro usuario");
+            return;
+        }
+
+        const response2 = await fetch(`/api/architect/${architect.id}/scale`, {
+            method: 'DELETE',
+        });
+
+        if (!response2.ok) {
+            alert("Debes iniciar sesión antes de editar tus escalas");
+            return;
+        }
+
+        for (const scale of scales) {
+            const response3 = await fetch(`/api/architect/${architect.id}/scale/${scale}`, {
+                method: 'POST',
+            });
+
+            if (!response3.ok) {
+                alert("Error al actualizar las escalas");
+                return;
+            }
+        }
+
+    };
+
     return (
         <div className="container">
             <div className="logoContainerSmall">
@@ -108,14 +156,20 @@ export default function Edit() {
                 <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>edita los datos que desees</h1>
                 <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
                     <label htmlFor="nombre" style={{ marginRight: '10px', fontWeight: 'bold' }}>Nombre:</label>
-                    <input style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray"}} type="text" id="nombre" name="nombre" placeholder={architect.Name}/>
+                    <input 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray" , textAlign: "center"}} 
+                    type="text" 
+                    id="nombre" 
+                    name="nombre" 
+                    placeholder={architect.Name}
+                    onChange={(e) => setName(e.target.value)}/>
                 </div>
                 <div style={{ display: 'flex', marginBottom: '20px' }}>
                     <label htmlFor="region" style={{ marginRight: '10px', fontWeight: 'bold' }}>Ciudad:</label>
                     <select 
                         style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)"}}
                         value={cityName} 
-                        onChange={e => setName(e.target.value)}
+                        onChange={e => setCityName(e.target.value)}
                         className="selectOption"
                     >
                         {cityDict.map(city => (
@@ -171,9 +225,19 @@ export default function Edit() {
                 </div>
                 <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
                     <label htmlFor="telefono" style={{ marginRight: '10px', fontWeight: 'bold' }}>Teléfono:</label>
-                    <input style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray"}} type="text" id="phone" name="phone" placeholder={architect.Phone}/>
+                    <input 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center"}} 
+                    type="text" 
+                    id="phone"
+                    name="phone" 
+                    placeholder={architect.Phone}
+                    onChange={(e) => setPhone(e.target.value)}/>
                 </div>
 
+            </div>
+            <div className="buttonContainer">
+                <button onClick={() => window.location.href = "/"}>Volver</button>
+                <button onClick={handleNext}>Confirmar</button>
             </div>
             <Footer />
         </div>

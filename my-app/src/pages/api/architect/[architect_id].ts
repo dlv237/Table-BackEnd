@@ -16,7 +16,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         catch (error) {
             res.status(500).json({ message: 'Error creating architect' + (error as Error).message });
         }
-    } else {
+    } else if (req.method === 'PATCH') {
+        try {
+            const architect = await prisma.architect.update({
+                where: {
+                    id: Number(req.query.architect_id)
+                },
+                data: req.body
+            });
+            res.status(200).json(architect);
+        }
+        catch (error) {
+            res.status(500).json({ message: 'Error updating architect' + (error as Error).message });
+        }
+    }
+    else {
         res.status(405).json({ message: 'Method Not Allowed' });
     }
 }
