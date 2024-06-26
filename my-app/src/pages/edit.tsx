@@ -8,9 +8,9 @@ import { redirect } from "next/dist/server/api-utils";
 export default function Edit() {
     const { user } = useUser();
     const correoArquitecto = user?.emailAddresses[0]?.emailAddress || "usuario sin correo";
-    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: ''});
+    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: '', experience: 0});
     const [cityName, setCityName] = useState("");
-    const [experience, setExperience] = useState(0);
+    const [experience, setExperience] = useState(architect.experience);
     const [scales, setScales] = useState(Array<number>());
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [phone, setPhone] = useState(architect.Phone);
@@ -67,9 +67,11 @@ export default function Edit() {
                 const architectData = architects.find((arch: any) => arch.email === correoArquitecto);
                 
                 if (architectData) {
-                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone, id: architectData.id, website: architectData.website, address: architectData.address});
+                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone, id: architectData.id, website: architectData.website, address: architectData.address, experience: architectData.experience});
                     setCityName(architectData.city);
                     setExperience(architectData.experience);
+                    setPhone(architectData.phone);
+                    setName(architectData.name);
                 }
 
                 const scalesResponse = await fetch(`/api/architect/${architectData.id}/scale`);
@@ -105,7 +107,7 @@ export default function Edit() {
         const architectDataPatch = {
             email: correoArquitecto,
             phone: phone,
-            name: architect.Name,
+            name: name,
             city: cityName,
             experience_id: experience,
             website: architect.website,
@@ -166,7 +168,7 @@ export default function Edit() {
                     onChange={(e) => setName(e.target.value)}/>
                 </div>
                 <div style={{ display: 'flex', marginBottom: '20px' }}>
-                    <label htmlFor="region" style={{ marginRight: '10px', fontWeight: 'bold' }}>Ciudad:</label>
+                    <label htmlFor="region" style={{ marginRight: '10px', fontWeight: 'bold' }}>Región:</label>
                     <select 
                         style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)"}}
                         value={cityName} 
@@ -185,7 +187,7 @@ export default function Edit() {
                     <select
                         style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)"}}
                         value={experience} 
-                        onChange={e => setExperience(parseInt(e.target.value))}
+                        onChange={e => setExperience(Number(e.target.value))}
                         className="selectOption"
                     >
                         {experienceDict.map(exp => (
