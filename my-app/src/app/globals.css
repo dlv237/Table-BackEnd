@@ -150,7 +150,6 @@ body {
   border-bottom: 1px solid black;
   outline: none;
   width: clamp(200px, 65vw, 300px);
-  background-color: transparent;
 }
 
 .experienceOption {
