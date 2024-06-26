@@ -3,6 +3,7 @@ import Footer from "../components/general/footer";
 import { useUser } from "@clerk/nextjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { redirect } from "next/dist/server/api-utils";
 
 export default function Edit() {
     const { user } = useUser();
@@ -143,7 +144,7 @@ export default function Edit() {
                 return;
             }
         }
-
+        window.location.href = "/";
     };
 
     return (
