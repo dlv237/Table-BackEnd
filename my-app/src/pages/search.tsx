@@ -1,29 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useEffect, useState} from 'react';
 import Footer from '../components/general/footer';
 
 export default function Search() {
     const [scrollPosition, setScrollPosition] = useState(0);
-    const requestRef = useRef(0);
-
-    const handleScroll = () => {
-        setScrollPosition(window.pageYOffset);
-    };
 
     useEffect(() => {
-        const handleAnimationFrame = () => {
+        const handleScroll = () => {
             setScrollPosition(window.pageYOffset);
-            requestRef.current = requestAnimationFrame(handleAnimationFrame);
         };
 
-        requestRef.current = requestAnimationFrame(handleAnimationFrame);
-
+        window.addEventListener('scroll', handleScroll);
         return () => {
-            cancelAnimationFrame(requestRef.current);
+            window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
     return (
-        <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', minHeight: '100vh', overflowY: "hidden" }}>
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 <div className="subContainer">
                     <div className="logoContainerSmall" style={{ zIndex: "1", cursor: "pointer" }} onClick={() => window.location.href = '/'}>
@@ -33,7 +25,7 @@ export default function Search() {
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
-                        transform: `translate(-50%, ${scrollPosition ? `${scrollPosition}px` : '0'})`,
+                        transform: 'translate(-50%, -30vh)',
                         fontSize: '20px',
                         cursor: 'pointer'
                     }}>
@@ -56,8 +48,10 @@ export default function Search() {
                 <Footer />
             </div>
             <div className="background-container">
-                <div className="background-image" style={{ transform: `translateY(${-scrollPosition}px)` }}></div>
+                <div className="background-image" style={{ backgroundPositionY: `${-scrollPosition}px` }}></div>
             </div>
+
         </div>
     );
 }
+
