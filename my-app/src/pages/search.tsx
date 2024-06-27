@@ -23,9 +23,6 @@ export default function Search() {
                     </div>
                 </div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center', transform: "translateY(50px)", zIndex: 1 }}>
-                <Footer />
-            </div>
             <div className="background-container">
                 <div className="background-image" style={{ backgroundPositionY: `${-scrollPosition}px` }}></div>
             </div>
