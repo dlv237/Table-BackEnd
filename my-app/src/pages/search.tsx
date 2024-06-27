@@ -48,7 +48,7 @@ export default function Search() {
                 <Footer />
             </div>
             <div className="background-container">
-                <div className="background-image"></div>
+                <div className="background-image" style={{ backgroundPositionY: `${-scrollPosition}px` }}></div>
             </div>
 
         </div>
