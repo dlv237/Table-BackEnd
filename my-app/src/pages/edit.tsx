@@ -156,7 +156,7 @@ export default function Edit() {
             </div>
             <div className="formContainer" style={{display: "unset"}}>
                 <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>Hola! {correoArquitecto}</h1>
-                <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>edita los datos que desees</h1>
+                <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>edita tus datos</h1>
                 <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
                     <label htmlFor="nombre" style={{ marginRight: '10px', fontWeight: 'bold' }}>Nombre:</label>
                     <input 

@@ -89,6 +89,7 @@ export default function Home() {
         <div>
             <div style={{position: 'relative'}}>
                 <DropdownMenu.Root>
+                    <h2 style={{position: "absolute", right: "50px", top: "16px", fontSize: "13px"}}>{user ? user.emailAddresses[0].emailAddress : ''}</h2>
                     <DropdownMenu.Trigger asChild>
                         <button className="IconButton" aria-label="Customise options" style={{boxShadow: "unset"}}>
                             <img src="/SILLA_TABLE.png" alt="Logo" className="centeredImage" style={{position: "absolute", bottom: "3px"}}/>
