@@ -2,18 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Footer from '../components/general/footer';
 
 export default function Search() {
-    const [scrollPosition, setScrollPosition] = useState(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrollPosition(window.pageYOffset);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
     return (
         <div style={{ position: 'relative', minHeight: '100vh', overflowY: "hidden" }}>
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -24,7 +12,7 @@ export default function Search() {
                 </div>
             </div>
             <div className="background-container">
-                <div className="background-image" style={{ backgroundPositionY: `${-scrollPosition}px` }}></div>
+                <div className="background-image"></div>
             </div>
 
         </div>
