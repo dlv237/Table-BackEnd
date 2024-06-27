@@ -3,7 +3,7 @@ import Footer from '../components/general/footer';
 
 export default function Search() {
     return (
-        <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <div style={{ position: 'relative', minHeight: '100vh', overflow: "hidden" }}>
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 <div className="subContainer">
                     <div className="logoContainerSmall" style={{ zIndex: "1", cursor: "pointer" }} onClick={() => window.location.href = '/'}>
