@@ -270,7 +270,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: hidden; 
   z-index: -1;
 }
 
@@ -283,9 +283,10 @@ body {
   background-image: url("/LOGO_TABLE_ROTADO.png");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
   opacity: 0.3;
-  z-index: 0;
 }
+
 
 @media (max-width: 768px) {
   .background-image {
