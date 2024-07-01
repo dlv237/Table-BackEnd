@@ -260,7 +260,7 @@ export default function Edit() {
 
     return (
         <div className="container">
-            <div className="logoContainerSmall">
+            <div className="logoContainerSmall" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
             </div>
             <div className="formContainer" style={{display: "unset"}}>

@@ -197,7 +197,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
 
     return (
         <div className="container">
-            <div className="logoContainerSmall">
+            <div className="logoContainerSmall" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
             </div>
             <div className="formContainer">
