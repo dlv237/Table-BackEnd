@@ -224,7 +224,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                 <div className="imageGrid" style={{height: "40vh", gridTemplateRows: "repeat(3, 1fr)"}}>
                     {selectedFiles.map((fileOrUrl, index) => (
                         <div key={index} style={{ position: 'relative' }}>
-                            <img className="uploadImage" src={typeof fileOrUrl === 'string' ? fileOrUrl : URL.createObjectURL(fileOrUrl)} alt={`Selected ${index + 1}`} />
+                            <img className="uploadImage" src={typeof fileOrUrl === 'string' ? fileOrUrl : URL.createObjectURL(fileOrUrl)} />
                             <div>
                                 <span className="circleBackground"></span>
                                 <span className="numberSpan">
