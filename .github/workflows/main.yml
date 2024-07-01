@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  # o el nombre de la rama que deseas monitorear para despliegues
+      - main
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
           EC2_USER: ${{ secrets.EC2_USER }}
         run: |
           ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
-            cd /Table-BackEnd/my-app
+            cd /Table-BackEnd/my-app/
             git pull
             pm2 stop "my-app"
             npm install
