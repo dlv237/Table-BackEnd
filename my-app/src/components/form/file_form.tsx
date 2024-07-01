@@ -8,9 +8,8 @@ type FileData = {
 
 const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: () => void }, ref) => {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-    const [order, setOrder] = useState<(number | null)[]>([]); // State to hold the order of selected images
-    const [counter, setCounter] = useState<number>(0); // New state to hold the counter
-
+    const [order, setOrder] = useState<(number | null)[]>([]);
+    
     useImperativeHandle(ref, () => ({
         uploadFiles: async () => {
             const orderedFiles = selectedFiles

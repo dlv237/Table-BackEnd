@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, useParams } from 'react-router-dom';
 
-const ShowSignedImage = ({ imageKey }: { imageKey: string }) => {
+const ShowSignedImage = () => {
+  const { imageKey } = useParams<{ imageKey: string }>();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -10,7 +12,9 @@ const ShowSignedImage = ({ imageKey }: { imageKey: string }) => {
       setImageUrl(data.url);
     };
 
-    fetchImageUrl();
+    if (imageKey) {
+      fetchImageUrl();
+    }
   }, [imageKey]);
 
   if (!imageUrl) return <div className="loader"></div>;
@@ -21,5 +25,6 @@ const ShowSignedImage = ({ imageKey }: { imageKey: string }) => {
     </div>
   );
 };
+
 
 export default ShowSignedImage;

@@ -1,9 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Footer from "../components/general/footer";
 import { useUser } from "@clerk/nextjs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { redirect } from "next/dist/server/api-utils";
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { faInstagram, faFacebook, faPinterest } from '@fortawesome/free-brands-svg-icons';
 import Select from "react-select";
@@ -415,7 +412,11 @@ export default function Edit() {
                         </div>
                     )}
                 </div>
-
+                <div 
+                    style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px', cursor: "pointer" }}
+                    onClick={() => window.location.href = "/edit/photos"}>
+                    <span style={{ margin: 'auto' }}>- Edita tus fotos  -</span>
+                </div>
             </div>
             <div className="buttonContainer">
                 <button onClick={() => window.location.href = "/"}>Volver</button>
