@@ -4,8 +4,21 @@ import { useUser } from "@clerk/nextjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { redirect } from "next/dist/server/api-utils";
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { faInstagram, faFacebook, faPinterest } from '@fortawesome/free-brands-svg-icons';
+import Select from "react-select";
+
+const instagramIcon = icon(faInstagram);
+const instagramIconString = instagramIcon.html.join('');
+const facebookIcon = icon(faFacebook);
+const facebookIconString = facebookIcon.html.join('');
+const pinterestIcon = icon(faPinterest);
+const pinterestIconString = pinterestIcon.html.join('');
+
 
 export default function Edit() {
+    type SocialMedia = { type: string; handle: string };
+
     const { user } = useUser();
     const correoArquitecto = user?.emailAddresses[0]?.emailAddress || "usuario sin correo";
     const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: '', experience: 0});
@@ -13,10 +26,21 @@ export default function Edit() {
     const [experience, setExperience] = useState(architect.experience);
     const [scales, setScales] = useState(Array<number>());
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isSocialDropdownOpen, setIsSocialDropdownOpen] = useState(false);
     const [phone, setPhone] = useState(architect.Phone);
     const [name, setName] = useState(architect.Name)
+    const [website, setWebsite] = useState(architect.website);
+    const [address, setAddress] = useState(architect.address);
+    const [socialMedia, setSocialMedia] = useState<SocialMedia[]>([]);
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const options = [
+        { value: 'Instagram', label: <div dangerouslySetInnerHTML={{ __html: instagramIconString }} /> },
+        { value: 'Facebook', label: <div dangerouslySetInnerHTML={{ __html: facebookIconString }} /> },
+        { value: 'Pinterest', label: <div dangerouslySetInnerHTML={{ __html: pinterestIconString }} /> },
+      ];
 
     const cityDict = [
         "RM - Metropolitana de Santiago",
@@ -50,6 +74,39 @@ export default function Edit() {
         { value: 5, label: "Gran"}
     ];
 
+    const handleSocialMediaTypeChange = (index: number, value: string) => {
+        const newSocialMedia = [...socialMedia];
+        const previousType = newSocialMedia[index].type;
+        newSocialMedia[index].type = value;
+        setSocialMedia(newSocialMedia);
+        setSelectedOptions(selectedOptions.filter(option => option !== previousType).concat(value));
+      };
+    
+    const handleSocialMediaHandleChange = (index: number, value: string) => {
+        const newSocialMedia = [...socialMedia];
+        newSocialMedia[index].handle = value;
+        setSocialMedia(newSocialMedia);
+        };
+
+    const handleAddSocialMedia = () => {
+        if (socialMedia.length < 3) {
+            const firstUnselectedOption = options.find(option => !selectedOptions.includes(option.value));
+
+            if (firstUnselectedOption) {
+            const newSocialMedia = [...socialMedia, { type: firstUnselectedOption.value, handle: '' }];
+            setSocialMedia(newSocialMedia);
+            setSelectedOptions([...selectedOptions, firstUnselectedOption.value]);
+            }
+        }
+    };
+
+    const handleRemoveSocialMedia = (index: number) => {
+        const newSocialMedia = [...socialMedia];
+        newSocialMedia.splice(index, 1);
+        setSocialMedia(newSocialMedia);
+        setSelectedOptions(selectedOptions.filter(option => option !== socialMedia[index].type));
+    };
+
     const handleScaleChange = (value: number) => {
         if (scales.includes(value)) {
             setScales(scales.filter(scale => scale !== value));
@@ -72,6 +129,8 @@ export default function Edit() {
                     setExperience(architectData.experience);
                     setPhone(architectData.phone);
                     setName(architectData.name);
+                    setWebsite(architectData.website);
+                    setAddress(architectData.address);
                 }
 
                 const scalesResponse = await fetch(`/api/architect/${architectData.id}/scale`);
@@ -79,6 +138,14 @@ export default function Edit() {
                 if (scalesResponse.ok) {
                     const scalesData = await scalesResponse.json();
                     setScales(scalesData.map((scale: any) => scale.scale_id));
+                }
+
+                const networksResponse = await fetch(`/api/architect/${architectData.id}/network`);
+                if (networksResponse.ok) {
+                    const networksData = await networksResponse.json();
+                    const socialMediaData = networksData.map((network: any) => ({ type: network.social_type, handle: network.social_media }));
+                    setSocialMedia(socialMediaData);
+                    setSelectedOptions(socialMediaData.map((network: any) => network.type));
                 }
             }
         };
@@ -102,6 +169,26 @@ export default function Edit() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isDropdownOpen]);
+    
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+                setIsSocialDropdownOpen(false);
+            }
+        };
+    
+        if (isDropdownOpen || isSocialDropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isDropdownOpen, isSocialDropdownOpen]);
+    
 
     const handleNext = async () => {
         const architectDataPatch = {
@@ -110,8 +197,8 @@ export default function Edit() {
             name: name,
             city: cityName,
             experience_id: experience,
-            website: architect.website,
-            address: architect.address,
+            website: website,
+            address: address,
         };
 
         const response = await fetch(`/api/architect/${architect.id}`, {
@@ -136,6 +223,10 @@ export default function Edit() {
             return;
         }
 
+        await fetch(`/api/architect/${architect.id}/network`, {
+            method: 'DELETE',
+        });
+
         for (const scale of scales) {
             const response3 = await fetch(`/api/architect/${architect.id}/scale/${scale}`, {
                 method: 'POST',
@@ -144,6 +235,27 @@ export default function Edit() {
             if (!response3.ok) {
                 alert("Error al actualizar las escalas");
                 return;
+            }
+        }
+
+        for (const sm of socialMedia) {
+            if (sm.type && sm.handle != "") {
+                const network = {
+                    social_type: sm.type,
+                    social_media: sm.handle,
+                }
+                const response4 = await fetch(`/api/architect/${architect.id}/network`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(network),
+                });
+
+                if (!response4.ok) {
+                    alert("Error al actualizar las redes sociales");
+                    return;
+                }
             }
         }
         window.location.href = "/";
@@ -200,12 +312,15 @@ export default function Edit() {
                 <div style={{ display: 'flex', marginBottom: '20px', position: 'relative' }}>
                     <label htmlFor="scales" style={{ marginRight: '10px', fontWeight: 'bold' }}>Escalas:</label>
                     <button
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        onClick={() => {
+                            setIsDropdownOpen(!isDropdownOpen);
+                            setIsSocialDropdownOpen(false);
+                        }}
                         style={{ marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                     >
-                        <span style={{ margin: 'auto' }}> - Seleccionar Escalas -</span>
+                        <span style={{ margin: 'auto' }}>- Seleccionar Escalas -</span>
                     </button>
-                    {isDropdownOpen && (
+                    {isDropdownOpen && !isSocialDropdownOpen && (
                         <div className="dropdown" style={dropdownStyles} ref={dropdownRef}>
                             {scalesDict.map((scale) => (
                                 <label 
@@ -236,6 +351,70 @@ export default function Edit() {
                     placeholder={architect.Phone}
                     onChange={(e) => setPhone(e.target.value)}/>
                 </div>
+                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                    <label htmlFor="website" style={{ marginRight: '10px', fontWeight: 'bold' }}>Sitio Web:</label>
+                    <input 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center"}} 
+                    type="text" 
+                    id="website"
+                    name="website" 
+                    placeholder={architect.website}
+                    onChange={(e) => setWebsite(e.target.value)}/>
+                </div>
+                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                    <label htmlFor="address" style={{ marginRight: '10px', fontWeight: 'bold' }}>Dirección:</label>
+                    <input 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center"}} 
+                    type="text" 
+                    id="address"
+                    name="address" 
+                    placeholder={architect.address}
+                    onChange={(e) => setAddress(e.target.value)}/>
+                </div>
+                <div style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px' }}>
+                    <label htmlFor="socialMedia" style={{ marginRight: '10px', fontWeight: 'bold' }}>Redes sociales:</label>
+                    <button
+                        onClick={() => {
+                            setIsSocialDropdownOpen(!isSocialDropdownOpen);
+                            setIsDropdownOpen(false);
+                        }}
+                        style={{ marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    >
+                        <span style={{ margin: 'auto' }}>- Selecciona tus redes  -</span>
+                    </button>
+                    {isSocialDropdownOpen && !isDropdownOpen && (
+                        <div className="dropdown" style={dropdownStyles} ref={dropdownRef}>
+                            {socialMedia.map((sm, index) => (
+                            <div key={index} style={{ display: 'flex', flexDirection: 'row' }}>
+                                <Select
+                                isSearchable={false}
+                                options={options.filter(option => !selectedOptions.includes(option.value))}
+                                value={options.find(option => option.value === sm.type)}
+                                onChange={(option) => option && handleSocialMediaTypeChange(index, option.value)}
+                                styles={{
+                                    control: (provided) => ({
+                                    ...provided,
+                                    border: 'none',
+                                    boxShadow: 'none',
+                                    }),
+                                    menu: (provided) => ({
+                                    ...provided,
+                                    border: 'none',
+                                    }),
+                                }}
+                                />
+                                <div style={{ display: "flex" }}>
+                                <input style={{ maxWidth: "100px", textAlign: "center" }} type="text" placeholder="@tu_red" value={sm.handle} onChange={(e) => handleSocialMediaHandleChange(index, e.target.value)} />
+                                <button onClick={() => handleRemoveSocialMedia(index)}>&times;</button>
+                                </div>
+                            </div>
+                            ))}
+                            {socialMedia.length < 3 && (
+                            <button onClick={handleAddSocialMedia}>+ Añadir Red Social</button>
+                            )}
+                        </div>
+                    )}
+                </div>
 
             </div>
             <div className="buttonContainer">
@@ -252,7 +431,7 @@ const dropdownStyles = {
     top: '100%',
     right: 0,
     backgroundColor: 'white',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
     zIndex: 10,
     padding: '10px',
     borderRadius: '4px',

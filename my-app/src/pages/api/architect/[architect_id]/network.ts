@@ -33,7 +33,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         catch (error) {
             res.status(500).json(error)
         } 
-    } else {
+    } 
+    else if (req.method == 'DELETE') {
+        try {
+            const architectNetwork = await prisma.architectNetworks.deleteMany({
+                where: {
+                    architect_id:  Number(req.query.architect_id)
+                }
+            });
+            res.status(200).json(architectNetwork)
+        }
+        catch (error) {
+            res.status(500).json(error)
+        }
+    }else {
         res.status(405).json("Method not allowed")
     }
 }
