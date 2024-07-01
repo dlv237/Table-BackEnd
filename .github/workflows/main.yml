@@ -25,6 +25,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
             cd Table-BackEnd/my-app/
+            nvm use 22
             git pull
             pm2 stop "my-app"
             npm install
