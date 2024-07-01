@@ -245,7 +245,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
             </div>
             <div className="buttonContainer">
                 <button onClick={() => router.push('/edit')}>Volver</button>
-                <button onClick={() => uploadFiles()}>Confirmarrr</button>
+                <button onClick={() => uploadFiles()}>Confirmar</button>
             </div>
             <Footer />
         </div>
