@@ -48,7 +48,7 @@ export default function ScaleSelector({ availableHeight, onNext, onBack, setSele
                     <h1 style={{fontSize: `${availableHeight * 0.0137}px`}}>conjuntos de viviendas, parques industriales, planes maestros, etc </h1>
                 </label>
             </div>
-            <div className="buttonContainer" style={{position: "absolute", top: `${availableHeight * 0.8}px`}}>
+            <div className="buttonContainer" style={{position: "absolute", top: `${availableHeight * 0.8}px`, width: `${availableHeight * 0.4}px`}}>
                 <button onClick={() => onBack()}>Volver</button>
                 <button onClick={() => onNext()}>Siguiente</button>
             </div>
