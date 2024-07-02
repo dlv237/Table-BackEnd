@@ -48,7 +48,7 @@ export default function RegionSelector({ availableHeight, onSearch, onBack, setS
                 ))}
             </select>
             </div>
-            <div className="buttonContainer" style={{top: `${availableHeight * 0.8}px`}}>
+            <div className="buttonContainer" style={{position: "absolute", top: `${availableHeight * 0.8}px`}}>
                 <button onClick={() => onBack()}>Volver</button>
                 <button onClick={() => onSearch()}>Buscar</button>
             </div>
