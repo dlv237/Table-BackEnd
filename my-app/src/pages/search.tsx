@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/general/footer';
+import TypeView from '@/components/search/type_view';
+import ScaleSelector from '@/components/search/scale_selector';
 
 export default function Search() {
     const [isWide, setIsWide] = useState(false);
     const [availableHeight, setAvailableHeight] = useState(0);
+    // Estado para controlar qué componente mostrar
+    const [showScaleSelector, setShowScaleSelector] = useState(false);
 
     useEffect(() => {
-        // Verificar si estamos en el cliente
         if (typeof window !== "undefined") {
             const handleResize = () => {
                 setIsWide(window.innerWidth > 1020);
@@ -14,31 +17,38 @@ export default function Search() {
             };
 
             window.addEventListener('resize', handleResize);
-
-            // Llamar a handleResize una vez para establecer el estado inicial
             handleResize();
 
             return () => window.removeEventListener('resize', handleResize);
         }
     }, []);
 
+    // Funciones para manejar los clics
+    const handleSearchArchitectsClick = () => {
+        setShowScaleSelector(true); // Muestra ScaleSelector
+    };
+
+    const handleViewAllArchitectsClick = () => {
+        window.location.href = "/architects"; // Redirige a /architects
+    };
+
     return (
-        <div className='container' 
-            style={{
-                backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url(/LOGO_TABLE_ROTADO_ST.png)`, 
-                height: `${availableHeight}px`, // Utiliza el estado para la altura
-                backgroundSize: isWide ? "contain" : "cover", 
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                }}>
+        <div className='container' style={{
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url(/LOGO_TABLE_ROTADO_ST.png)`, 
+            height: `${availableHeight}px`,
+            backgroundSize: isWide ? "contain" : "cover", 
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+        }}>
             <div className="subContainer">
                 <div className="logoContainerSmall" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                     <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImageSmall" />
                 </div>
-                <div style={{display: 'flex', flexDirection: "column", alignItems: "center"}}>
-                    <h1 style = {{position: "absolute", top: `${availableHeight * 0.8}px`, fontSize: "x-large"}}>buscar arquitectos</h1>
-                    <h1 style = {{position: "absolute", top: `${availableHeight * 0.15}px`, fontSize: "x-large"}}>ver todos los arquitectos</h1>
-                </div>
+                {/* Renderiza condicionalmente TypeView o ScaleSelector */}
+                {showScaleSelector ? 
+                    <ScaleSelector availableHeight={availableHeight} /> : 
+                    <TypeView availableHeight={availableHeight} onSearchArchitectsClick={handleSearchArchitectsClick} onViewAllArchitectsClick={handleViewAllArchitectsClick} />
+                }
             </div>
             <Footer />
         </div>
