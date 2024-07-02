@@ -9,7 +9,7 @@ export default function Search() {
     const [availableHeight, setAvailableHeight] = useState(0);
 
     const [currentView, setCurrentView] = useState("typeView");
-    const [selectedScales, setSelectedScales] = React.useState<string[]>([]);
+    const [selectedScales, setSelectedScales] = React.useState<string>('');
     const [selectedRegion, setSelectedRegion] = React.useState<string>("Todas las regiones");
 
     const handleSearchArchitectsClick = () => {
@@ -25,12 +25,16 @@ export default function Search() {
     }
 
     const handleToRegionSelector = () => {
+        if (selectedScales === "") {
+            alert("Debes seleccionar al menos una escala");
+            return
+        }
         setCurrentView("regionSelector");
     }
 
     const handleSearch = () => {
-        const scalesQuery = selectedScales.length > 0 ? `scales=${selectedScales.join(",")}` : "";
-        window.location.href = `/architects?${scalesQuery}&region=${selectedRegion}`;
+        const scalesQuery = selectedScales;
+        window.location.href = `/architects?$scale=${scalesQuery}&region=${selectedRegion}`;
     }
 
     useEffect(() => {

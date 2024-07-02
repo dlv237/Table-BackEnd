@@ -4,20 +4,20 @@ type ScaleSelectorProps = {
     availableHeight: number;
     onBack: () => void;
     onNext: () => void;
-    setSelectedScales: (scales: string[]) => void;
+    setSelectedScales: (scales: string) => void;
 };
 
 export default function ScaleSelector({ availableHeight, onNext, onBack, setSelectedScales }: ScaleSelectorProps) {
 
-    const [selectedScales, setSelectedScalesInner] = React.useState<string[]>([]);
+    const [selectedScales, setSelectedScalesInner] = React.useState<string>('');
 
     const handleScaleChange = (value: string) => {
         if (selectedScales.includes(value)) {
-            setSelectedScalesInner(selectedScales.filter(scale => scale !== value));
-            setSelectedScales(selectedScales.filter(scale => scale !== value));
+            setSelectedScalesInner('');
+            setSelectedScales('');
         } else {
-            setSelectedScalesInner([...selectedScales, value]);
-            setSelectedScales([...selectedScales, value]);
+            setSelectedScalesInner(value);
+            setSelectedScales(value);
         }
     };
 
