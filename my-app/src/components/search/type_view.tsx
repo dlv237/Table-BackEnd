@@ -5,7 +5,6 @@ export default function TypeView(
     { availableHeight, onSearchArchitectsClick, onViewAllArchitectsClick }: { availableHeight: number, onSearchArchitectsClick: () => void, onViewAllArchitectsClick: () => void }) {
   return (
     <div style={{display: 'flex', flexDirection: "column", alignItems: "center"}}>
-        {/* Utiliza divs o botones y maneja el evento onClick */}
         <div 
           style={{position: "absolute", top: `${availableHeight * 0.8}px`, fontSize: "large", cursor: "pointer"}}
           onClick={onSearchArchitectsClick}
