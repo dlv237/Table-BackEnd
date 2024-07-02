@@ -39,6 +39,10 @@ export default function ScaleSelector({ availableHeight }: { availableHeight: nu
                     <h1 style={{fontSize: `${availableHeight * 0.0137}px`}}>conjuntos de viviendas, parques industriales, planes maestros, etc </h1>
                 </label>
             </div>
+            <div className="buttonContainer" style={{marginTop: `${availableHeight * 0.06}px`}}>
+                <button>Volver</button>
+                <button>Siguiente</button>
+            </div>
         </div>
     );
 }
