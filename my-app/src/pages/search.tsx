@@ -6,7 +6,7 @@ import ScaleSelector from '@/components/search/scale_selector';
 export default function Search() {
     const [isWide, setIsWide] = useState(false);
     const [availableHeight, setAvailableHeight] = useState(0);
-    // Estado para controlar qué componente mostrar
+
     const [showScaleSelector, setShowScaleSelector] = useState(false);
 
     useEffect(() => {
@@ -23,13 +23,12 @@ export default function Search() {
         }
     }, []);
 
-    // Funciones para manejar los clics
     const handleSearchArchitectsClick = () => {
-        setShowScaleSelector(true); // Muestra ScaleSelector
+        setShowScaleSelector(true);
     };
 
     const handleViewAllArchitectsClick = () => {
-        window.location.href = "/architects"; // Redirige a /architects
+        window.location.href = "/architects";
     };
 
     return (
@@ -44,7 +43,6 @@ export default function Search() {
                 <div className="logoContainerSmall" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                     <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImageSmall" />
                 </div>
-                {/* Renderiza condicionalmente TypeView o ScaleSelector */}
                 {showScaleSelector ? 
                     <ScaleSelector availableHeight={availableHeight} /> : 
                     <TypeView availableHeight={availableHeight} onSearchArchitectsClick={handleSearchArchitectsClick} onViewAllArchitectsClick={handleViewAllArchitectsClick} />
