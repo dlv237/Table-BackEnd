@@ -1,13 +1,22 @@
 import React from 'react';
 
-export default function ScaleSelector({ availableHeight }: { availableHeight: number }) {
+type ScaleSelectorProps = {
+    availableHeight: number;
+    onBack: () => void;
+    onNext: () => void;
+    setSelectedScales: (scales: string[]) => void;
+};
 
-    const [selectedScales, setSelectedScales] = React.useState<string[]>([]);
+export default function ScaleSelector({ availableHeight, onNext, onBack, setSelectedScales }: ScaleSelectorProps) {
+
+    const [selectedScales, setSelectedScalesInner] = React.useState<string[]>([]);
 
     const handleScaleChange = (value: string) => {
         if (selectedScales.includes(value)) {
+            setSelectedScalesInner(selectedScales.filter(scale => scale !== value));
             setSelectedScales(selectedScales.filter(scale => scale !== value));
         } else {
+            setSelectedScalesInner([...selectedScales, value]);
             setSelectedScales([...selectedScales, value]);
         }
     };
@@ -39,9 +48,9 @@ export default function ScaleSelector({ availableHeight }: { availableHeight: nu
                     <h1 style={{fontSize: `${availableHeight * 0.0137}px`}}>conjuntos de viviendas, parques industriales, planes maestros, etc </h1>
                 </label>
             </div>
-            <div className="buttonContainer" style={{marginTop: `${availableHeight * 0.06}px`}}>
-                <button>Volver</button>
-                <button>Siguiente</button>
+            <div className="buttonContainer" style={{top: `${availableHeight * 0.8}px`}}>
+                <button onClick={() => onBack()}>Volver</button>
+                <button onClick={() => onNext()}>Siguiente</button>
             </div>
         </div>
     );

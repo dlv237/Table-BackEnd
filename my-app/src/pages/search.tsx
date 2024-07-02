@@ -2,12 +2,36 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../components/general/footer';
 import TypeView from '@/components/search/type_view';
 import ScaleSelector from '@/components/search/scale_selector';
+import RegionSelector from '@/components/search/region_selector';
 
 export default function Search() {
     const [isWide, setIsWide] = useState(false);
     const [availableHeight, setAvailableHeight] = useState(0);
 
-    const [showScaleSelector, setShowScaleSelector] = useState(false);
+    const [currentView, setCurrentView] = useState("typeView");
+    const [selectedScales, setSelectedScales] = React.useState<string[]>([]);
+    const [selectedRegion, setSelectedRegion] = React.useState<string>("Todas las regiones");
+
+    const handleSearchArchitectsClick = () => {
+        setCurrentView("scaleSelector");
+    }
+
+    const handleBackToTypeView = () => {
+        setCurrentView("typeView");
+    }
+
+    const handleToScaleSelector = () => {
+        setCurrentView("scaleSelector");
+    }
+
+    const handleToRegionSelector = () => {
+        setCurrentView("regionSelector");
+    }
+
+    const handleSearch = () => {
+        const scalesQuery = selectedScales.length > 0 ? `scales=${selectedScales.join(",")}` : "";
+        window.location.href = `/architects?${scalesQuery}&region=${selectedRegion}`;
+    }
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -23,9 +47,6 @@ export default function Search() {
         }
     }, []);
 
-    const handleSearchArchitectsClick = () => {
-        setShowScaleSelector(true);
-    };
 
     const handleViewAllArchitectsClick = () => {
         window.location.href = "/architects";
@@ -43,10 +64,29 @@ export default function Search() {
                 <div className="logoContainerSmall" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                     <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImageSmall" />
                 </div>
-                {showScaleSelector ? 
-                    <ScaleSelector availableHeight={availableHeight} /> : 
-                    <TypeView availableHeight={availableHeight} onSearchArchitectsClick={handleSearchArchitectsClick} onViewAllArchitectsClick={handleViewAllArchitectsClick} />
-                }
+                {currentView === 'typeView' && (
+                    <TypeView
+                        availableHeight={availableHeight}
+                        onSearchArchitectsClick={handleSearchArchitectsClick}
+                        onViewAllArchitectsClick={handleViewAllArchitectsClick}
+                    />
+                )}
+                {currentView === 'scaleSelector' && (
+                    <ScaleSelector
+                        availableHeight={availableHeight}
+                        onBack={handleBackToTypeView}
+                        onNext={handleToRegionSelector}
+                        setSelectedScales={setSelectedScales}
+                    />
+                )}
+                {currentView === 'regionSelector' && (
+                    <RegionSelector
+                        availableHeight={availableHeight}
+                        onBack={handleToScaleSelector}
+                        onSearch={handleSearch}
+                        setSelectedRegion={setSelectedRegion}
+                    />
+                )}
             </div>
             <Footer />
         </div>
