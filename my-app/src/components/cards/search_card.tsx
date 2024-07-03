@@ -45,8 +45,8 @@ export default function ProfileCard({ architect }: { architect: ArchitectData })
             </div>
             <div className="content">
                 <h2>{architect.name}</h2>
-                <p>{experienceDict.find((exp) => exp.id === architect.experience_id)?.name}</p>
-                <p style={{marginBottom: "10px"}}>{architect.address}</p>
+                <p className="experience">{experienceDict.find((exp) => exp.id === architect.experience_id)?.name}</p>
+                <p className="address">{architect.address}</p>
             </div>
         </article>
     );

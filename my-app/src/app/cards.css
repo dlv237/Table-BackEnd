@@ -61,3 +61,33 @@
     max-height: 80vh;
     overflow-y: scroll;
   }
+
+
+@media (max-width: 626px) {
+    .card {
+        width: 10rem;
+        height: 13rem;
+    }
+
+    .background img{
+        width: 10rem;
+        height: 7rem;
+    }
+
+    .content > h2 {
+        font-size: 14px;
+    }
+
+    .experience {
+        font-size: 12px;
+    }
+
+    .address {
+        font-size: 12px;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    }
+
+}
