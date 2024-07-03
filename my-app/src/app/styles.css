@@ -235,11 +235,3 @@ height: 13vh;
   object-fit: cover;
   border-radius: 5px;
   }
-
-.cardsContainer {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20vh;
-  max-height: 80vh;
-  overflow-y: scroll;
-}
