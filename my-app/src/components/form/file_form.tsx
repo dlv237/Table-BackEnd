@@ -1,6 +1,7 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import imageCompression from "browser-image-compression";
 
 type FileData = {
     name: string;
@@ -68,6 +69,11 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
     
 
     const uploadFile = async (file: File): Promise<FileData> => {
+        const compressedFile = await imageCompression(file, {
+            maxSizeMB: 1,
+            useWebWorker: true,
+        });
+    
         const reader = new FileReader();
         return new Promise<FileData>((resolve, reject) => {
             reader.onloadend = async () => {
@@ -76,9 +82,9 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                 resolve({ name: fileName });
             };
             reader.onerror = reject;
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(compressedFile);
         });
-    }
+    };
 
     const uploadImage = async (imageData: string): Promise<string> => {
         try {
