@@ -63,7 +63,7 @@
   }
 
 
-@media (max-width: 626px) {
+@media (max-width: 450px) {
     .card {
         width: 10rem;
         height: 13rem;
@@ -88,6 +88,8 @@
 
     .grid-container {
         grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+        width: 90%;
+        gap: 20px;
     }
 
 }
