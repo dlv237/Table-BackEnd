@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ProfileCard from "@/components/cards/search_card";
+import Footer from "@/components/general/footer";
 
 export default function Architects() {
     const [architectsData, setArchitectsData] = useState<any[]>([]);
@@ -43,12 +45,21 @@ export default function Architects() {
 
     return (
         <div>
-            <h1>Architects</h1>
-            <ul>
-                {architectsData.map((architect) => (
-                    <li key={architect.id}>{architect.name} - {architect.city}</li>
-                ))}
-            </ul>
+            <div style={{display: "flex", justifyContent: "center"}}>
+                <div className="logoContainerSmall" style={{marginBottom: "4vh"}}>
+                    <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
+                </div>
+            </div>
+            <div className="cardsContainer">
+                <div className="grid-container">
+                    {architectsData.map((architect: any) => (
+                        <ProfileCard architect={architect} key={architect.id} />
+                    ))}
+                </div>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center', marginTop: '7vh'}}>
+                <Footer />
+            </div>
         </div>
     );
 }

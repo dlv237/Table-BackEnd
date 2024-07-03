@@ -8,6 +8,7 @@ import {
 } from '@clerk/nextjs'
 import '../app/globals.css'
 import '../app/styles.css'
+import '../app/cards.css'
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
