@@ -42,6 +42,7 @@ const uploadImage = async (imageData: string) => {
       body: JSON.stringify({ imageData }),
     });
 
+    console.log('Response:', res);
     if (!res.ok) {
       throw new Error('Failed to upload image');
     }
