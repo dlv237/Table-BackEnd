@@ -4,6 +4,7 @@ import { faArrowUpFromBracket, faTimesCircle } from '@fortawesome/free-solid-svg
 import { useUser } from "@clerk/nextjs";
 import Footer from "../../components/general/footer";
 import { useRouter } from "next/router";
+import imageCompression from 'browser-image-compression';
 
 type FileData = {
     name: string;
@@ -49,7 +50,11 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
 
         for (const file of orderedFiles) {
             if (file instanceof File) {
-                const uploadedFile = await uploadFile(file);
+                const compressedFile = await imageCompression(file, {
+                    maxSizeMB: 1,
+                    useWebWorker: true,
+                });
+                const uploadedFile = await uploadFile(compressedFile);
                 const dataFile = {
                     name: uploadedFile.name,
                 }
