@@ -34,7 +34,7 @@ export default function Search() {
 
     const handleSearch = () => {
         const scalesQuery = selectedScales;
-        window.location.href = `/architects?$scale=${scalesQuery}&region=${selectedRegion}`;
+        window.location.href = `/architects?scale=${scalesQuery}&region=${selectedRegion}`;
     }
 
     useEffect(() => {
