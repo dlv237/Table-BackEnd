@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 export default function Architects() {
     const [architectsData, setArchitectsData] = useState<any[]>([]);
 
+    const shuffleArray = (array: any[]) => {
+        return array.sort(() => Math.random() - 0.5);
+    };
+
     useEffect(() => {
         const fetchArchitects = async () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -31,7 +35,7 @@ export default function Architects() {
                 architectsData = architectsData.filter((architect: null) => architect !== null);
             }
             
-            setArchitectsData(architectsData);
+            setArchitectsData(shuffleArray(architectsData));
         };
 
         fetchArchitects();
