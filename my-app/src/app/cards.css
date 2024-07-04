@@ -40,7 +40,7 @@
 }
 
 .content > h2 {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
     margin-bottom: clamp(0.25rem, 2vw, 0.5rem);
     margin-top: clamp(0.25rem, 2vw, 0.5rem);
@@ -64,11 +64,13 @@
 
 .experience {
     color: rgba(0,0,0, 0.75);
+    font-size: 14px;
 }
 
 .address {
     color: rgba(0,0,0, 0.75);
     text-align: center;
+    font-size: 14px;
 }
 
 @media (max-width: 630px) {
