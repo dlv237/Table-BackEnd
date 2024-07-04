@@ -62,6 +62,14 @@
     overflow-y: scroll;
   }
 
+.experience {
+    color: rgba(0,0,0, 0.75);
+}
+
+.address {
+    color: rgba(0,0,0, 0.75);
+    text-align: center;
+}
 
 @media (max-width: 630px) {
     .card {
