@@ -4,10 +4,19 @@ import Footer from "@/components/general/footer";
 
 export default function Architects() {
     const [architectsData, setArchitectsData] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const shuffleArray = (array: any[]) => {
         return array.sort(() => Math.random() - 0.5);
     };
+
+    const loader = (
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+            <div className="loader"></div>
+            <h1 style={{ fontSize: "2.5vh"}}>Estamos creando tu</h1>
+            <h1 style={{ fontSize: "2.5vh"}}>portafolios</h1>
+        </div>
+    );
 
     useEffect(() => {
         const fetchArchitects = async () => {
@@ -38,6 +47,7 @@ export default function Architects() {
             }
             
             setArchitectsData(shuffleArray(architectsData));
+            setIsLoading(false);
         };
 
         fetchArchitects();
@@ -52,11 +62,12 @@ export default function Architects() {
             </div>
             <h1 className="title" style={{marginTop: "3vh", marginBottom: "6vh", textAlign: "center", fontSize: "medium"}}>Resultados de búsqueda</h1>
             <div className="cardsContainer">
+                {isLoading ? loader :
                 <div className="grid-container">
                     {architectsData.map((architect: any) => (
                         <ProfileCard architect={architect} key={architect.id} />
                     ))}
-                </div>
+                </div>}
             </div>
             <div style={{display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center', marginTop: '7vh'}}>
                 <Footer />
