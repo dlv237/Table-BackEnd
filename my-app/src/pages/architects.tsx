@@ -46,10 +46,11 @@ export default function Architects() {
     return (
         <div>
             <div style={{display: "flex", justifyContent: "center"}}>
-                <div className="logoContainerSmall" style={{marginBottom: "4vh"}}>
+                <div className="logoContainerSmall" style={{marginBottom: "4vh", cursor: "pointer"}} onClick={ () => window.location.href = "/"}>
                     <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
                 </div>
             </div>
+            <h1 className="title" style={{marginTop: "3vh", marginBottom: "6vh", textAlign: "center", fontSize: "medium"}}>Resultados de búsqueda</h1>
             <div className="cardsContainer">
                 <div className="grid-container">
                     {architectsData.map((architect: any) => (
