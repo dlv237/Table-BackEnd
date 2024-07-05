@@ -13,8 +13,6 @@ export default function Architects() {
     const loader = (
         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
             <div className="loader"></div>
-            <h1 style={{ fontSize: "2.5vh"}}>Estamos creando tu</h1>
-            <h1 style={{ fontSize: "2.5vh"}}>portafolios</h1>
         </div>
     );
 
