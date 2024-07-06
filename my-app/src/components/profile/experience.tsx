@@ -41,7 +41,7 @@ export default function Experience({ architect, architectScales }: { architect: 
             <div className="profileDataContainerVertical">
                 <div className="scaleDataContainer">
                     <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
-                        Experiencia:
+                        <li typeof="disc">Experiencia:</li>
                     </h2>
                     <h2 className="profileData">
                         {experienceDict.find((exp) => exp.id === architect.experience_id)?.name}
@@ -51,27 +51,19 @@ export default function Experience({ architect, architectScales }: { architect: 
             <div className="profileDataContainerVertical">
                 <div className="scaleDataContainer">
                     <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
-                        Escalas:
+                        <li typeof="disc">Escalas:</li>
                     </h2>
-                    <div className="profileData">
-                        {architectScales.length <= 3 ? (
-                            architectScales.map((scale: ScaleData) => (
-                                <p key={scale.scale_id}>{scaleDict.find((scl) => scl.id === scale.scale_id)?.name}</p>
-                            ))
-                        ) : (
-                            <>
-                                <p>
-                                    {architectScales.slice(0, 3).map((scale: ScaleData) => (
-                                        <span key={scale.scale_id}>{scaleDict.find((scl) => scl.id === scale.scale_id)?.name} - </span>
-                                    ))}
-                                </p>
-                                <p>
-                                    {architectScales.slice(3).map((scale: ScaleData) => (
-                                        <span key={scale.scale_id}>{scaleDict.find((scl) => scl.id === scale.scale_id)?.name} - </span>
-                                    ))}
-                                </p>
-                            </>
-                        )}
+                    <div className="profileData"> 
+                        <p>
+                            {architectScales.slice(0, 3).map((scale: ScaleData) =>
+                                scaleDict.find((scl) => scl.id === scale.scale_id)?.name
+                            ).join(' - ')}
+                        </p>
+                        <p>
+                            {architectScales.slice(3).map((scale: ScaleData) =>
+                                scaleDict.find((scl) => scl.id === scale.scale_id)?.name
+                            ).join(' - ')}
+                        </p>    
                     </div>
                 </div>
             </div>
