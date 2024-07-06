@@ -1,0 +1,172 @@
+.profileImageGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    min-width: max-content;
+    margin-top: 20px;
+    grid-gap: 1px;
+}
+
+.architectImage {
+    width: 16vh;
+    height: 16vh;
+    object-fit: cover;
+    border-radius: 1px;
+}
+
+
+.profileName {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.profileDataContainer {
+    display: flex;
+}
+
+.profileDataType {
+    font-size: 1rem;
+    margin-right: 10px;
+    margin: 0.25rem;
+    font-weight: bold;
+}
+
+.profileData {
+    margin-left: auto;
+    font-size: 1rem;
+    margin: 0.25rem;
+}
+
+.dataContainer {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dataContainerVertical {
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: -webkit-fill-available;
+    justify-content: space-around;
+}
+
+.profileDataContainerVertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.architectName {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+.tabContainer {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    padding: 1rem;
+    font-size: 1rem;
+    position: relative;
+}
+
+.tabIndicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 33.33%;
+    height: 4px;
+    background-color: #000;
+    transition: left 0.3s ease;
+}
+
+.tabContent {
+    margin-top: 1rem;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+    margin-top: 4vh;
+    margin-bottom: 20vh;
+  }
+
+.profileImageGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    min-width: max-content;
+    margin-top: 20px;
+    grid-gap: 1px;
+}
+
+.architectImage {
+    width: 16vh;
+    height: 16vh;
+    object-fit: cover;
+    border-radius: 1px;
+}
+
+.profileName {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.profileDataContainer {
+    display: flex;
+}
+
+.profileDataType {
+    font-size: 1rem;
+    margin-right: 10px;
+    margin: 0.25rem;
+}
+
+.profileData {
+    margin-left: auto;
+    font-size: 1rem;
+    margin: 0.25rem;
+}
+
+.dataContainer {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dataContainerVertical {
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: -webkit-fill-available;
+    justify-content: space-around;
+}
+
+.profileDataContainerVertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.architectName {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

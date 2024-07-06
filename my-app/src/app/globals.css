@@ -86,15 +86,6 @@ body {
   max-width: 30vh;
 }
 
-.profileContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 50%;
-  margin-top: 10vh;
-  margin-bottom: 20vh;
-}
 
 .formContainer {
   display: flex;

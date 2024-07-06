@@ -70,7 +70,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
 
     const uploadFile = async (file: File): Promise<FileData> => {
         const compressedFile = await imageCompression(file, {
-            maxSizeMB: 1,
+            maxSizeMB: 5,
             useWebWorker: true,
         });
     

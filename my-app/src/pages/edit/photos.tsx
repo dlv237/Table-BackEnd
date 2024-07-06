@@ -31,7 +31,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
 
         const uploadedFiles = [];
 
-        setConfirmationMessage(<h1>actualizando fotos...</h1>);
+        setConfirmationMessage(<h1 style={{marginTop: "5vh"}}>actualizando fotos...</h1>);
 
         const orderedFiles = selectedFiles
             //.filter((file): file is File => file instanceof File)
@@ -51,7 +51,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
         for (const file of orderedFiles) {
             if (file instanceof File) {
                 const compressedFile = await imageCompression(file, {
-                    maxSizeMB: 1,
+                    maxSizeMB: 5,
                     useWebWorker: true,
                 });
                 const uploadedFile = await uploadFile(compressedFile);
@@ -91,7 +91,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
             
             }
         }
-        setConfirmationMessage(<h1>fotos actualizadas</h1>);
+        setConfirmationMessage(<h1 style={{marginTop: "5vh"}}>fotos actualizadas</h1>);
         return uploadedFiles;
     };
 
