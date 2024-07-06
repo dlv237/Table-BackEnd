@@ -39,21 +39,25 @@ export default function Experience({ architect, architectScales }: { architect: 
     return (
         <div className="dataContainerVertical">
             <div className="profileDataContainerVertical">
-                <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
-                    Experiencia:
-                </h2>
-                <h2 className="profileData">
-                    {experienceDict.find((exp) => exp.id === architect.experience_id)?.name}
-                </h2>
+                <div className="scaleDataContainer">
+                    <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
+                        Experiencia:
+                    </h2>
+                    <h2 className="profileData">
+                        {experienceDict.find((exp) => exp.id === architect.experience_id)?.name}
+                    </h2>
+                </div>
             </div>
             <div className="profileDataContainerVertical">
-                <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
-                    Escalas:
-                </h2>
-                <div className="profileData">
-                    {architectScales.map((scale: ScaleData) => (
-                        <p key={scale.scale_id}>{scaleDict.find((scl) => scl.id === scale.scale_id)?.name}</p>
-                    ))}
+                <div className="scaleDataContainer">
+                    <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
+                        Escalas:
+                    </h2>
+                    <div className="profileData">
+                        {architectScales.map((scale: ScaleData) => (
+                            <p key={scale.scale_id}>{scaleDict.find((scl) => scl.id === scale.scale_id)?.name}</p>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

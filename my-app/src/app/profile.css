@@ -91,7 +91,7 @@
 }
 
 .tabContent {
-    margin-top: 1rem;
+    min-height: 17vh;
     width: -webkit-fill-available;
     display: flex;
     flex-wrap: wrap;
@@ -169,4 +169,19 @@
 .architectName {
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+.scaleDataContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.socialMediaContainer {
+    cursor: pointer;
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: grey;
 }

@@ -26,6 +26,13 @@ type ScaleData = {
     architect_id: number;
 }
 
+type ArchitectNetworks = {
+    id: number;
+    architect_id: number;
+    social_type: string;
+    social_media: string;
+}
+
 export default function ArchitectProfile() {
     const [architectImagesUrl, setArchitectImagesUrl] = React.useState<ImageUrlData[]>([]);
     const [architectData, setArchitectData] = React.useState<ArchitectData>();
@@ -33,6 +40,7 @@ export default function ArchitectProfile() {
     const [selectedTab, setSelectedTab] = React.useState<string>("experience");
     const [isPopupVisible, setIsPopupVisible] = React.useState<boolean>(false);
     const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
+    const [architectNetworks, setArchitectNetworks] = React.useState<ArchitectNetworks[]>([]);
 
     const router = useRouter();
     const { architect_id } = router.query;
@@ -54,6 +62,10 @@ export default function ArchitectProfile() {
             const scales = await fetch(`/api/architect/${architect_id}/scale`);
             const scalesData = await scales.json();
             setArchitectScales(scalesData);
+
+            const networks = await fetch(`/api/architect/${architect_id}/network`);
+            const networksData = await networks.json();
+            setArchitectNetworks(networksData);
         };
 
         fetchArchitectData();
@@ -84,7 +96,7 @@ export default function ArchitectProfile() {
                 </div>
                 <div className="tabContent">
                     {selectedTab === 'experience' && architectData && <Experience architect={architectData} architectScales={architectScales} />}
-                    {selectedTab === 'contact' && architectData && <Contact architect={architectData} />}
+                    {selectedTab === 'contact' && architectData && <Contact architect={architectData} architect_networks={architectNetworks} />}
                     {selectedTab === 'location' && architectData && <Location architect={architectData} />}
                 </div>
                 <div className="profileImageGrid">
