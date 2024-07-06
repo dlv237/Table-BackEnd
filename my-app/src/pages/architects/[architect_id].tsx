@@ -15,7 +15,7 @@ type ArchitectData = {
     experience_id: number;
 }
 
-type ImageData = {
+type ImageUrlData = {
     id: number;
     url: string;
     architect_id: number;
@@ -27,10 +27,12 @@ type ScaleData = {
 }
 
 export default function ArchitectProfile() {
-    const [architectImagesUrl, setArchitectImagesUrl] = React.useState<ImageData[]>([]);
+    const [architectImagesUrl, setArchitectImagesUrl] = React.useState<ImageUrlData[]>([]);
     const [architectData, setArchitectData] = React.useState<ArchitectData>();
     const [architectScales, setArchitectScales] = React.useState<ScaleData[]>([]);
     const [selectedTab, setSelectedTab] = React.useState<string>("experience");
+    const [isPopupVisible, setIsPopupVisible] = React.useState<boolean>(false);
+    const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
 
     const router = useRouter();
     const { architect_id } = router.query;
@@ -57,6 +59,16 @@ export default function ArchitectProfile() {
         fetchArchitectData();
     }, [architect_id]);
 
+    const handleImageClick = (imageUrl: string) => {
+        setSelectedImage(imageUrl);
+        setIsPopupVisible(true);
+    };
+
+    const handleClosePopup = () => {
+        setIsPopupVisible(false);
+        setSelectedImage(null);
+    };
+
     return (
         <div className='container' style={{ width: "fit-content" }}>
             <div className="logoContainerSmall" style={{ marginBottom: "4vh", cursor: "pointer" }} onClick={() => window.location.href = "/"}>
@@ -77,10 +89,18 @@ export default function ArchitectProfile() {
                 </div>
                 <div className="profileImageGrid">
                     {architectImagesUrl.map((imageUrl, index) => (
-                        <img className="architectImage" key={index} src={`https://architects-images.s3.us-east-2.amazonaws.com/${imageUrl.url}`} alt="profile" />
+                        <img className="architectImage" key={index} src={`https://architects-images.s3.us-east-2.amazonaws.com/${imageUrl.url}`} alt="profile" onClick={() => handleImageClick(imageUrl.url)} />
                     ))}
                 </div>
             </div>
+
+            {isPopupVisible && selectedImage && (
+                <div className="popupOverlay" onClick={handleClosePopup}>
+                    <div className="popupContent">
+                        <img src={`https://architects-images.s3.us-east-2.amazonaws.com/${selectedImage}`} alt="popup" className="popupImage" />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

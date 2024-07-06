@@ -1,0 +1,18 @@
+const cityDict = [
+    "RM - Metropolitana de Santiago",
+    "I - Tarapacá",
+    "II - Antofagasta",
+    "III - Atacama",
+    "IV - Coquimbo",
+    "V - Valparaíso",
+    "VI - Libertador General Bernardo O'Higgins",
+    "VII - Maule",
+    "VIII - Biobío",
+    "IX - La Araucanía",
+    "X - Los Lagos",
+    "XI - Aisén del G. Carlos Ibáñez del Campo",
+    "XII - Magallanes y de la Antártica Chilena",
+    "XIV - Los Ríos",
+    "XV - Arica y Parinacota",
+    "XVI - Ñuble",
+];

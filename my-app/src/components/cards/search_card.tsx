@@ -39,7 +39,7 @@ export default function ProfileCard({ architect }: { architect: ArchitectData })
     }, [architect.id]);
 
     return (
-        <article className="card">
+        <article className="card" onClick={() => window.location.href = `/architects/${architect.id}`}>
             <div className="background">
                 <img src={`https://architects-images.s3.us-east-2.amazonaws.com/${architectImageUrl}`} alt="profile" />
             </div>
