@@ -92,7 +92,7 @@ export default function Create() {
                 });
             }
             console.log(savedData.socialMedia);
-            console.log(savedData.socialMedia.length);
+            console.log(savedData.selectedOptions);
             for (let i = 0; i < savedData.socialMedia.length; i++) {
                 const dataNetwork = {
                     social_type: savedData.selectedOptions[i],

@@ -37,9 +37,11 @@ export default function ContactForm({
   setAddress,
   website,
   setWebsite,
+  socialMedia,
+  setSocialMedia,
+  selectedOptions,
+  setSelectedOptions,
 }: ContactFormProps) {
-  const [socialMedia, setSocialMedia] = useState<SocialMedia[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleSocialMediaTypeChange = (index: number, value: string) => {
     const newSocialMedia = [...socialMedia];
@@ -47,12 +49,16 @@ export default function ContactForm({
     newSocialMedia[index].type = value;
     setSocialMedia(newSocialMedia);
     setSelectedOptions(selectedOptions.filter(option => option !== previousType).concat(value));
+    console.log("handleSocialMediaTypeChange - newSocialMedia:", newSocialMedia);
+    console.log("handleSocialMediaTypeChange - selectedOptions:", selectedOptions);
   };
 
   const handleSocialMediaHandleChange = (index: number, value: string) => {
     const newSocialMedia = [...socialMedia];
     newSocialMedia[index].handle = value;
     setSocialMedia(newSocialMedia);
+    console.log("handleSocialMediaHandleChange - newSocialMedia:", newSocialMedia);
+
   };
 
   const handleAddSocialMedia = () => {
@@ -73,6 +79,8 @@ export default function ContactForm({
     newSocialMedia.splice(index, 1);
     setSocialMedia(newSocialMedia);
     setSelectedOptions(selectedOptions.filter(option => option !== socialMedia[index].type));
+    console.log("handleRemoveSocialMedia - newSocialMedia:", newSocialMedia);
+    console.log("handleRemoveSocialMedia - selectedOptions:", selectedOptions);
   };
 
   const options = [

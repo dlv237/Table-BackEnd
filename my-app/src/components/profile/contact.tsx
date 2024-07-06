@@ -32,9 +32,9 @@ export default function Contact({ architect, architect_networks }: { architect: 
     const pinterestIconString = pinterestIcon.html.join('');
 
     const options = [
-        { value: 'Instagram', label: <div dangerouslySetInnerHTML={{ __html: instagramIconString }} /> },
+        { value: 'Instagram', label: <div dangerouslySetInnerHTML={{ __html: instagramIconString }} />, website: 'https://www.instagram.com/'},
         { value: 'Facebook', label: <div dangerouslySetInnerHTML={{ __html: facebookIconString }} /> },
-        { value: 'Pinterest', label: <div dangerouslySetInnerHTML={{ __html: pinterestIconString }} /> },
+        { value: 'Pinterest', label: <div dangerouslySetInnerHTML={{ __html: pinterestIconString }} />, website: 'https://cl.pinterest.com/' },
       ];
     return (
         <div className="dataContainer">
@@ -70,22 +70,11 @@ export default function Contact({ architect, architect_networks }: { architect: 
             </div>
             <div className="profileDataContainer" style={{justifyContent: "center", marginTop: "5px"}}>
                 {architect_networks.map((network: ArchitectNetworks) => (
-                    <div key={network.id} className="socialMediaContainer">
-                        {network.social_type === 'Instagram' && (
-                            <a href={network.social_media} target="_blank" rel="noopener noreferrer">
-                                <div dangerouslySetInnerHTML={{ __html: instagramIconString }} />
-                            </a>
-                        )}
-                        {network.social_type === 'Facebook' && (
-                            <a href={network.social_media} target="_blank" rel="noopener noreferrer">
-                                <div dangerouslySetInnerHTML={{ __html: facebookIconString }} />
-                            </a>
-                        )}
-                        {network.social_type === 'Pinterest' && (
-                            <a href={network.social_media} target="_blank" rel="noopener noreferrer">
-                                <div dangerouslySetInnerHTML={{ __html: pinterestIconString }} />
-                            </a>
-                        )}
+                    <div key={network.id} className="socialMediaContainer" 
+                        onClick={() => window.location.href = `${options[options.findIndex(option => option.value === network.social_type)].website}${network.social_media}`}>
+                        {<a href={network.social_media} target="_blank" rel="noopener noreferrer">
+                            {options[options.findIndex(option => option.value === network.social_type)].label}
+                        </a>}
                     </div>
                 ))}
             </div>
