@@ -53,7 +53,7 @@ export default function ContactForm({
     console.log("handleSocialMediaTypeChange - selectedOptions:", selectedOptions);
   };
 
-  const handleSocialMediaHandleChange = (index: number, value: string) => {
+  const handleSocialMediaChange = (index: number, value: string) => {
     const newSocialMedia = [...socialMedia];
     newSocialMedia[index].handle = value;
     setSocialMedia(newSocialMedia);
@@ -135,7 +135,7 @@ export default function ContactForm({
               }}
             />
             <div style={{ display: "flex" }}>
-              <input style={{ maxWidth: "150px" }} type="text" placeholder="@tu_red_social" value={sm.handle} onChange={(e) => handleSocialMediaHandleChange(index, e.target.value)} />
+              <input style={{ maxWidth: "150px" }} type="text" placeholder="@tu_red_social" value={sm.handle} onChange={(e) => handleSocialMediaChange(index, e.target.value)} />
               <button onClick={() => handleRemoveSocialMedia(index)}>&times;</button>
             </div>
           </div>

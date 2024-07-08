@@ -95,8 +95,8 @@ export default function Create() {
             console.log(savedData.selectedOptions);
             for (let i = 0; i < savedData.socialMedia.length; i++) {
                 const dataNetwork = {
-                    social_type: savedData.selectedOptions[i],
-                    social_media: savedData.socialMedia[i],
+                    social_type: savedData.socialMedia[i].type,
+                    social_media: savedData.socialMedia[i].handle,
                 };
 
                 await fetch(`/api/architect/${architect.id}/network`, {
