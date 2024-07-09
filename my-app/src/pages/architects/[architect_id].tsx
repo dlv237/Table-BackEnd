@@ -13,6 +13,7 @@ type ArchitectData = {
     address: string;
     website: string;
     experience_id: number;
+    description: string;
 }
 
 type ImageUrlData = {
@@ -41,6 +42,7 @@ export default function ArchitectProfile() {
     const [isPopupVisible, setIsPopupVisible] = React.useState<boolean>(false);
     const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
     const [architectNetworks, setArchitectNetworks] = React.useState<ArchitectNetworks[]>([]);
+    const [description, setDescription] = React.useState<string>("No se proporcionó una descripción.");
 
     const router = useRouter();
     const { architect_id } = router.query;
@@ -53,6 +55,8 @@ export default function ArchitectProfile() {
             if (result.ok) {
                 const data = await result.json();
                 setArchitectData(data);
+                if (data.description != '')
+                    setDescription(data.description);
 
                 const images = await fetch(`/api/architect/${architect_id}/image`);
                 const imagesData = await images.json();
@@ -90,13 +94,13 @@ export default function ArchitectProfile() {
             <div className="profileContainer" style={{ maxWidth: "100%" }}>
                 <div className="tabContainer">
                     <div className="tab" onClick={() => setSelectedTab('experience')}>Experiencia</div>
-                    <div className="tab" onClick={() => setSelectedTab('contact')}>Contacto</div>
+                    <div className="tab" onClick={() => setSelectedTab('description')}>Descripción</div>
                     <div className="tab" onClick={() => setSelectedTab('location')}>Ubicación</div>
-                    <div className="tabIndicator" style={{ left: selectedTab === 'experience' ? '0%' : selectedTab === 'contact' ? '33.33%' : '66.66%' }} />
+                    <div className="tabIndicator" style={{ left: selectedTab === 'experience' ? '0%' : selectedTab === 'description' ? '33.33%' : '66.66%' }} />
                 </div>
                 <div className="tabContent">
                     {selectedTab === 'experience' && architectData && <Experience architect={architectData} architectScales={architectScales} />}
-                    {selectedTab === 'contact' && architectData && <Contact architect={architectData} architect_networks={architectNetworks} />}
+                    {selectedTab === 'description' && architectData && <div className='descriptionContainer'>"{description}"</div>}
                     {selectedTab === 'location' && architectData && <Location architect={architectData} />}
                 </div>
                 <div className="profileImageGrid">

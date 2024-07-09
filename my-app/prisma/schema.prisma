@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,55 +8,41 @@ datasource db {
 }
 
 model Architect {
-  id            Int               @id @default(autoincrement())
-  email         String            @unique
-  phone         String            @unique
-  name          String            @unique
+  id            Int                 @id @default(autoincrement())
+  email         String              @unique
+  phone         String              @unique
+  name          String              @unique
   city          String
-  address       String?    
+  description   String?
+  address       String?
   website       String?
   experience_id Int
-  experience    Experience       @relation(fields: [experience_id], references: [id])
 
+  networks      ArchitectNetworks[]
   scales        ArchitectScales[]
   images        Image[]
-  networks      ArchitectNetworks[]
 }
 
 model ArchitectNetworks {
-  id            Int       @id @default(autoincrement())
-  architect_id  Int
-  social_type   String
-  social_media  String
-  architect     Architect @relation(fields: [architect_id], references: [id])
+  id           Int       @id @default(autoincrement())
+  architect_id Int
+  social_type  String
+  social_media String
+  architect    Architect @relation(fields: [architect_id], references: [id])
 }
 
-model Experience {
-  id            Int       @id @default(autoincrement())
-  detail        String    @unique
-
-  architect     Architect[]
-}
-
-model Scale {
-  id            Int       @id @default(autoincrement())
-  scale_type    String    @unique
-  detail        String    @unique
-  architectScales ArchitectScales[]
-}
 
 model ArchitectScales {
-  architect_id  Int
-  scale_id      Int
-  architect     Architect @relation(fields: [architect_id], references: [id])
-  scale         Scale     @relation(fields: [scale_id], references: [id])
+  architect_id Int
+  scale_id     Int
+  architect    Architect @relation(fields: [architect_id], references: [id])
 
   @@id([architect_id, scale_id])
 }
 
 model Image {
-  id            Int       @id @default(autoincrement())
-  url           String
-  architect_id  Int
-  architect     Architect @relation(fields: [architect_id], references: [id])
+  id           Int       @id @default(autoincrement())
+  url          String
+  architect_id Int
+  architect    Architect @relation(fields: [architect_id], references: [id])
 }

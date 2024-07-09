@@ -8,9 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log('POST request received');
         console.log('Request body:', req.body);
 
-        const { email, phone, name, city, address, website, experience_id} = req.body;
+        const { email, phone, name, city, address, website, experience_id, description} = req.body;
         try {
-            const architect = await prisma.architect.create({data: {email, phone, name, city, address, website, experience_id}})
+            const architect = await prisma.architect.create({data: {email, phone, name, city, description, address, website, experience_id}})
             res.status(201).json({ architect });
         }
         catch (error) {

@@ -7,10 +7,20 @@ CREATE TABLE "Architect" (
     "city" TEXT NOT NULL,
     "address" TEXT,
     "website" TEXT,
-    "social_media" TEXT,
+    "description" TEXT,
     "experience_id" INTEGER NOT NULL,
 
     CONSTRAINT "Architect_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ArchitectNetworks" (
+    "id" SERIAL NOT NULL,
+    "architect_id" INTEGER NOT NULL,
+    "social_type" TEXT NOT NULL,
+    "social_media" TEXT NOT NULL,
+
+    CONSTRAINT "ArchitectNetworks_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -57,10 +67,19 @@ CREATE UNIQUE INDEX "Architect_phone_key" ON "Architect"("phone");
 CREATE UNIQUE INDEX "Architect_name_key" ON "Architect"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Architect_experience_id_key" ON "Architect"("experience_id");
+CREATE UNIQUE INDEX "Experience_detail_key" ON "Experience"("detail");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Scale_scale_type_key" ON "Scale"("scale_type");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Scale_detail_key" ON "Scale"("detail");
 
 -- AddForeignKey
 ALTER TABLE "Architect" ADD CONSTRAINT "Architect_experience_id_fkey" FOREIGN KEY ("experience_id") REFERENCES "Experience"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ArchitectNetworks" ADD CONSTRAINT "ArchitectNetworks_architect_id_fkey" FOREIGN KEY ("architect_id") REFERENCES "Architect"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ArchitectScales" ADD CONSTRAINT "ArchitectScales_architect_id_fkey" FOREIGN KEY ("architect_id") REFERENCES "Architect"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

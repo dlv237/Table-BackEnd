@@ -18,7 +18,7 @@ export default function Edit() {
 
     const { user } = useUser();
     const correoArquitecto = user?.emailAddresses[0]?.emailAddress || "usuario sin correo";
-    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: '', experience: 0});
+    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: '', experience: 0, description: ''});
     const [cityName, setCityName] = useState("");
     const [experience, setExperience] = useState(architect.experience);
     const [scales, setScales] = useState(Array<number>());
@@ -30,6 +30,7 @@ export default function Edit() {
     const [address, setAddress] = useState(architect.address);
     const [socialMedia, setSocialMedia] = useState<SocialMedia[]>([]);
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [description, setDescription] = useState("");
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -121,13 +122,14 @@ export default function Edit() {
                 const architectData = architects.find((arch: any) => arch.email === correoArquitecto);
                 
                 if (architectData) {
-                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone, id: architectData.id, website: architectData.website, address: architectData.address, experience: architectData.experience});
+                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone, id: architectData.id, website: architectData.website, address: architectData.address, experience: architectData.experience, description: architectData.description});
                     setCityName(architectData.city);
                     setExperience(architectData.experience);
                     setPhone(architectData.phone);
                     setName(architectData.name);
                     setWebsite(architectData.website);
                     setAddress(architectData.address);
+                    setDescription(architectData.description);
                 }
 
                 const scalesResponse = await fetch(`/api/architect/${architectData.id}/scale`);
@@ -196,6 +198,7 @@ export default function Edit() {
             experience_id: experience,
             website: website,
             address: address,
+            description: description,
         };
 
         const response = await fetch(`/api/architect/${architect.id}`, {
@@ -411,6 +414,15 @@ export default function Edit() {
                             )}
                         </div>
                     )}
+                </div>
+                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                    <label htmlFor="description" style={{ marginRight: '10px', fontWeight: 'bold' }}>Descripción:</label>
+                    <textarea 
+                    id="description"
+                    name="description"
+                    className="descriptionInputEdit"
+                    placeholder={architect.description}
+                    onChange={(e) => setDescription(e.target.value)}/>
                 </div>
                 <div 
                     style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px', cursor: "pointer" }}

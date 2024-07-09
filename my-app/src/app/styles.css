@@ -235,3 +235,25 @@ height: 13vh;
   object-fit: cover;
   border-radius: 5px;
   }
+
+
+
+.descriptionInput{
+  height: 30rem;
+  width: 15rem;
+  text-align: center;
+}
+
+textarea:focus {
+  outline: none;
+  border: none
+}
+
+.descriptionInputEdit{
+  margin-left: auto;
+  width: clamp(200px, 30vw, 300px);
+  max-height: 7rem;
+  border-bottom: 1px solid gray;
+  text-align: center;
+  font-size: 0.8rem;
+}

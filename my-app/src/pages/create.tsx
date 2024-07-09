@@ -7,6 +7,7 @@ import ScaleForm from "../components/form/scale_form";
 import ContactForm from "../components/form/contact_form";
 import FileForm from "../components/form/file_form";
 import { useUser } from "@clerk/nextjs";
+import DescriptionForm from "@/components/form/description_form";
 
 export default function Create() {
 
@@ -28,6 +29,7 @@ export default function Create() {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [selectedFiles, setSelectedFiles] = useState<FileData[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [description, setDescription] = useState("");
 
     const fileFormRef = useRef<{ uploadFiles: () => Promise<FileData[]> }>(null);
 
@@ -46,6 +48,8 @@ export default function Create() {
             setSocialMedia(savedData.socialMedia || []);
             setSelectedOptions(savedData.selectedOptions || []);
             setSelectedFiles(savedData.selectedFiles || []);
+            setDescription(savedData.description || "");
+
         }
     }, []);
 
@@ -60,6 +64,7 @@ export default function Create() {
                 experience_id: parseInt(savedData.selectedExperience),
                 website: savedData.website,
                 address: savedData.address,
+                description: savedData.description,
             };
             console.log(dataArchitect);
             const response = await fetch('/api/architect', {
@@ -128,7 +133,7 @@ export default function Create() {
     };
 
     useEffect(() => {
-        if (step === 6) {
+        if (step === 7) {
             handleSignUpAttempt();
         }
     }, [step, user]);
@@ -146,6 +151,7 @@ export default function Create() {
             socialMedia,
             selectedOptions,
             selectedFiles,
+            description,
         };
         
         localStorage.setItem("formData", JSON.stringify(updatedData));
@@ -197,12 +203,12 @@ export default function Create() {
                 .catch(error => console.error('Error:', error));
         }
 
-        if (isPhoneInUse) {
+        if (isPhoneInUse && step === 4) {
             alert("El telefono ya está en uso");
             return;
         }
-
-        if (step === 5) {
+        
+        if (step === 6) {
             if (fileFormRef.current) {
                 setIsLoading(true);
                 const uploadedFiles = await fileFormRef.current.uploadFiles();
@@ -273,6 +279,9 @@ export default function Create() {
             />;
             break;
         case 5:
+            form = <DescriptionForm onNext={handleNext} onBack={handleBack} description={description} setDescription={setDescription} />;
+            break;
+        case 6:
             logoClass = "logoContainerSmall";
             form = <FileForm ref={fileFormRef} onNext={handleNext} onBack={handleBack} />;
             button = (
@@ -282,7 +291,7 @@ export default function Create() {
                 </div>
             );
             break;
-        case 6:
+        case 7:
             form = (
                 <div className="formContainer">
                     <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>¡Gracias por registrarte!</h1>

@@ -185,3 +185,11 @@
     border-width: 1px;
     border-color: grey;
 }
+
+.descriptionContainer{
+    max-width: 40vh;
+    max-height: 80%;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.85rem;
+}
