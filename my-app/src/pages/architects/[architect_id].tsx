@@ -175,7 +175,7 @@ export default function ArchitectProfile() {
             )}
             {isContactFormVisible && (
                 <div className="popupOverlay">
-                <div className="popupContent" style={{background: "white", minWidth: "23rem", minHeight: "70%", maxHeight: "80%"}}>
+                <div className="popupContent" style={{background: "white", minWidth: "23rem", height: "38rem"}}>
                     <div className="formContainer">
                         <h1 style={{fontSize: "1.5rem", fontWeight: "bold", textAlign: "center", maxWidth: "17rem"}}>Contactar a {architectData?.name}</h1>
                         <div> 
@@ -203,7 +203,7 @@ export default function ArchitectProfile() {
                                 </h2>
                                 <textarea placeholder="Mensaje" className="inputField" style={{width: "13rem", height: "12rem", background: "rgba(0, 0, 0, 0.05)", fontSize: "0.9rem", textAlign: 'center'}}/>
                             </div>
-                            <div className='scaleDataContainer' style={{display: "flex", justifyContent: "space-between", marginTop: "5rem"}}>
+                            <div className='scaleDataContainer' style={{display: "flex", justifyContent: "space-between", position: "relative"}}>
                                 <button style={{width: '6rem', color:'black', height: '2rem', background:'rgb(230, 230, 230)', borderRadius: '33px'}} onClick={handleCloseForm}>Cancelar</button>
                                 <button style={{width: '6rem', color:'white', height: '2rem', background:'#211f26', borderRadius: '33px'}}>Enviar</button>
                             </div>
