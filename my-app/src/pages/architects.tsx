@@ -5,6 +5,7 @@ import Footer from "@/components/general/footer";
 export default function Architects() {
     const [architectsData, setArchitectsData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [resultsLabel, setResultsLabel] = useState("Resultados de búsqueda" as string);
 
     const shuffleArray = (array: any[]) => {
         return array.sort(() => Math.random() - 0.5);
@@ -46,6 +47,9 @@ export default function Architects() {
             
             setArchitectsData(shuffleArray(architectsData));
             setIsLoading(false);
+            if (architectsData.length === 0) {
+                setResultsLabel("No se encontraron arquitectos con estos criterios de búsqueda");
+            }
         };
 
         fetchArchitects();
@@ -58,7 +62,12 @@ export default function Architects() {
                     <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
                 </div>
             </div>
-            <h1 className="title" style={{marginTop: "3vh", marginBottom: "6vh", textAlign: "center", fontSize: "medium"}}>Resultados de búsqueda</h1>
+            <h1 className="title" style={{marginTop: "3vh", marginBottom: "3vh", textAlign: "center", fontSize: "medium"}}>{resultsLabel}</h1>
+            <div style={{display: "flex", justifyContent: "center"}}>
+                <div style={{marginBottom: "3vh", display: "flex", width: "10rem", height: "3.5rem", color: "white", borderRadius: "33px", background: "#211f26"}}>
+                    <button style={{}} onClick={() => window.location.href = "/search"}>Realizar otra búsqueda</button>
+                </div>
+            </div>
             <div className="cardsContainer">
                 {isLoading ? loader :
                 <div className="grid-container">
