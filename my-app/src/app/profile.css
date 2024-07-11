@@ -68,7 +68,7 @@
     position: relative;
     justify-content: space-around;
     width: 100%;
-    border-bottom: 1px solid #ccc;
+    color: rgb(105, 105, 105)
 }
 
 .tab {
@@ -91,7 +91,7 @@
 }
 
 .tabContent {
-    min-height: 17vh;
+    min-height: 12vh;
     width: -webkit-fill-available;
     display: flex;
     flex-wrap: wrap;
@@ -105,7 +105,6 @@
     align-items: center;
     justify-content: center;
     max-width: 50%;
-    margin-top: 4vh;
     margin-bottom: 20vh;
   }
 
@@ -114,12 +113,12 @@
     grid-template-columns: repeat(3, 1fr);
     min-width: max-content;
     margin-top: 20px;
-    grid-gap: 1px;
+    grid-gap: 4px;
 }
 
 .architectImage {
-    width: 16vh;
-    height: 16vh;
+    width: 15vh;
+    height: 15vh;
     object-fit: cover;
     border-radius: 1px;
 }
@@ -192,4 +191,15 @@
     text-align: center;
     font-style: italic;
     font-size: 0.85rem;
+    margin-top: 3vh
+}
+
+.button{
+    display: flex;
+    height: 2rem;
+    background: #211f26;
+    width: 6rem;
+    border-radius: 36px;
+    justify-content: center;
+    align-content: center;
 }
