@@ -107,7 +107,7 @@ export default function Home() {
                         </div>
                         <h1 className="title">tu mesa de proyectos</h1>
                         <div className="tableLogoContainer" style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/search'}>
-                            <img src="/LOGO_TABLE.png" alt="Logo" className="centeredImage"/>
+                            <img src="/LOGO_TABLE2.png" alt="Logo" className="centeredImage"/>
                             <div style={{
                                 position: 'absolute',
                                 top: '50%',

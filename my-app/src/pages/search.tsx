@@ -58,7 +58,7 @@ export default function Search() {
 
     return (
         <div className='container' style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url(/LOGO_TABLE_ROTADO_ST.png)`, 
+            backgroundImage: `url(/LOGO_TABLE_ROTADO_ST3.png)`, 
             height: `${availableHeight}px`,
             backgroundSize: isWide ? "contain" : "cover", 
             backgroundPosition: "center",
