@@ -107,6 +107,37 @@ export default function ArchitectProfile() {
         setIsContactFormVisible(false);
     };
 
+    const handleContactSender = () => {
+        // Send email to architect
+        const name = (document.getElementById("name") as HTMLInputElement).value;
+        const email = (document.getElementById("email") as HTMLInputElement).value;
+        const phone = (document.getElementById("phone") as HTMLInputElement).value;
+        const message = (document.getElementById("message") as HTMLInputElement).value;
+        const architectEmail = architectData?.email;
+
+        const data = { name, email, phone, message, architectEmail };
+
+        fetch('/api/mailer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Correo enviado exitosamente');
+                handleCloseForm();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error al enviar el correo');
+            }
+        );
+
+    };
+
     return (
         <div className='container' style={{ width: "fit-content" }}>
             <div className="logoContainerSmall" style={{ marginBottom: "4vh", cursor: "pointer" }} onClick={() => window.location.href = "/"}>
@@ -183,25 +214,25 @@ export default function ArchitectProfile() {
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Nombre:</li>
                                 </h2>
-                                <input type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
+                                <input id="name" type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
                             </div>
                             <div className='scaleDataContainer' style={{marginBottom: "1rem"}}>
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Correo:</li>
                                 </h2>
-                                <input type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
+                                <input id="email" type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
                             </div>
                             <div className='scaleDataContainer' style={{marginBottom: "1rem"}}>
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Teléfono:</li>
                                 </h2>
-                                <input type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
+                                <input id="phone" type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
                             </div>
                             <div className='scaleDataContainer' style={{marginBottom: "1rem"}}>
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Mensaje:</li>
                                 </h2>
-                                <textarea placeholder="Mensaje" className="inputField" style={{width: "13rem", height: "12rem", background: "rgba(0, 0, 0, 0.05)", fontSize: "0.9rem", textAlign: 'center'}}/>
+                                <textarea id="message" placeholder="Mensaje" className="inputField" style={{width: "13rem", height: "12rem", background: "rgba(0, 0, 0, 0.05)", fontSize: "0.9rem", textAlign: 'center'}}/>
                             </div>
                             <div className='scaleDataContainer' style={{display: "flex", justifyContent: "space-between", position: "relative"}}>
                                 <button style={{width: '6rem', color:'black', height: '2rem', background:'rgb(230, 230, 230)', borderRadius: '33px'}} onClick={handleCloseForm}>Cancelar</button>

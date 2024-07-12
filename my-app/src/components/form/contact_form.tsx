@@ -111,12 +111,12 @@ export default function ContactForm({
     <div className="formContainer">
       <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>¿Cómo te pueden contactar?</h1>
       <div style={{ display: "flex", justifyContent: "center", marginTop: "2.5vh", flexDirection: "column", alignItems: "center" }}>
-        <input style={{ marginTop: "1.5vh" }} type="text" placeholder="Teléfono" value={telefono} onChange={(e) => setPhone(e.target.value)} />
-        <input style={{ marginTop: "1.5vh" }} type="text" placeholder="Dirección" value={address} onChange={(e) => setAddress(e.target.value)} />
-        <input style={{ marginTop: "1.5vh" }} type="text" placeholder="Sitio web" value={website} onChange={(e) => setWebsite(e.target.value)} />
+        <input style={{ marginTop: "1.5vh", background: "none" }} type="text" placeholder="Teléfono" value={telefono} onChange={(e) => setPhone(e.target.value)} />
+        <input style={{ marginTop: "1.5vh", background: "none"  }} type="text" placeholder="Dirección" value={address} onChange={(e) => setAddress(e.target.value)} />
+        <input style={{ marginTop: "1.5vh", background: "none"  }} type="text" placeholder="Sitio web" value={website} onChange={(e) => setWebsite(e.target.value)} />
 
         {socialMedia.map((sm, index) => (
-          <div key={index} style={{ display: 'flex', flexDirection: 'row' }}>
+          <div key={index} style={{ display: 'flex', flexDirection: 'row', background: "none" }}>
             <Select
               isSearchable={false}
               options={options.filter(option => !selectedOptions.includes(option.value))}
@@ -127,15 +127,17 @@ export default function ContactForm({
                   ...provided,
                   border: 'none',
                   boxShadow: 'none',
+                  background: 'none',
                 }),
                 menu: (provided) => ({
                   ...provided,
                   border: 'none',
+                  background: 'none',
                 }),
               }}
             />
             <div style={{ display: "flex" }}>
-              <input style={{ maxWidth: "150px" }} type="text" placeholder="@tu_red_social" value={sm.handle} onChange={(e) => handleSocialMediaChange(index, e.target.value)} />
+              <input style={{ maxWidth: "150px", background: "none" }} type="text" placeholder="@tu_red_social" value={sm.handle} onChange={(e) => handleSocialMediaChange(index, e.target.value)} />
               <button onClick={() => handleRemoveSocialMedia(index)}>&times;</button>
             </div>
           </div>

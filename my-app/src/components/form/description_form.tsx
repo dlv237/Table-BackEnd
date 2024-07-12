@@ -15,7 +15,7 @@ export default function DescriptionForm({
                     className="descriptionInput"
                     placeholder="tu descripción aquí..."
                     maxLength={200}
-                    style={{height: "30rem", width: "15rem", textAlign: "center"}}
+                    style={{height: "15rem", width: "15rem", textAlign: "center", background: "none"}}
                 />
             </div>
         </div>

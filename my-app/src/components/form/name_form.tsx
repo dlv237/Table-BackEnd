@@ -29,7 +29,8 @@ export default function NameForm({ onNext, onBack, name, setName }:
                     justifyContent: "center",
                     textAlign: "center",
                     borderBottom: "2px solid black",
-                    outline: "none"
+                    outline: "none",
+                    background: "none",
                     
                 }} 
                 type="text" 

@@ -272,7 +272,7 @@ export default function Edit() {
                 <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
                     <label htmlFor="nombre" style={{ marginRight: '10px', fontWeight: 'bold' }}>Nombre:</label>
                     <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray" , textAlign: "center"}} 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray" , textAlign: "center", background: "none"}} 
                     type="text" 
                     id="nombre" 
                     name="nombre" 
@@ -282,7 +282,7 @@ export default function Edit() {
                 <div style={{ display: 'flex', marginBottom: '20px' }}>
                     <label htmlFor="region" style={{ marginRight: '10px', fontWeight: 'bold' }}>Región:</label>
                     <select 
-                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)"}}
+                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", background: "none"}}
                         value={cityName} 
                         onChange={e => setCityName(e.target.value)}
                         className="selectOption"
@@ -297,7 +297,7 @@ export default function Edit() {
                 <div style={{ display: 'flex', marginBottom: '20px' }}>
                     <label htmlFor="experience" style={{ marginRight: '10px', fontWeight: 'bold' }}>Experiencia:</label>
                     <select
-                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)"}}
+                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)" , background: "none"}}
                         value={experience} 
                         onChange={e => setExperience(Number(e.target.value))}
                         className="selectOption"
@@ -344,7 +344,7 @@ export default function Edit() {
                 <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
                     <label htmlFor="telefono" style={{ marginRight: '10px', fontWeight: 'bold' }}>Teléfono:</label>
                     <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center"}} 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center" , background: "none"}} 
                     type="text" 
                     id="phone"
                     name="phone" 
@@ -354,7 +354,7 @@ export default function Edit() {
                 <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
                     <label htmlFor="website" style={{ marginRight: '10px', fontWeight: 'bold' }}>Sitio Web:</label>
                     <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center"}} 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center" , background: "none"}} 
                     type="text" 
                     id="website"
                     name="website" 
@@ -422,7 +422,8 @@ export default function Edit() {
                     name="description"
                     className="descriptionInputEdit"
                     placeholder={architect.description}
-                    onChange={(e) => setDescription(e.target.value)}/>
+                    onChange={(e) => setDescription(e.target.value)}
+                    style={{background: "none"}}/>
                 </div>
                 <div 
                     style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px', cursor: "pointer" }}
