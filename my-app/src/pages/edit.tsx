@@ -364,7 +364,7 @@ export default function Edit() {
                 <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
                     <label htmlFor="address" style={{ marginRight: '10px', fontWeight: 'bold' }}>Dirección:</label>
                     <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center"}} 
+                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center", background: "none"}} 
                     type="text" 
                     id="address"
                     name="address" 
