@@ -6,14 +6,14 @@ export default function TypeView(
   return (
     <div style={{display: 'flex', flexDirection: "column", alignItems: "center"}}>
         <div 
-          style={{position: "absolute", top: `${availableHeight * 0.17}px`, fontSize: "large", cursor: "pointer", width: "15rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", borderRadius: "33px"}}
+          style={{position: "absolute", top: `${availableHeight * 0.2}px`, fontSize: "large", cursor: "pointer", width: "15rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", borderRadius: "33px"}}
           onClick={onSearchArchitectsClick}
         >
           <div>buscar arquitectos</div>
           
         </div>
         <div 
-          style={{position: "absolute", top: `${availableHeight * 0.75}px`, fontSize: "large", cursor: "pointer", width: "15rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", borderRadius: "33px"}}
+          style={{position: "absolute", top: `${availableHeight * 0.715}px`, fontSize: "large", cursor: "pointer", width: "15rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", borderRadius: "33px"}}
           onClick={onViewAllArchitectsClick}
         >
           <div>ver todos los arquitectos</div>
