@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Footer from '../../components/general/footer';
+import emailjs from 'emailjs-com';
 
 type ArchitectData = {
     id: number;
@@ -117,24 +118,32 @@ export default function ArchitectProfile() {
 
         const data = { name, email, phone, message, architectEmail };
 
-        fetch('/api/mailer', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-                alert('Correo enviado exitosamente');
-                handleCloseForm();
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Error al enviar el correo');
-            }
-        );
+        if (name === "" || email === "" || phone === "" || message === "") {
+            alert("Por favor, llena todos los campos");
+            return;
+        }
+        const service_id = 'service_83u8xtd';
+        const template_id = 'template_3gzu4nr';
+        const user_id = 'J5OiJF8YKYWP74I0w';
+        const templateParams = {
+            from_name: name,
+            to_name: architectData?.name,
+            message: `${message}\n\nMis datos de contacto son:\n\n  \tCorreo: ${email}\n  \tTeléfono: ${phone}`,
+            to_email: architectEmail,
+        };
+        emailjs.send(
+            service_id,
+            template_id,
+            templateParams,
+            user_id
+        ).then(() => {
+            alert("Correo enviado exitosamente");
+            handleCloseForm();
+        }).catch((error: any) => {
+            alert("Error al enviar el correo");
+            console.error('Error:', error as string);
+        });
+        
 
     };
 
@@ -236,7 +245,7 @@ export default function ArchitectProfile() {
                             </div>
                             <div className='scaleDataContainer' style={{display: "flex", justifyContent: "space-between", position: "relative"}}>
                                 <button style={{width: '6rem', color:'black', height: '2rem', background:'rgb(230, 230, 230)', borderRadius: '33px'}} onClick={handleCloseForm}>Cancelar</button>
-                                <button style={{width: '6rem', color:'white', height: '2rem', background:'#211f26', borderRadius: '33px'}}>Enviar</button>
+                                <button style={{width: '6rem', color:'white', height: '2rem', background:'#211f26', borderRadius: '33px'}} onClick={handleContactSender}>Enviar</button>
                             </div>
                         </div> 
                     </div>
