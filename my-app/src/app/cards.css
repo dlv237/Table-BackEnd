@@ -73,28 +73,6 @@
     font-size: 14px;
 }
 
-.popupOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popupContent {
-    position: relative;
-    background: white;
-}
-
-.popupImage {
-    max-width: 90vw;
-    max-height: 90vh;
-}
 
 
 @media (max-width: 630px) {

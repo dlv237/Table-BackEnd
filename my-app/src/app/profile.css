@@ -204,3 +204,123 @@
     justify-content: center;
     align-content: center;
 }
+
+
+.popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popupContent {
+    position: relative;
+    background: white;
+}
+
+.popupImage {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.popupFormContent{
+    position: relative;
+    background: white;
+    min-width: 25rem;
+    height: 38rem;
+    border-radius: 10px;
+}
+
+.architectContactName{
+    font-size: 1.5rem;
+    font-weight: bold;
+    max-width: 17rem;
+    text-align: center;
+}
+
+.contactContainerFirst {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.contactContainer {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.contactContainerButtons{
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+}
+
+.contactContainer > input {
+    border-bottom: 1px solid gray;
+    margin-left: auto;
+    width: 13rem;
+}
+
+.contactContainer > textarea {
+    width: 13rem;
+    height: 12rem;
+    background: rgba(0, 0, 0, 0.05);
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.contactContainerFirst > input {
+    border-bottom: 1px solid gray;
+    margin-left: auto;
+    width: 13rem;
+}
+
+.backButton {
+    width: 6rem;
+    color: black;
+    height: 2rem;
+    background-color: rgb(230, 230, 230);
+    border-radius: 36px;
+}
+
+.nextButton {
+    width: 6rem;
+    color: white;
+    height: 2rem;
+    background-color: #211f26;
+    border-radius: 36px;
+    border: unset;
+}
+
+.backButton {
+    transition: border 0.3s ease-in-out;
+}
+
+.nextButton {
+    transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.backButton:hover {
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+
+}
+
+.nextButton:hover {
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+}

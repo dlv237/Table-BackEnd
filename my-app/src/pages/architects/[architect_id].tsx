@@ -2,6 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Footer from '../../components/general/footer';
 import emailjs from 'emailjs-com';
+import ContactForm from '@/components/form/contact_form';
+import { icon } from '@fortawesome/fontawesome-svg-core';
 
 type ArchitectData = {
     id: number;
@@ -197,7 +199,7 @@ export default function ArchitectProfile() {
                         <button style={{color: '#161518', fontWeight: 'bold'}} onClick={() => window.history.back()}>Volver</button>
                     </div>
                     <div>
-                        <button style={{width: '6rem', color:'white', height: '2rem', background:'#211f26', borderRadius: '33px'}} onClick={() => handleContactForm()}>Contactar</button>
+                        <button className='nextButton' onClick={() => handleContactForm()}>Contactar</button>
                     </div>
 
                 </div>
@@ -213,40 +215,46 @@ export default function ArchitectProfile() {
                     </div>
                 </div>
             )}
-            {isContactFormVisible && (
+            {isContactFormVisible && architectData &&  (
                 <div className="popupOverlay">
-                <div className="popupContent" style={{background: "white", minWidth: "23rem", height: "38rem"}}>
+                <div className="popupFormContent">
                     <div className="formContainer">
-                        <h1 style={{fontSize: "1.5rem", fontWeight: "bold", textAlign: "center", maxWidth: "17rem"}}>Contactar a {architectData?.name}</h1>
+                        <h1 className='architectContactName'>Contactar a {architectData?.name}</h1>
                         <div> 
-                            <div className='scaleDataContainer' style={{marginTop: "2rem", marginBottom: "1rem"}}>
+
+                            <div className='contactContainerFirst'>
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Nombre:</li>
                                 </h2>
-                                <input id="name" type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
+                                <input id="name" type="text" className="inputField"/>
                             </div>
-                            <div className='scaleDataContainer' style={{marginBottom: "1rem"}}>
+
+                            <div className='contactContainer'>
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Correo:</li>
                                 </h2>
-                                <input id="email" type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
+                                <input id="email" type="text" className="inputField"/>
                             </div>
-                            <div className='scaleDataContainer' style={{marginBottom: "1rem"}}>
+
+                            <div className='contactContainer'>
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Teléfono:</li>
                                 </h2>
-                                <input id="phone" type="text" className="inputField" style={{borderBottom: "1px solid gray", marginLeft: "auto", width: "13rem"}}/>
+                                <input id="phone" type="text" className="inputField"/>
                             </div>
-                            <div className='scaleDataContainer' style={{marginBottom: "1rem"}}>
+
+                            <div className='contactContainer'>
                                 <h2 className="profileDataType" style={{marginRight: "15px"}}>
                                     <li typeof="disc">Mensaje:</li>
                                 </h2>
-                                <textarea id="message" placeholder="Mensaje" className="inputField" style={{width: "13rem", height: "12rem", background: "rgba(0, 0, 0, 0.05)", fontSize: "0.9rem", textAlign: 'center'}}/>
+                                <textarea id="message" placeholder="Mensaje"/>
                             </div>
-                            <div className='scaleDataContainer' style={{display: "flex", justifyContent: "space-between", position: "relative"}}>
-                                <button style={{width: '6rem', color:'black', height: '2rem', background:'rgb(230, 230, 230)', borderRadius: '33px'}} onClick={handleCloseForm}>Cancelar</button>
-                                <button style={{width: '6rem', color:'white', height: '2rem', background:'#211f26', borderRadius: '33px'}} onClick={handleContactSender}>Enviar</button>
+
+                            <div className='contactContainerButtons'>
+                                <button className='backButton' onClick={handleCloseForm}>Cancelar</button>
+                                <button className='nextButton' onClick={handleContactSender}>Enviar</button>
                             </div>
+
                         </div> 
                     </div>
                 </div>
