@@ -3,7 +3,7 @@ import Footer from '../components/general/footer';
 import { useUser } from '@clerk/nextjs';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
-import { faUserPlus, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faRightToBracket, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SignOutButton } from '@clerk/clerk-react';
 
@@ -39,6 +39,10 @@ export default function Home() {
                         <DropdownMenu.Item className="DropdownMenuItem" onClick={() => window.location.href = "/edit"}>
                             Editar Perfil <div className="RightSlot"><FontAwesomeIcon icon={faUserPlus}/></div>
                         </DropdownMenu.Item>
+                        <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                        <DropdownMenu.Item className="DropdownMenuItem" onClick={() => window.location.href = "/about"}>
+                            About Us <div className="RightSlot"><FontAwesomeIcon icon={faPeopleGroup} /></div>
+                        </DropdownMenu.Item>
                     </DropdownMenu.Content>
                 );
                 if (userHasProfile) {
@@ -68,6 +72,10 @@ export default function Home() {
                         </DropdownMenu.Item>
                         <DropdownMenu.Item className="DropdownMenuItem" onClick={() => window.location.href = "/sign_up"}>
                             Crear Perfil <div className="RightSlot"><FontAwesomeIcon icon={faUserPlus}/></div>
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                        <DropdownMenu.Item className="DropdownMenuItem" onClick={() => window.location.href = "/about"}>
+                            About Us <div className="RightSlot"><FontAwesomeIcon icon={faPeopleGroup} /></div>
                         </DropdownMenu.Item>
                     </DropdownMenu.Content>
                 );
@@ -99,6 +107,7 @@ export default function Home() {
                     <DropdownMenu.Portal>
                         {element}
                     </DropdownMenu.Portal>
+
                 </DropdownMenu.Root>
                 <div className="container">
                     <div className="subContainer">
