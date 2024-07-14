@@ -1,0 +1,11 @@
+.aboutUsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+    position: absolute;
+    width: 18rem;
+    text-align: center;
+    font-style: italic;
+}
