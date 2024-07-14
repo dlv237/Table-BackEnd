@@ -38,8 +38,19 @@ export default function ProfileCard({ architect }: { architect: ArchitectData })
         fetchImageUrl();
     }, [architect.id]);
 
+    const handleCardClick = async () => {
+        await fetch(`/api/architect/${architect.id}/stat`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ type: "view" })
+        });
+        window.location.href = `/architects/${architect.id}`;
+    };
+
     return (
-        <article className="card" onClick={() => window.location.href = `/architects/${architect.id}`}>
+        <article className="card" onClick={handleCardClick}>
             <div className="background">
                 <img src={`https://architects-images.s3.us-east-2.amazonaws.com/${architectImageUrl}`} alt="profile" />
             </div>

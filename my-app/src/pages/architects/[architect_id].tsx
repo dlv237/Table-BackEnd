@@ -39,7 +39,6 @@ export default function ArchitectProfile() {
     const [architectImagesUrl, setArchitectImagesUrl] = React.useState<ImageUrlData[]>([]);
     const [architectData, setArchitectData] = React.useState<ArchitectData>();
     const [architectScales, setArchitectScales] = React.useState<ScaleData[]>([]);
-    const [selectedTab, setSelectedTab] = React.useState<string>("experience");
     const [isPopupVisible, setIsPopupVisible] = React.useState<boolean>(false);
     const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
     const [architectNetworks, setArchitectNetworks] = React.useState<ArchitectNetworks[]>([]);
@@ -110,8 +109,8 @@ export default function ArchitectProfile() {
         setIsContactFormVisible(false);
     };
 
-    const handleContactSender = () => {
-        // Send email to architect
+    const handleContactSender = async () => {
+        
         const name = (document.getElementById("name") as HTMLInputElement).value;
         const email = (document.getElementById("email") as HTMLInputElement).value;
         const phone = (document.getElementById("phone") as HTMLInputElement).value;
@@ -140,6 +139,13 @@ export default function ArchitectProfile() {
             user_id
         ).then(() => {
             alert("Correo enviado exitosamente");
+            fetch(`/api/architect/${architect_id}/stat`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ type: "contact" })
+            });
             handleCloseForm();
         }).catch((error: any) => {
             alert("Error al enviar el correo");

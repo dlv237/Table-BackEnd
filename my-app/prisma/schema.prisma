@@ -21,6 +21,7 @@ model Architect {
   networks      ArchitectNetworks[]
   scales        ArchitectScales[]
   images        Image[]
+  stats         ArchitectStats?
 }
 
 model ArchitectNetworks {
@@ -33,7 +34,7 @@ model ArchitectNetworks {
 
 
 model ArchitectScales {
-  architect_id Int
+  architect_id Int       
   scale_id     Int
   architect    Architect @relation(fields: [architect_id], references: [id])
 
@@ -44,5 +45,13 @@ model Image {
   id           Int       @id @default(autoincrement())
   url          String
   architect_id Int
+  architect    Architect @relation(fields: [architect_id], references: [id])
+}
+
+model ArchitectStats {
+  architect_id   Int       @id
+  view_count     Int
+  contact_count  Int
+
   architect    Architect @relation(fields: [architect_id], references: [id])
 }
