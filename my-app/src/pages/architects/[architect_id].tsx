@@ -207,15 +207,20 @@ export default function ArchitectProfile() {
                             </h2>
                             <div className="profileData"> 
                                 <p>
-                                    {architectScales.slice(0, 5).map((scale: ScaleData) =>
+                                    {architectScales.slice(0, 4).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
                                 </p>
                                 <p>
-                                    {architectScales.slice(5).map((scale: ScaleData) =>
+                                    {architectScales.slice(4, 8).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
-                                </p>    
+                                </p>
+                                <p>
+                                    {architectScales.slice(8).map((scale: ScaleData) =>
+                                        scaleDict.find((scl) => scl.id === scale.scale_id)?.name
+                                    ).join(' - ')}
+                                </p>       
                             </div>
                         </div>
                     </div>
