@@ -258,3 +258,9 @@ textarea:focus {
   text-align: center;
   font-size: 0.8rem;
 }
+
+.experiencesContainer{
+  display: flex;
+  justify-content: space-between;
+  width: 19rem;
+}

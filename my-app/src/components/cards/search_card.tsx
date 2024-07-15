@@ -29,7 +29,7 @@ export default function ProfileCard({ architect }: { architect: ArchitectData })
             const res = await fetch(`/api/architect/${architect.id}/image`);
             const data = await res.json();
             if (data.length === 0) {
-                setArchitectImageUrl(null);
+                setArchitectImageUrl("DEFAULT_IMAGE.png");
             } else {
                 const imageUrlOfSmallestId = data.reduce((prev: { id: number; }, current: { id: number; }) => prev.id < current.id ? prev : current).url;
                 setArchitectImageUrl(imageUrlOfSmallestId);
@@ -52,6 +52,7 @@ export default function ProfileCard({ architect }: { architect: ArchitectData })
     return (
         <article className="card" onClick={handleCardClick}>
             <div className="background">
+
                 <img src={`https://architects-images.s3.us-east-2.amazonaws.com/${architectImageUrl}`} alt="profile" />
             </div>
             <div className="content">

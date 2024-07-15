@@ -56,11 +56,16 @@ export default function ArchitectProfile() {
     ];
 
     const scaleDict = [
-        { id: 1, name: "baja" },
-        { id: 2, name: "media baja" },
-        { id: 3, name: "media" },
-        { id: 4, name: "media alta" },
-        { id: 5, name: "gran" }
+        { id: 1, name: "tipo1" },
+        { id: 2, name: "tipo2" },
+        { id: 3, name: "tipo3" },
+        { id: 4, name: "tipo4" },
+        { id: 5, name: "tipo5" },
+        { id: 6, name: "tipo6" },
+        { id: 7, name: "tipo7" },
+        { id: 8, name: "tipo8" },
+        { id: 9, name: "tipo9" },
+        { id: 10, name: "tipo10" },
     ];
 
     React.useEffect(() => {
