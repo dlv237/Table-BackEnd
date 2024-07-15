@@ -203,7 +203,7 @@ export default function ArchitectProfile() {
                         </div>
                         <div className="scaleDataContainer">
                             <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
-                                <li typeof="disc">Escalas:</li>
+                                <li typeof="disc">Tipos:</li>
                             </h2>
                             <div className="profileData"> 
                                 <p>

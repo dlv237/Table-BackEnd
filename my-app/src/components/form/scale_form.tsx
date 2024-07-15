@@ -38,12 +38,12 @@ export default function ScaleForm({ onNext, onBack, selectedScales, setScales }:
                     <h1 style={{fontSize: "1.6vh"}}>colegios, jardin infantil, ... </h1>
                 </label>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color: selectedScales.includes('4') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer" }}>
-                    <input type="checkbox" name="experience" value="4" style={{ display: 'none' }} onChange={() => handleScaleChange('4')}/>Industrial
-                    <h1 style={{fontSize: "1.6vh"}}>bodegas, centro de distibución, ... </h1>
+                    <input type="checkbox" name="experience" value="4" style={{ display: 'none' }} onChange={() => handleScaleChange('4')}/>Gastronomica
+                    <h1 style={{fontSize: "1.6vh"}}>restaurantes, café, ... </h1>
                 </label>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color: selectedScales.includes('5') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer" }}>
-                    <input type="checkbox" name="experience" value="5" style={{ display: 'none' }} onChange={() => handleScaleChange('5')}/>Gastronomica
-                    <h1 style={{fontSize: "1.6vh"}}>restaurantes, café, ... </h1>
+                    <input type="checkbox" name="experience" value="5" style={{ display: 'none' }} onChange={() => handleScaleChange('5')}/>Industrial
+                    <h1 style={{fontSize: "1.6vh"}}>bodegas, centro de distibución, ... </h1>
                 </label>
             </div>
             <div className="experienceOption">
@@ -57,7 +57,7 @@ export default function ScaleForm({ onNext, onBack, selectedScales, setScales }:
                 </label>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color: selectedScales.includes('8') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer" }}>
                     <input type="checkbox" name="experience" value="8" style={{ display: 'none' }} onChange={() => handleScaleChange('8')}/>Cultural
-                    <h1 style={{fontSize: "1.6vh"}}>museos, centros culturales, ... </h1>
+                    <h1 style={{fontSize: "1.6vh"}}>museos, centro cultural, ... </h1>
                 </label>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color: selectedScales.includes('9') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer" }}>
                     <input type="checkbox" name="experience" value="9" style={{ display: 'none' }} onChange={() => handleScaleChange('9')}/>Salud
