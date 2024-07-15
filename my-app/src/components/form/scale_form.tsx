@@ -24,7 +24,7 @@ export default function ScaleForm({ onNext, onBack, selectedScales, setScales }:
             <h1 style={{fontSize: "2.5vh", fontWeight: "bold"}}>¿qué tipos de proyecto </h1>
             <h1 style={{fontSize: "2.5vh", fontWeight: "bold"}}>ha desarrollado su práctica?</h1>
             <div className='experiencesContainer'>
-            <div className="experienceOption">
+            <div className="experienceOption" style={{marginLeft: "1rem", marginRight: "1rem"}}>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color:selectedScales.includes('1') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer" }}>
                     <input type="checkbox" name="experience" value="1" style={{ display: 'none' }} onChange={() => handleScaleChange('1')}/>Habitacional
                     <h1 style={{fontSize: "1.6vh"}}>casas, ampliaciones, ... </h1>
@@ -46,7 +46,7 @@ export default function ScaleForm({ onNext, onBack, selectedScales, setScales }:
                     <h1 style={{fontSize: "1.6vh"}}>bodegas, centros de distibución, ... </h1>
                 </label>
             </div>
-            <div className="experienceOption">
+            <div className="experienceOption" style={{marginLeft: "1rem", marginRight: "1rem"}}>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color:selectedScales.includes('6') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer" }}>
                     <input type="checkbox" name="experience" value="6" style={{ display: 'none' }} onChange={() => handleScaleChange('6')}/>Paisaje
                     <h1 style={{fontSize: "1.6vh"}}>jardines, parques, ... </h1>
