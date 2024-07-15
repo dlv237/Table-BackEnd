@@ -160,6 +160,26 @@ export default function ArchitectProfile() {
 
     };
 
+    const handleBackImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const currentIndex = architectImagesUrl.findIndex((imageUrl) => imageUrl.url === selectedImage);
+        if (currentIndex === 0) {
+            setSelectedImage(architectImagesUrl[architectImagesUrl.length - 1].url);
+        } else {
+            setSelectedImage(architectImagesUrl[currentIndex - 1].url);
+        }
+    };
+
+    const handleNextImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const currentIndex = architectImagesUrl.findIndex((imageUrl) => imageUrl.url === selectedImage);
+        if (currentIndex === architectImagesUrl.length - 1) {
+            setSelectedImage(architectImagesUrl[0].url);
+        } else {
+            setSelectedImage(architectImagesUrl[currentIndex + 1].url);
+        }
+    };
+
     return (
         <div className='container' style={{ width: "fit-content" }}>
             <div className="logoContainerSmall" style={{ marginBottom: "4vh", cursor: "pointer" }} onClick={() => window.location.href = "/"}>
@@ -170,7 +190,7 @@ export default function ArchitectProfile() {
                 <div className="tabContainer">
                     {architectData?.city}
                 </div>
-                <div className='descriptionContainer'>"{description}"</div>
+                <div className='descriptionContainer'>"${description}"</div>
                 <div className="tabContent">
                     <div className= "dataContainer"> 
                         <div className="scaleDataContainer">
@@ -224,7 +244,14 @@ export default function ArchitectProfile() {
                     <div className="popupContent">
                         <img src={`https://architects-images.s3.us-east-2.amazonaws.com/${selectedImage}`} alt="popup" className="popupImage" />
                     </div>
+                    <div className="leftArrow" onClick={handleBackImage}>
+                        &lt;
+                    </div>
+                    <div className="rightArrow" onClick={handleNextImage}>
+                        &gt;
+                    </div>
                 </div>
+                
             )}
             {isContactFormVisible && architectData &&  (
                 <div className="popupOverlay">
@@ -269,6 +296,7 @@ export default function ArchitectProfile() {
                         </div> 
                     </div>
                 </div>
+                
             </div>
             )}
         </div>

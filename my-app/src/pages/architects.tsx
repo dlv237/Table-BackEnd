@@ -64,7 +64,7 @@ export default function Architects() {
             </div>
             <h1 className="title" style={{marginTop: "3vh", marginBottom: "3vh", textAlign: "center", fontSize: "medium"}}>{resultsLabel}</h1>
             <div style={{display: "flex", justifyContent: "center"}}>
-                <div style={{marginBottom: "3vh", display: "flex", width: "10rem", height: "3.5rem", color: "white", borderRadius: "33px", background: "#211f26"}}>
+                <div className="newSearchButton">
                     <button style={{}} onClick={() => window.location.href = "/search"}>Realizar otra búsqueda</button>
                 </div>
             </div>

@@ -57,7 +57,15 @@ body {
 .logoContainerSmall{
   width: clamp(10%, 15vh, 20%);
   margin-top: 3.5vh;
+  filter: unset;
+  transition: filter 0.4s ease-in-out;
 }
+
+.logoContainerSmall:hover {
+  filter: drop-shadow(2px -2px 7px rgba(0, 0, 0, 1));
+}
+
+
 
 .centeredImage {
   display: block;
@@ -132,7 +140,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  filter: unset;
+  transition: filter 0.4s ease-in-out;
+}
 
+.mainButton:hover {
+  filter: drop-shadow(2px -2px 7px rgba(0, 0, 0, 1));
 }
 
 .selectOption {

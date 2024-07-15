@@ -325,3 +325,45 @@
     background-color: white;
     color: black;
 }
+
+.newSearchButton {
+    margin-bottom: 3vh;
+    display: flex;
+    width: 10rem;
+    height: 3.5rem;
+    color: white;
+    border-radius: 33px;
+    background-color: #211f26;
+    border: 1px solid black;
+    transition: background-color, color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.newSearchButton:hover {
+    background-color: white;
+    color: black;
+}
+
+.leftArrow {
+    height: 50vh;
+    position: absolute;
+    left: 1vw;
+    transform: scaleY(2);
+    cursor: pointer;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.rightArrow {
+    height: 50vh;
+    position: absolute;
+    right: 1vw;
+    transform: scaleY(2);
+    cursor: pointer;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}

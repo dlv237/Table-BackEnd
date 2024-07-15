@@ -5,7 +5,7 @@ import '@/app/about.css';
 const About = () => (
     <div style={{position: 'relative'}}>
         <div className="container">
-            <div className="logoContainer">
+            <div className="logoContainer" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage"/>
             </div>
             <h1 className="title">tu mesa de proyectos</h1>
