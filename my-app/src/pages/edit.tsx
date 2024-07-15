@@ -65,16 +65,16 @@ export default function Edit() {
         { value: 3, label: "Más de 10 años" },
     ];
     const scalesDict = [
-        { value: 1, label: "Tipo 1"},
-        { value: 2, label: "Tipo 2"},
-        { value: 3, label: "Tipo 3"},
-        { value: 4, label: "Tipo 4"},
-        { value: 5, label: "Tipo 5"},
-        { value: 6, label: "Tipo 6"},
-        { value: 7, label: "Tipo 7"},
-        { value: 8, label: "Tipo 8"},
-        { value: 9, label: "Tipo 9"},
-        { value: 10, label: "Tipo 10"}
+        { value: 1, label: "Habitacional" },
+        { value: 2, label: "Comercial" },
+        { value: 3, label: "Educacional" },
+        { value: 4, label: "Industrial" },
+        { value: 5, label: "Gastronómica" },
+        { value: 6, label: "Paisaje" },
+        { value: 7, label: "Urbano"},
+        { value: 8, label: "Cultural"},
+        { value: 9, label: "Salud"},
+        { value: 10, label: "Otros"},
 
     ];
 
