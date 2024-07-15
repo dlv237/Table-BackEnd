@@ -23,7 +23,7 @@ export default function ScaleSelector({ availableHeight, onNext, onBack, setSele
 
 
     return (
-        <div className="formContainer" style={{marginTop: `${availableHeight * 0.1}px`}}>
+        <div className="formContainer" style={{marginTop: `${availableHeight * 0.08}px`}}>
             <h1 style={{fontSize: "1rem"}}>elige el tipo que mejor</h1>
             <h1 style={{fontSize: "1rem"}}>se ajuste a tu proyecto</h1>
             <div className='experiencesContainer'>
