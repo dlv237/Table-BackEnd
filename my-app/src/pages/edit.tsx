@@ -65,11 +65,17 @@ export default function Edit() {
         { value: 3, label: "Más de 10 años" },
     ];
     const scalesDict = [
-        { value: 1, label: "Pequeña"},
-        { value: 2, label: "Media Baja"},
-        { value: 3, label: "Media"},
-        { value: 4, label: "Media Alta"},
-        { value: 5, label: "Gran"}
+        { value: 1, label: "Tipo 1"},
+        { value: 2, label: "Tipo 2"},
+        { value: 3, label: "Tipo 3"},
+        { value: 4, label: "Tipo 4"},
+        { value: 5, label: "Tipo 5"},
+        { value: 6, label: "Tipo 6"},
+        { value: 7, label: "Tipo 7"},
+        { value: 8, label: "Tipo 8"},
+        { value: 9, label: "Tipo 9"},
+        { value: 10, label: "Tipo 10"}
+
     ];
 
     const handleSocialMediaTypeChange = (index: number, value: string) => {

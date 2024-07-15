@@ -190,7 +190,7 @@ export default function ArchitectProfile() {
                 <div className="tabContainer">
                     {architectData?.city}
                 </div>
-                <div className='descriptionContainer'>"${description}"</div>
+                <div className='descriptionContainer'>"{description}"</div>
                 <div className="tabContent">
                     <div className= "dataContainer"> 
                         <div className="scaleDataContainer">
@@ -207,12 +207,12 @@ export default function ArchitectProfile() {
                             </h2>
                             <div className="profileData"> 
                                 <p>
-                                    {architectScales.slice(0, 3).map((scale: ScaleData) =>
+                                    {architectScales.slice(0, 5).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
                                 </p>
                                 <p>
-                                    {architectScales.slice(3).map((scale: ScaleData) =>
+                                    {architectScales.slice(5).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
                                 </p>    

@@ -345,7 +345,7 @@
 }
 
 .leftArrow {
-    height: 50vh;
+    height: 20vh;
     position: absolute;
     left: 1vw;
     transform: scaleY(2);
@@ -357,7 +357,7 @@
 }
 
 .rightArrow {
-    height: 50vh;
+    height: 20vh;
     position: absolute;
     right: 1vw;
     transform: scaleY(2);
