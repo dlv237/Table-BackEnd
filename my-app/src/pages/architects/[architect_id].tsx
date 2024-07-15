@@ -193,7 +193,7 @@ export default function ArchitectProfile() {
                 <div className='descriptionContainer'>"{description}"</div>
                 <div className="tabContent">
                     <div className= "dataContainer"> 
-                        <div className="scaleDataContainer">
+                        <div className="scaleDataContainer" style={{ marginTop: "10px"}}>
                             <h2 className="profileDataType" style={{ marginBottom: "10px" }}>
                                 <li typeof="disc">Experiencia:</li>
                             </h2>
@@ -207,20 +207,25 @@ export default function ArchitectProfile() {
                             </h2>
                             <div className="profileData"> 
                                 <p>
-                                    {architectScales.slice(0, 4).map((scale: ScaleData) =>
+                                    {architectScales.slice(0, 3).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
                                 </p>
                                 <p>
-                                    {architectScales.slice(4, 8).map((scale: ScaleData) =>
+                                    {architectScales.slice(3, 6).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
                                 </p>
                                 <p>
-                                    {architectScales.slice(8).map((scale: ScaleData) =>
+                                    {architectScales.slice(6, 9).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
-                                </p>       
+                                </p> 
+                                <p>
+                                    {architectScales.slice(9).map((scale: ScaleData) =>
+                                        scaleDict.find((scl) => scl.id === scale.scale_id)?.name
+                                    ).join(' - ')}
+                                </p>          
                             </div>
                         </div>
                     </div>
