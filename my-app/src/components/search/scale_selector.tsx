@@ -24,8 +24,8 @@ export default function ScaleSelector({ availableHeight, onNext, onBack, setSele
 
     return (
         <div className="formContainer" style={{marginTop: `${availableHeight * 0.08}px`}}>
-            <h1 style={{fontSize: "1rem"}}>elige el tipo que mejor</h1>
-            <h1 style={{fontSize: "1rem"}}>se ajuste a tu proyecto</h1>
+            <h1 style={{fontSize: `${availableHeight * 0.02}px`}}>elige el tipo que mejor</h1>
+            <h1 style={{fontSize: `${availableHeight * 0.02}px`}}>se ajuste a tu proyecto</h1>
             <div className='experiencesContainer'>
                 <div className="experienceOption">
                     <label style={{ margin: `${availableHeight * 0.02}px 0`, flexFlow: "column", display: "flex", alignItems: "center", color:selectedScales.includes('1') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer", height: "3rem" }}>
