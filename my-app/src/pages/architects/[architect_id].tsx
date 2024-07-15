@@ -56,16 +56,16 @@ export default function ArchitectProfile() {
     ];
 
     const scaleDict = [
-        { id: 1, name: "tipo1" },
-        { id: 2, name: "tipo2" },
-        { id: 3, name: "tipo3" },
-        { id: 4, name: "tipo4" },
-        { id: 5, name: "tipo5" },
-        { id: 6, name: "tipo6" },
-        { id: 7, name: "tipo7" },
-        { id: 8, name: "tipo8" },
-        { id: 9, name: "tipo9" },
-        { id: 10, name: "tipo10" },
+        { id: 1, name: "Habitacional" },
+        { id: 2, name: "Comercial" },
+        { id: 3, name: "Educacional" },
+        { id: 4, name: "Industrial" },
+        { id: 5, name: "Gastronómica" },
+        { id: 6, name: "Paisaje" },
+        { id: 7, name: "Urbano" },
+        { id: 8, name: "Cultural" },
+        { id: 9, name: "Salud" },
+        { id: 10, name: "Otros" },
     ];
 
     React.useEffect(() => {
