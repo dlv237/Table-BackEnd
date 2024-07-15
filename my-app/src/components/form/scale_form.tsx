@@ -53,7 +53,7 @@ export default function ScaleForm({ onNext, onBack, selectedScales, setScales }:
                 </label>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color:selectedScales.includes('7') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer"}}>
                     <input type="checkbox" name="experience" value="7" style={{ display: 'none' }} onChange={() => handleScaleChange('7')}/>Urbano
-                    <h1 style={{fontSize: "1.6vh"}}>planes maestros, paseos, ... </h1>
+                    <h1 style={{fontSize: "1.6vh"}}>plan maestro, paseos, ... </h1>
                 </label>
                 <label style={{ margin: "2vh 0", flexFlow: "column", display: "flex", alignItems: "center", color: selectedScales.includes('8') ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer" }}>
                     <input type="checkbox" name="experience" value="8" style={{ display: 'none' }} onChange={() => handleScaleChange('8')}/>Cultural
