@@ -262,5 +262,5 @@ textarea:focus {
 .experiencesContainer{
   display: flex;
   justify-content: space-evenly;
-  width: 19rem;
+  text-align: center;
 }
