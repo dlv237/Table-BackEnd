@@ -134,7 +134,7 @@ export default function ArchitectProfile() {
         const templateParams = {
             from_name: name,
             to_name: architectData?.name,
-            message: `${message}\n\nMis datos de contacto son:\n\n  \tCorreo: ${email}\n  \tTeléfono: ${phone}`,
+            message: `${message}\n\n  \tCorreo: ${email}\n  \tTeléfono: ${phone}`,
             to_email: architectEmail,
         };
         emailjs.send(
@@ -217,15 +217,10 @@ export default function ArchitectProfile() {
                                     ).join(' - ')}
                                 </p>
                                 <p>
-                                    {architectScales.slice(6, 9).map((scale: ScaleData) =>
+                                    {architectScales.slice(6).map((scale: ScaleData) =>
                                         scaleDict.find((scl) => scl.id === scale.scale_id)?.name
                                     ).join(' - ')}
-                                </p> 
-                                <p>
-                                    {architectScales.slice(9).map((scale: ScaleData) =>
-                                        scaleDict.find((scl) => scl.id === scale.scale_id)?.name
-                                    ).join(' - ')}
-                                </p>          
+                                </p>       
                             </div>
                         </div>
                     </div>
