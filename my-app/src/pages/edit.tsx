@@ -315,7 +315,7 @@ export default function Edit() {
                     <div style={{ display: 'flex', marginBottom: '20px' }}>
                         <label htmlFor="region" style={{ marginRight: '10px', fontWeight: 'bold' }}>Región:</label>
                         <select 
-                            style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", background: "none"}}
+                            style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", background: "transparent"}}
                             value={cityName} 
                             onChange={e => setCityName(e.target.value)}
                             className="selectOption"
@@ -330,7 +330,7 @@ export default function Edit() {
                     <div style={{ display: 'flex', marginBottom: '20px' }}>
                         <label htmlFor="experience" style={{ marginRight: '10px', fontWeight: 'bold' }}>Experiencia:</label>
                         <select
-                            style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)" , background: "none"}}
+                            style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)" , background: "transparent"}}
                             value={experience} 
                             onChange={e => setExperience(Number(e.target.value))}
                             className="selectOption"
