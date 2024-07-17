@@ -5,6 +5,9 @@ import { useUser } from "@clerk/nextjs";
 import Footer from "../../components/general/footer";
 import { useRouter } from "next/router";
 import imageCompression from 'browser-image-compression';
+import { S3Client, PutObjectCommand, PutObjectCommandInput, ObjectCannedACL } from "@aws-sdk/client-s3";
+import { v4 as uuidv4 } from 'uuid';
+
 
 type FileData = {
     name: string;
@@ -12,6 +15,13 @@ type FileData = {
 
 type FileOrUrl = File | string;
 
+const s3Client = new S3Client({
+    region: process.env.NEXT_PUBLIC_AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY || '',
+    },
+  });
 
 const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: () => void }, ref) => {
     const [architectId, setArchitectId] = useState<number | null>(null);
@@ -162,20 +172,29 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
 
     const uploadImage = async (imageData: string): Promise<string> => {
         try {
-            const res = await fetch('/api/s3-post-url', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ imageData }),
-            });
+            const uniqueId = uuidv4();
+            const name = `image_${Date.now()}_${uniqueId}.jpg`;
+            const contentType = 'image/jpeg';
 
-            if (!res.ok) {
-                throw new Error('Failed to upload image');
-            }
+            const bucketName = process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME;
             
-            const data = await res.json();
-            const { fileName } = data;
-            console.log('Uploaded image URL:', fileName);
-            return fileName;
+
+            const base64Data = Buffer.from(imageData.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+
+            const params: PutObjectCommandInput = {
+                Bucket: bucketName,
+                Key: name,
+                ContentType: contentType,
+                Body: base64Data,
+                ACL: 'public-read' as ObjectCannedACL,
+            };
+
+
+            const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
+
+            const command = new PutObjectCommand(params);
+            const data = await s3Client.send(command);
+            return name;
 
         } catch (error) {
             console.error('Error uploading image:', error);

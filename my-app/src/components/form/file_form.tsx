@@ -2,10 +2,21 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle } from "rea
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import imageCompression from "browser-image-compression";
+import { promisify } from 'util';
+import { S3Client, PutObjectCommand, PutObjectCommandInput, ObjectCannedACL } from "@aws-sdk/client-s3";
+import { v4 as uuidv4 } from 'uuid';
 
 type FileData = {
     name: string;
 };
+
+const s3Client = new S3Client({
+    region: process.env.AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+    },
+  });
 
 const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: () => void }, ref) => {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -88,29 +99,39 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
 
     const uploadImage = async (imageData: string): Promise<string> => {
         try {
-            const res = await fetch('/api/s3-post-url', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ imageData }),
-            });
 
-            if (!res.ok) {
-                throw new Error('Failed to upload image');
-            }
+            const uniqueId = uuidv4();
+            const name = `image_${Date.now()}_${uniqueId}.jpg`;
+            const contentType = 'image/jpeg';
 
-            const data = await res.json();
-            const { fileName } = data;
+            const bucketName = process.env.AWS_S3_BUCKET_NAME;
+            
+
+            const base64Data = Buffer.from(imageData.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+
+            const params: PutObjectCommandInput = {
+                Bucket: bucketName,
+                Key: name,
+                ContentType: contentType,
+                Body: base64Data,
+                ACL: 'public-read' as ObjectCannedACL,
+            };
+
 
             const savedData = JSON.parse(localStorage.getItem("formData") || "{}");
+
+            const command = new PutObjectCommand(params);
+            const data = await s3Client.send(command);
+            const imageUrl = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${name}`;
             localStorage.setItem("formData", JSON.stringify({
                 ...savedData,
                 selectedFiles: [
                     ...(savedData.selectedFiles || []),
-                    { name: fileName }
+                    { name: name }
                 ]
             }));
 
-            return fileName;
+            return name;
 
         } catch (error) {
             console.error('Error uploading image:', error);
