@@ -61,7 +61,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
         for (const file of orderedFiles) {
             if (file instanceof File) {
                 const compressedFile = await imageCompression(file, {
-                    maxSizeMB: 2.5,
+                    maxSizeMB: 1,
                     useWebWorker: true,
                 });
                 const uploadedFile = await uploadFile(compressedFile);
