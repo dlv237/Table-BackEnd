@@ -282,7 +282,7 @@ export default function Edit() {
             
 
                 
-            {userHasProfile ? 
+            {!userHasProfile ? 
                 <>
                 <div className="alertEditMessageContainer">
                     <h1>

@@ -50,10 +50,7 @@ export default function Create() {
             setSelectedFiles(savedData.selectedFiles || []);
             setDescription(savedData.description || "");
         }
-        if (!user) {
-            window.location.href = '/';
-            return;
-        }
+        
 
     }, []);
 
@@ -149,6 +146,12 @@ export default function Create() {
           
         if (tienePerfil) {
             window.alert("Ya tienes un perfil creado");
+            window.location.href = '/';
+            return;
+        }
+
+        if (!user) {
+            window.alert("Debes iniciar sesión para crear un perfil");
             window.location.href = '/';
             return;
         }
