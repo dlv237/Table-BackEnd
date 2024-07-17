@@ -31,6 +31,7 @@ export default function Edit() {
     const [socialMedia, setSocialMedia] = useState<SocialMedia[]>([]);
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [description, setDescription] = useState("");
+    const [userHasProfile, setUserHasProfile] = useState(true);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -136,7 +137,13 @@ export default function Edit() {
                     setWebsite(architectData.website);
                     setAddress(architectData.address);
                     setDescription(architectData.description);
+                    setUserHasProfile(true);
                 }
+                else{
+                    setUserHasProfile(false);
+                } 
+                
+
 
                 const scalesResponse = await fetch(`/api/architect/${architectData.id}/scale`);
 
@@ -272,176 +279,200 @@ export default function Edit() {
             <div className="logoContainerSmall" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
             </div>
-            <div className="formContainer" style={{display: "unset"}}>
-                <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>Hola! {correoArquitecto}</h1>
-                <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>edita tus datos</h1>
-                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
-                    <label htmlFor="nombre" style={{ marginRight: '10px', fontWeight: 'bold' }}>Nombre:</label>
-                    <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray" , textAlign: "center", background: "none"}} 
-                    type="text" 
-                    id="nombre" 
-                    name="nombre" 
-                    placeholder={architect.Name}
-                    onChange={(e) => setName(e.target.value)}/>
+            
+
+                
+            {userHasProfile ? 
+                <>
+                <div className="alertEditMessageContainer">
+                    <h1>
+                        Debes crear tu perfil
+                    </h1>
+                    <h1>
+                        antes de editar tus datos
+                    </h1>
                 </div>
-                <div style={{ display: 'flex', marginBottom: '20px' }}>
-                    <label htmlFor="region" style={{ marginRight: '10px', fontWeight: 'bold' }}>Región:</label>
-                    <select 
-                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", background: "none"}}
-                        value={cityName} 
-                        onChange={e => setCityName(e.target.value)}
-                        className="selectOption"
-                    >
-                        {cityDict.map(city => (
-                            <option key={city} value={city}>
-                                {city}
-                            </option>
-                        ))}
-                    </select>
+                <div style={{marginTop: "2vh"}}>
+                    <Footer/>
                 </div>
-                <div style={{ display: 'flex', marginBottom: '20px' }}>
-                    <label htmlFor="experience" style={{ marginRight: '10px', fontWeight: 'bold' }}>Experiencia:</label>
-                    <select
-                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)" , background: "none"}}
-                        value={experience} 
-                        onChange={e => setExperience(Number(e.target.value))}
-                        className="selectOption"
-                    >
-                        {experienceDict.map(exp => (
-                            <option key={exp.value} value={exp.value}>
-                                {exp.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div style={{ display: 'flex', marginBottom: '20px', position: 'relative' }}>
-                    <label htmlFor="scales" style={{ marginRight: '10px', fontWeight: 'bold' }}>Escalas:</label>
-                    <button
-                        onClick={() => {
-                            setIsDropdownOpen(!isDropdownOpen);
-                            setIsSocialDropdownOpen(false);
-                        }}
-                        style={{ marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-                    >
-                        <span style={{ margin: 'auto' }}>- Seleccionar Escalas -</span>
-                    </button>
-                    {isDropdownOpen && !isSocialDropdownOpen && (
-                        <div className="dropdown" style={dropdownStyles} ref={dropdownRef}>
-                            {scalesDict.map((scale) => (
-                                <label 
-                                    key={scale.value} 
-                                    style={{color: scales.includes(scale.value) ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer"}}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        name="scales"
-                                        style={{ display: 'none' }}
-                                        value={scale.value}
-                                        checked={scales.includes(scale.value)}
-                                        onChange={() => handleScaleChange(scale.value)}
-                                    />
-                                    {scale.label}
-                                </label>
+                
+                </>
+                :
+                <>
+                <div className="formContainer" style={{display: "unset"}}>
+                    <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>Hola! {correoArquitecto}</h1>
+                    <h1 style={{fontSize: "2.5vh", fontWeight: "bold", justifyContent:"center", display:"flex"}}>edita tus datos</h1>
+                    <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                        <label htmlFor="nombre" style={{ marginRight: '10px', fontWeight: 'bold' }}>Nombre:</label>
+                        <input 
+                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray" , textAlign: "center", background: "none"}} 
+                        type="text" 
+                        id="nombre" 
+                        name="nombre" 
+                        placeholder={architect.Name}
+                        onChange={(e) => setName(e.target.value)}/>
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px' }}>
+                        <label htmlFor="region" style={{ marginRight: '10px', fontWeight: 'bold' }}>Región:</label>
+                        <select 
+                            style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", background: "none"}}
+                            value={cityName} 
+                            onChange={e => setCityName(e.target.value)}
+                            className="selectOption"
+                        >
+                            {cityDict.map(city => (
+                                <option key={city} value={city}>
+                                    {city}
+                                </option>
                             ))}
-                        </div>
-                    )}
-                </div>
-                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
-                    <label htmlFor="telefono" style={{ marginRight: '10px', fontWeight: 'bold' }}>Teléfono:</label>
-                    <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center" , background: "none"}} 
-                    type="text" 
-                    id="phone"
-                    name="phone" 
-                    placeholder={architect.Phone}
-                    onChange={(e) => setPhone(e.target.value)}/>
-                </div>
-                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
-                    <label htmlFor="website" style={{ marginRight: '10px', fontWeight: 'bold' }}>Sitio Web:</label>
-                    <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center" , background: "none"}} 
-                    type="text" 
-                    id="website"
-                    name="website" 
-                    placeholder={architect.website}
-                    onChange={(e) => setWebsite(e.target.value)}/>
-                </div>
-                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
-                    <label htmlFor="address" style={{ marginRight: '10px', fontWeight: 'bold' }}>Dirección:</label>
-                    <input 
-                    style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center", background: "none"}} 
-                    type="text" 
-                    id="address"
-                    name="address" 
-                    placeholder={architect.address}
-                    onChange={(e) => setAddress(e.target.value)}/>
-                </div>
-                <div style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px' }}>
-                    <label htmlFor="socialMedia" style={{ marginRight: '10px', fontWeight: 'bold' }}>Redes sociales:</label>
-                    <button
-                        onClick={() => {
-                            setIsSocialDropdownOpen(!isSocialDropdownOpen);
-                            setIsDropdownOpen(false);
-                        }}
-                        style={{ marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-                    >
-                        <span style={{ margin: 'auto' }}>- Selecciona tus redes  -</span>
-                    </button>
-                    {isSocialDropdownOpen && !isDropdownOpen && (
-                        <div className="dropdown" style={dropdownStyles} ref={dropdownRef}>
-                            {socialMedia.map((sm, index) => (
-                            <div key={index} style={{ display: 'flex', flexDirection: 'row' }}>
-                                <Select
-                                isSearchable={false}
-                                options={options.filter(option => !selectedOptions.includes(option.value))}
-                                value={options.find(option => option.value === sm.type)}
-                                onChange={(option) => option && handleSocialMediaTypeChange(index, option.value)}
-                                styles={{
-                                    control: (provided) => ({
-                                    ...provided,
-                                    border: 'none',
-                                    boxShadow: 'none',
-                                    }),
-                                    menu: (provided) => ({
-                                    ...provided,
-                                    border: 'none',
-                                    }),
-                                }}
-                                />
-                                <div style={{ display: "flex" }}>
-                                <input style={{ maxWidth: "100px", textAlign: "center" }} type="text" placeholder="@tu_red" value={sm.handle} onChange={(e) => handleSocialMediaHandleChange(index, e.target.value)} />
-                                <button onClick={() => handleRemoveSocialMedia(index)}>&times;</button>
-                                </div>
+                        </select>
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px' }}>
+                        <label htmlFor="experience" style={{ marginRight: '10px', fontWeight: 'bold' }}>Experiencia:</label>
+                        <select
+                            style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)" , background: "none"}}
+                            value={experience} 
+                            onChange={e => setExperience(Number(e.target.value))}
+                            className="selectOption"
+                        >
+                            {experienceDict.map(exp => (
+                                <option key={exp.value} value={exp.value}>
+                                    {exp.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px', position: 'relative' }}>
+                        <label htmlFor="scales" style={{ marginRight: '10px', fontWeight: 'bold' }}>Tipos:</label>
+                        <button
+                            onClick={() => {
+                                setIsDropdownOpen(!isDropdownOpen);
+                                setIsSocialDropdownOpen(false);
+                            }}
+                            style={{ marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                        >
+                            <span style={{ margin: 'auto' }}>- Seleccionar Tipos -</span>
+                        </button>
+                        {isDropdownOpen && !isSocialDropdownOpen && (
+                            <div className="dropdown" style={dropdownStyles} ref={dropdownRef}>
+                                {scalesDict.map((scale) => (
+                                    <label 
+                                        key={scale.value} 
+                                        style={{color: scales.includes(scale.value) ? 'black' : 'gray', transition: 'color 0.5s', cursor: "pointer"}}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            name="scales"
+                                            style={{ display: 'none' }}
+                                            value={scale.value}
+                                            checked={scales.includes(scale.value)}
+                                            onChange={() => handleScaleChange(scale.value)}
+                                        />
+                                        {scale.label}
+                                    </label>
+                                ))}
                             </div>
-                            ))}
-                            {socialMedia.length < 3 && (
-                            <button onClick={handleAddSocialMedia}>+ Añadir Red Social</button>
-                            )}
-                        </div>
-                    )}
+                        )}
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                        <label htmlFor="telefono" style={{ marginRight: '10px', fontWeight: 'bold' }}>Teléfono:</label>
+                        <input 
+                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center" , background: "none"}} 
+                        type="text" 
+                        id="phone"
+                        name="phone" 
+                        placeholder={architect.Phone}
+                        onChange={(e) => setPhone(e.target.value)}/>
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                        <label htmlFor="website" style={{ marginRight: '10px', fontWeight: 'bold' }}>Sitio Web:</label>
+                        <input 
+                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center" , background: "none"}} 
+                        type="text" 
+                        id="website"
+                        name="website" 
+                        placeholder={architect.website}
+                        onChange={(e) => setWebsite(e.target.value)}/>
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                        <label htmlFor="address" style={{ marginRight: '10px', fontWeight: 'bold' }}>Dirección:</label>
+                        <input 
+                        style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", borderBottom: "1px solid gray", textAlign: "center", background: "none"}} 
+                        type="text" 
+                        id="address"
+                        name="address" 
+                        placeholder={architect.address}
+                        onChange={(e) => setAddress(e.target.value)}/>
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px' }}>
+                        <label htmlFor="socialMedia" style={{ marginRight: '10px', fontWeight: 'bold' }}>Redes sociales:</label>
+                        <button
+                            onClick={() => {
+                                setIsSocialDropdownOpen(!isSocialDropdownOpen);
+                                setIsDropdownOpen(false);
+                            }}
+                            style={{ marginLeft: "auto", width: "clamp(200px, 30vw, 300px)", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                        >
+                            <span style={{ margin: 'auto' }}>- Selecciona tus redes  -</span>
+                        </button>
+                        {isSocialDropdownOpen && !isDropdownOpen && (
+                            <div className="dropdown" style={dropdownStyles} ref={dropdownRef}>
+                                {socialMedia.map((sm, index) => (
+                                <div key={index} style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Select
+                                    isSearchable={false}
+                                    options={options.filter(option => !selectedOptions.includes(option.value))}
+                                    value={options.find(option => option.value === sm.type)}
+                                    onChange={(option) => option && handleSocialMediaTypeChange(index, option.value)}
+                                    styles={{
+                                        control: (provided) => ({
+                                        ...provided,
+                                        border: 'none',
+                                        boxShadow: 'none',
+                                        }),
+                                        menu: (provided) => ({
+                                        ...provided,
+                                        border: 'none',
+                                        }),
+                                    }}
+                                    />
+                                    <div style={{ display: "flex" }}>
+                                    <input style={{ maxWidth: "100px", textAlign: "center" }} type="text" placeholder="@tu_red" value={sm.handle} onChange={(e) => handleSocialMediaHandleChange(index, e.target.value)} />
+                                    <button onClick={() => handleRemoveSocialMedia(index)}>&times;</button>
+                                    </div>
+                                </div>
+                                ))}
+                                {socialMedia.length < 3 && (
+                                <button onClick={handleAddSocialMedia}>+ Añadir Red Social</button>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
+                        <label htmlFor="description" style={{ marginRight: '10px', fontWeight: 'bold' }}>Descripción:</label>
+                        <textarea 
+                        id="description"
+                        name="description"
+                        className="descriptionInputEdit"
+                        placeholder={architect.description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        style={{background: "none"}}/>
+                    </div>
+                    <div 
+                        style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px', cursor: "pointer" }}
+                        onClick={() => window.location.href = "/edit/photos"}>
+                        <span style={{ margin: 'auto' }}>- Edita tus fotos  -</span>
+                    </div>
                 </div>
-                <div style={{ display: 'flex', marginBottom: '20px' , marginTop: '30px'}}>
-                    <label htmlFor="description" style={{ marginRight: '10px', fontWeight: 'bold' }}>Descripción:</label>
-                    <textarea 
-                    id="description"
-                    name="description"
-                    className="descriptionInputEdit"
-                    placeholder={architect.description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    style={{background: "none"}}/>
+                <div className="buttonContainer">
+                    <button onClick={() => window.location.href = "/"}>Volver</button>
+                    <button onClick={handleNext}>Confirmar</button>
                 </div>
-                <div 
-                    style={{ display: 'flex', marginBottom: '20px', position: 'relative', marginTop: '30px', cursor: "pointer" }}
-                    onClick={() => window.location.href = "/edit/photos"}>
-                    <span style={{ margin: 'auto' }}>- Edita tus fotos  -</span>
-                </div>
-            </div>
-            <div className="buttonContainer">
-                <button onClick={() => window.location.href = "/"}>Volver</button>
-                <button onClick={handleNext}>Confirmar</button>
-            </div>
-            <Footer />
+                <Footer />
+                </>
+            }
+            
+            
         </div>
     );
 }

@@ -264,3 +264,12 @@ textarea:focus {
   justify-content: space-evenly;
   text-align: center;
 }
+
+.alertEditMessageContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}

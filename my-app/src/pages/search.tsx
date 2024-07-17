@@ -40,7 +40,7 @@ export default function Search() {
     useEffect(() => {
         if (typeof window !== "undefined") {
             const handleResize = () => {
-                setIsWide(window.innerWidth > 1020);
+                setIsWide(window.innerWidth > 519);
                 setAvailableHeight(window.innerHeight);
             };
 
@@ -58,7 +58,7 @@ export default function Search() {
 
     return (
         <div className='container' style={{
-            backgroundImage: `url(/LOGO_TABLE_ROTADO_ST3.png)`, 
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(/MESA_TABLE.png)`, 
             height: `${availableHeight}px`,
             backgroundSize: isWide ? "contain" : "cover", 
             backgroundPosition: "center",

@@ -49,8 +49,12 @@ export default function Create() {
             setSelectedOptions(savedData.selectedOptions || []);
             setSelectedFiles(savedData.selectedFiles || []);
             setDescription(savedData.description || "");
-
         }
+        if (!user) {
+            window.location.href = '/';
+            return;
+        }
+
     }, []);
 
     const handleSignUpAttempt = async () => {
@@ -136,9 +140,18 @@ export default function Create() {
         if (step === 7) {
             handleSignUpAttempt();
         }
+
     }, [step, user]);
 
     const handleNext = async () => {
+        const perfiles = await fetch('/api/architect').then((res) => res.json());
+        const tienePerfil = perfiles.some((perfil: { email: string; }) => perfil.email === user?.emailAddresses[0].emailAddress);
+          
+        if (tienePerfil) {
+            window.alert("Ya tienes un perfil creado");
+            window.location.href = '/';
+            return;
+        }
 
         const updatedData = {
             architectName,
