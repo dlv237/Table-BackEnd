@@ -20,11 +20,20 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
     const router = useRouter();
 
     const [confirmationMessage, setConfirmationMessage] = useState<JSX.Element>(<></>);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { user } = useUser();
     const correoArquitecto = user?.emailAddresses[0]?.emailAddress || "usuario sin correo";
 
- 
+    const loader = (
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+            <div className="loader"></div>
+            <h1 style={{ fontSize: "2.5vh"}}>Estamos actualizando</h1>
+            <h1 style={{ fontSize: "2.5vh"}}>tus fotos</h1>
+        </div>
+    );
+
+
     let confirmation = <></>;
 
     const uploadFiles = async () =>{
@@ -32,6 +41,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
         const uploadedFiles = [];
 
         setConfirmationMessage(<h1 style={{marginTop: "5vh"}}>actualizando fotos...</h1>);
+        setIsLoading(true);
 
         const orderedFiles = selectedFiles
             //.filter((file): file is File => file instanceof File)
@@ -51,7 +61,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
         for (const file of orderedFiles) {
             if (file instanceof File) {
                 const compressedFile = await imageCompression(file, {
-                    maxSizeMB: 5,
+                    maxSizeMB: 2.5,
                     useWebWorker: true,
                 });
                 const uploadedFile = await uploadFile(compressedFile);
@@ -92,6 +102,7 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
             }
         }
         setConfirmationMessage(<h1 style={{marginTop: "5vh"}}>fotos actualizadas</h1>);
+        setIsLoading(false);
         return uploadedFiles;
     };
 
@@ -205,7 +216,8 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
             <div className="logoContainerSmall" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                 <img src="/LOGO_TEXTO.png" alt="Logo" className="centeredImage" />
             </div>
-            <div className="formContainer">
+            {isLoading ? loader : <>
+                <div className="formContainer">
                 <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>elige hasta 9 imágenes para</h1>
                 <h1 style={{ fontSize: "2.5vh", fontWeight: "bold" }}>crear tu portafolio</h1>
                 <input 
@@ -253,6 +265,9 @@ const FileForm = forwardRef(({ onNext, onBack }: { onNext: () => void, onBack: (
                 <button onClick={() => uploadFiles()}>Confirmar</button>
             </div>
             <Footer />
+            </>}
+            
+            
         </div>
     );
 });
