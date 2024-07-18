@@ -2,8 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Footer from '../../components/general/footer';
 import emailjs from 'emailjs-com';
-import ContactForm from '@/components/form/contact_form';
-import { icon } from '@fortawesome/fontawesome-svg-core';
+
 
 type ArchitectData = {
     id: number;
@@ -121,28 +120,20 @@ export default function ArchitectProfile() {
         const phone = (document.getElementById("phone") as HTMLInputElement).value;
         const message = (document.getElementById("message") as HTMLInputElement).value;
         const architectEmail = architectData?.email;
-
-        const data = { name, email, phone, message, architectEmail };
+        const architectName = architectData?.name;
 
         if (name === "" || email === "" || phone === "" || message === "") {
             alert("Por favor, llena todos los campos");
             return;
         }
-        const service_id = 'service_83u8xtd';
-        const template_id = 'template_3gzu4nr';
-        const user_id = 'J5OiJF8YKYWP74I0w';
-        const templateParams = {
-            from_name: name,
-            to_name: architectData?.name,
-            message: `${message}\n\n  \tCorreo: ${email}\n  \tTeléfono: ${phone}`,
-            to_email: architectEmail,
-        };
-        emailjs.send(
-            service_id,
-            template_id,
-            templateParams,
-            user_id
-        ).then(() => {
+
+        await fetch(`/api/mailer`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, phone, message, architectEmail, architectName })
+        }).then(() => {
             alert("Correo enviado exitosamente");
             fetch(`/api/architect/${architect_id}/stat`, {
                 method: 'PATCH',
@@ -156,8 +147,6 @@ export default function ArchitectProfile() {
             alert("Error al enviar el correo");
             console.error('Error:', error as string);
         });
-        
-
     };
 
     const handleBackImage = (e: React.MouseEvent) => {

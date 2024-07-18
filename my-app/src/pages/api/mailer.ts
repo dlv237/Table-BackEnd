@@ -1,37 +1,45 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { createTransport } from 'nodemailer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        const { name, email, phone, message, architectEmail } = req.body;
+        const { name, email, phone, message, architectEmail, architectName } = req.body;
 
-        const data = {
-            service_id: 'service_p6je0vi',
-            template_id: 'template_3gzu4nr',
-            user_id: 'J5OiJF8YKYWP74I0w',
-            template_params: {
-                to_email: architectEmail,
-                message: `Hola! ${name} ha solicitado contactarte. Puedes contactarlo a través de su correo: ${email} o su teléfono: ${phone}. Mensaje: ${message}`,
-            },
-        }
+        
+        const transporter = createTransport({
+            host: 'smtp-relay.brevo.com',
+            port: 587,
+            auth: {
+                user: '78d448001@smtp-brevo.com',
+                pass: process.env.NEXT_PUBLIC_SMPT_PASSWORD,
+            }
+        });
 
         try {
-            const apiUrl = "https://api.emailjs.com/api/v1.0/email/send";
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+            const emailHtml = `
+                <style>
+                @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
+                </style>
+                <div style="font-family: 'Outfit', sans-serif; ">
+                    <p style="margin: 0; font-size: 16px;">Hola ${architectName},</p>
+                    <p style="margin-top: 20px; font-size: 16px;">Tienes una nueva solicitud de contacto de ${name}:</p>
+                    <div style="font-style: italic; margin-left: 1rem; font-size: 16px; background-color: #f3f3ef; padding: 20px;">
+                        <p style="margin: 5px 0;">${message}</p>
+                        <p style="margin: 5px 0; margin-top: 1rem;">Correo: ${email}</p>
+                        <p style="margin: 5px 0;">Teléfono: ${phone}</p>
+                    </div>
+                    <p style="margin-top: 20px; font-size: 16px;">Éxito!</p>
+                    <p style="margin-top: 1rem; font-size: 16px;">Equipo Table</p>
+                </div>
+                `;
 
-            if (response.ok) {
-                console.log('Email sent successfully:', response);
-                res.status(200).json({ message: 'Correo enviado exitosamente' });
-            } else {
-                const errorText = await response.text();
-                console.error('Failed to send email:', errorText);
-                res.status(500).json({ message: 'Error al enviar el correo', error: errorText });
-            }
+            await transporter.sendMail({
+                from: '"Table" <no-reply@table.cl>',
+                to: architectEmail,
+                subject: `Nueva solicitud de contacto de ${name}`,
+                html: emailHtml
+            });
+            res.status(200).json({ message: 'Correo enviado exitosamente' });
         } catch (error) {
             console.error('Failed to send email:', error);
             res.status(500).json({ message: 'Error al enviar el correo', error: error });
