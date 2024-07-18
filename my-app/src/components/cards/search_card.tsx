@@ -53,7 +53,7 @@ export default function ProfileCard({ architect }: { architect: ArchitectData })
         <article className="card" onClick={handleCardClick}>
             <div className="background">
 
-                <img src={`https://architects-images.s3.us-east-2.amazonaws.com/${architectImageUrl}`} alt="profile" />
+                <img src={`https://architects-images.s3.us-east-2.amazonaws.com/${architectImageUrl}`} />
             </div>
             <div className="content">
                 <h2>{architect.name}</h2>

@@ -2,10 +2,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 50%;
+    top: 40%;
     justify-content: center;
     position: absolute;
-    width: 18rem;
+    width: clamp(50vw, 30rem, 80vw);
     text-align: center;
     font-style: italic;
+}
+
+.aboutUsContainer h1{
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.aboutUsContainer p{
+    margin-top: 4rem;
+}
+
+.aboutUsContainer h2{
+    font-style: initial;
+    position: relative;
+    margin-top: 5rem;
+    font-size: 0.75rem;
 }

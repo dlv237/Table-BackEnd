@@ -1,8 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Footer from '../../components/general/footer';
-import emailjs from 'emailjs-com';
-
 
 type ArchitectData = {
     id: number;
@@ -216,7 +214,7 @@ export default function ArchitectProfile() {
                 </div>
                 <div className="profileImageGrid">
                     {architectImagesUrl.map((imageUrl, index) => (
-                        <img className="architectImage" key={index} src={`https://architects-images.s3.us-east-2.amazonaws.com/${imageUrl.url}`} alt="profile" onClick={() => handleImageClick(imageUrl.url)} />
+                        <img className="architectImage" key={index} src={`https://architects-images.s3.us-east-2.amazonaws.com/${imageUrl.url}`} onClick={() => handleImageClick(imageUrl.url)} />
                     ))}
                 </div>
                 <div className="buttonContainer" style={{marginTop: '4vh', width: '80%'}}>
