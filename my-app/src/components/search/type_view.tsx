@@ -13,7 +13,7 @@ export default function TypeView(
           
         </div>
         <div 
-          style={{position: "absolute", top: `${availableHeight * 0.715}px`, fontSize: "large", cursor: "pointer", width: "15rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", borderRadius: "33px"}}
+          style={{position: "absolute", top: `${availableHeight * 0.737}px`, fontSize: "large", cursor: "pointer", width: "15rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", borderRadius: "33px"}}
           onClick={onViewAllArchitectsClick}
         >
           <div>ver todos los arquitectos</div>

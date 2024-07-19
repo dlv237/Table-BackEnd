@@ -59,8 +59,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 5vh;
-    height: 80vh;
-    overflow-y: scroll;
+    min-height: 80vh;
   }
 
 .experience {

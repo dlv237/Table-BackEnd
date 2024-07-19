@@ -136,14 +136,15 @@
 }
 
 .profileDataType {
-    font-size: 1rem;
+    font-size: 1.9vh;
     margin-right: 10px;
     margin: 0.25rem;
+    margin-bottom: 0.1vh;
 }
 
 .profileData {
     margin-left: auto;
-    font-size: 2vh;
+    font-size: 1.9vh;
     margin: 0.25rem;
 }
 

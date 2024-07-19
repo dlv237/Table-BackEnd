@@ -58,7 +58,7 @@ export default function Search() {
 
     return (
         <div className='container' style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(/MESA_TABLE.png)`, 
+            backgroundImage: `url(/MESA_TABLE.png)`, 
             height: `${availableHeight}px`,
             backgroundSize: isWide ? "contain" : "cover", 
             backgroundPosition: "center",
