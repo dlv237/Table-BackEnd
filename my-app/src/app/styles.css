@@ -253,7 +253,7 @@ textarea:focus {
 .descriptionInputEdit{
   margin-left: auto;
   width: clamp(200px, 30vw, 300px);
-  max-height: 7rem;
+  height: 7rem;
   border-bottom: 1px solid gray;
   text-align: center;
   font-size: 0.8rem;

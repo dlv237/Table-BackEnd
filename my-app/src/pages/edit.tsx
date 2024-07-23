@@ -442,6 +442,7 @@ export default function Edit() {
             className="descriptionInputEdit"
             placeholder={architect.description}
             onChange={(e) => setDescription(e.target.value)}
+            maxLength={400}
             style={{background: "none"}}/>
         </div>
         <div 
@@ -451,8 +452,8 @@ export default function Edit() {
         </div>
     </div>
     <div className="buttonContainer">
-        <button onClick={() => window.location.href = "/"}>Volver</button>
-        <button onClick={handleNext}>Confirmar</button>
+        <button className='backButton' onClick={() => window.location.href = "/"}>Volver</button>
+        <button className='nextButton' onClick={handleNext}>Confirmar</button>
     </div>
     <Footer />
     </>
@@ -466,7 +467,7 @@ export default function Edit() {
             
 
                 
-            {!userHasProfile ? 
+            {!userHasProfile && user ? 
                 <>
                 <div className="alertEditMessageContainer">
                     <h1>

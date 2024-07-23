@@ -13,8 +13,8 @@ export default function DescriptionForm({
                     value={description} 
                     onChange={e => setDescription(e.target.value)}
                     className="descriptionInput"
-                    placeholder="tu descripción aquí..."
-                    maxLength={200}
+                    placeholder="puedes ingresar hasta 400 caracteres"
+                    maxLength={400}
                     style={{height: "15rem", width: "15rem", textAlign: "center", background: "none"}}
                 />
             </div>
