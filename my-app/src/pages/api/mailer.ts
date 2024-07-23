@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 `;
 
             await transporter.sendMail({
-                from: '"Table" <no-reply@table.cl>',
+                from: '"Table" <info@table.cl>',
                 to: architectEmail,
                 subject: `Nueva solicitud de contacto de ${name}`,
                 html: emailHtml
