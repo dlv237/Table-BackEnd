@@ -17,6 +17,7 @@ model Architect {
   address       String?
   website       String?
   experience_id Int
+  created_at    DateTime            @default(now())
 
   networks      ArchitectNetworks[]
   scales        ArchitectScales[]
