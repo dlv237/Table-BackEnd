@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             host: 'smtp-relay.brevo.com',
             port: 587,
             auth: {
-                user: '78d448001@smtp-brevo.com',
+                user: '7935a0001@smtp-brevo.com',
                 pass: process.env.NEXT_PUBLIC_SMPT_PASSWORD,
             }
         });
