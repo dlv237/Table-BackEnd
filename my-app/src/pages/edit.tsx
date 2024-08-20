@@ -61,10 +61,10 @@ export default function Edit() {
         "XVI - Ñuble",
     ];
     const experienceDict = [
-        { value: 0, label: "Estamos empezando!" },
-        { value: 1, label: "Entre 1 y 5 años" },
-        { value: 2, label: "Entre 5 y 10 años" },
-        { value: 3, label: "Más de 10 años" },
+        { value: 1, label: "Estamos empezando!" },
+        { value: 2, label: "Entre 1 y 5 años" },
+        { value: 3, label: "Entre 5 y 10 años" },
+        { value: 4, label: "Más de 10 años" },
     ];
     const scalesDict = [
         { value: 1, label: "Habitacional" },
