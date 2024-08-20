@@ -18,9 +18,9 @@ export default function Edit() {
 
     const { user } = useUser();
     const correoArquitecto = user?.emailAddresses[0]?.emailAddress || "usuario sin correo";
-    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: '', experience: 0, description: ''});
+    const [architect, setArchitect] = useState({ Name: '', City: '', Phone: '', id: 0, website: '', address: '', description: ''});
     const [cityName, setCityName] = useState("");
-    const [experience, setExperience] = useState(architect.experience);
+    const [experience, setExperience] = useState("");
     const [scales, setScales] = useState(Array<number>());
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isSocialDropdownOpen, setIsSocialDropdownOpen] = useState(false);
@@ -138,9 +138,9 @@ export default function Edit() {
                 const architectData = architects.find((arch: any) => arch.email === correoArquitecto);
                 
                 if (architectData) {
-                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone, id: architectData.id, website: architectData.website, address: architectData.address, experience: architectData.experience, description: architectData.description});
+                    setArchitect({ Name: architectData.name, City: architectData.city, Phone: architectData.phone, id: architectData.id, website: architectData.website, address: architectData.address, description: architectData.description});
                     setCityName(architectData.city);
-                    setExperience(architectData.experience);
+                    setExperience(architectData.experience_id.toString());
                     setPhone(architectData.phone);
                     setName(architectData.name);
                     setWebsite(architectData.website);
@@ -218,7 +218,7 @@ export default function Edit() {
             phone: phone,
             name: name,
             city: cityName,
-            experience_id: experience,
+            experience_id: Number(experience),
             website: website,
             address: address,
             description: description,
@@ -318,7 +318,7 @@ export default function Edit() {
             <select
                 style={{marginLeft: "auto", width: "clamp(200px, 30vw, 300px)" , background: "transparent"}}
                 value={experience} 
-                onChange={e => setExperience(Number(e.target.value))}
+                onChange={e => setExperience(e.target.value)}
                 className="selectOption"
             >
                 {experienceDict.map(exp => (
